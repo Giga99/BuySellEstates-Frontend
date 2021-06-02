@@ -1,0 +1,31 @@
+<h4>Login</h4>
+
+<form>
+    <table>
+        <tr>
+            <td>Korisnicko ime:</td>
+            <td>
+                <input type="text" name="username" [(ngModel)]='username' required='true'>
+            </td>
+        </tr>
+        <tr>
+            <td>Lozinka:</td>
+            <td>
+                <input type="password" name="password" [(ngModel)]='password' required='true'>
+            </td>
+        </tr>
+        <tr>
+            <td>Tip korisnika:</td>
+            <td>
+                <input type="radio" name="userType" [(ngModel)]='userType' required='true' value="user">Korisnik
+                <input type="radio" name="userType" [(ngModel)]='userType' required='true' value="agent">Agent
+                <input type="radio" name="userType" [(ngModel)]='userType' required='true' value="admin">Admin
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button (click)='login()'>Uloguj se</button>
+            </td>
+        </tr>
+    </table>
+</form>

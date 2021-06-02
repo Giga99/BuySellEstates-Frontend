@@ -1,0 +1,51 @@
+<h4>Register</h4>
+
+<table>
+    <tr>
+        <td>Ime:</td>
+        <td>
+            <input type="text" name="firstname" [(ngModel)]='firstname' required='true'>
+        </td>
+    </tr>
+    <tr>
+        <td>Prezime:</td>
+        <td>
+            <input type="text" name="lastname" [(ngModel)]='lastname' required='true'>
+        </td>
+    </tr>
+    <tr>
+        <td>Username:</td>
+        <td>
+            <input type="text" name="username" [(ngModel)]='username' required='true'>
+        </td>
+    </tr>
+    <tr>
+        <td>Password:</td>
+        <td>
+            <input type="password" name="password" [(ngModel)]='password' required='true'>
+        </td>
+    </tr>
+    <tr>
+        <td>Mail:</td>
+        <td>
+            <input type="text" name="email" [(ngModel)]='email' required='true'>
+        </td>
+    </tr>
+    <tr>
+        <td>Grad:</td>
+        <td>
+            <input type="text" name="city" [(ngModel)]='city' required='true'>
+        </td>
+    </tr>
+    <tr>
+        <td>Drzava:</td>
+        <td>
+            <input type="text" name="country" [(ngModel)]='country' required='true'>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)='register()'>Registruj se</button>
+        </td>
+    </tr>
+</table>
