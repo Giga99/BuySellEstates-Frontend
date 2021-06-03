@@ -1,31 +1,44 @@
-<h4>Login</h4>
-
-<form>
-    <table>
-        <tr>
-            <td>Korisnicko ime:</td>
-            <td>
-                <input type="text" name="username" [(ngModel)]='username' required='true'>
-            </td>
-        </tr>
-        <tr>
-            <td>Lozinka:</td>
-            <td>
-                <input type="password" name="password" [(ngModel)]='password' required='true'>
-            </td>
-        </tr>
-        <tr>
-            <td>Tip korisnika:</td>
-            <td>
-                <input type="radio" name="userType" [(ngModel)]='userType' required='true' value="user">Korisnik
-                <input type="radio" name="userType" [(ngModel)]='userType' required='true' value="agent">Agent
-                <input type="radio" name="userType" [(ngModel)]='userType' required='true' value="admin">Admin
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <button (click)='login()'>Uloguj se</button>
-            </td>
-        </tr>
-    </table>
-</form>
+<div>
+    <form>
+        <table class="form-position">
+            <tr>
+                <th colspan="2">
+                    <mat-label class="form-header">Prijava</mat-label>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Korisnicko ime:</mat-label>
+                </td>
+                <td>
+                    <input type="text" class="form-input" name="username" [(ngModel)]='username' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Lozinka:</mat-label>
+                </td>
+                <td>
+                    <input type="password" class="form-input" name="password" [(ngModel)]='password' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Tip korisnika:</mat-label>
+                </td>
+                <td>
+                    <mat-radio-group [(ngModel)]='userType' name="userType">
+                        <mat-radio-button color="primary" required='true' value="user" style="margin-right: 1em;">Korisnik</mat-radio-button>
+                        <mat-radio-button color="primary" required='true' value="agent" style="margin-right: 1em;">Agent</mat-radio-button>
+                        <mat-radio-button color="primary" required='true' value="admin" style="margin-right: 1em;">Admin</mat-radio-button>
+                    </mat-radio-group>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <button mat-raised-button (click)='login()'>Uloguj se</button>
+                </th>
+            </tr>
+        </table>
+    </form>
+</div>

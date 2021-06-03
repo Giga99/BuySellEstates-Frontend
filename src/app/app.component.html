@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+<div>
+    <mat-toolbar class="toolbar-attributes mat-elevation-z4" color="secondary">
+        <a mat-button class="left-margin" routerLink="home" routerLinkActive="button-selected">
+            <mat-icon style="font-size: 2em;" inline="true">home</mat-icon>
+        </a>
+        <mat-label style="font-size: 2em;">Nekretomat</mat-label>
+        <div style="margin-bottom: 0.5em; margin-top: 0.5em;">
+            <a mat-button style="font-size: 0.75em;" routerLink='login' routerLinkActive="button-selected">Uloguj se</a><br/>
+            <a mat-button style="font-size: 0.75em;" routerLink='register' routerLinkActive="button-selected">Registruj se</a>
+        </div>
+    </mat-toolbar>
+    <div>
+        <router-outlet class="router-position"></router-outlet>
+    </div>
+</div>

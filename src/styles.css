@@ -1,4 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: white;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.button-selected {
+    background-color: #cacaca;
+}
+
+.router-position {
+    padding-top: 5em;
+}
+
+.form-position {
+    margin-top: 5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-spacing: 0 1.5em;
+}
+
+.form-header {
+    font-size: 2em;
+}
+
+.form-input {
+    font-size: 1em;
+}
+
+.row-label {
+    font-size: 1.25em;
+    margin-right: 0.5em;
+}
