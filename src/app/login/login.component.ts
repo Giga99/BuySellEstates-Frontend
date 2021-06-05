@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { User } from '../models/User';
 
@@ -9,7 +10,7 @@ import { User } from '../models/User';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -22,7 +23,10 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.username, this.password, this.userType).subscribe((user: User) => {
       if(user) {
-        alert('OK');
+        localStorage.setItem('user', JSON.stringify(user));
+        if(user.userType == "user") {
+          this.router.navigate(['home']);
+        } else alert('OK');
       } else {
         alert('GRESKA')
       }
