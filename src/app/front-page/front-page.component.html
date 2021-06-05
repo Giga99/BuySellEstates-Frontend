@@ -2,7 +2,7 @@
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item" *ngFor="let estate of promotedEstates; let i=index" [ngClass]="(i === 0) ? 'active' : ''">
-                <img class="d-block w-100" src="{{estate.gallery[0]}}">
+                <img class="d-block w-200 img-fluid" src="{{estate.gallery[0]}}">
                 <div class="carousel-caption d-none d-md-block">
                     <h2>{{estate.title}}</h2>
                     <p>{{estate.municipality}}, {{estate.city}}</p>

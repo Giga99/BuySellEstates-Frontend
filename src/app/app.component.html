@@ -1,12 +1,20 @@
 <div>
     <mat-toolbar class="toolbar-attributes mat-elevation-z4" color="secondary">
-        <a mat-button class="left-margin" routerLink="home" routerLinkActive="button-selected">
+        <a mat-button routerLink="home" routerLinkActive="button-selected">
             <mat-icon style="font-size: 2em;" inline="true">home</mat-icon>
         </a>
         <mat-label style="font-size: 2em;">Nekretomat</mat-label>
-        <div style="margin-bottom: 0.5em; margin-top: 0.5em;">
-            <a mat-button style="font-size: 0.75em;" routerLink='login' routerLinkActive="button-selected">Uloguj se</a><br/>
-            <a mat-button style="font-size: 0.75em;" routerLink='register' routerLinkActive="button-selected">Registruj se</a>
+        <div style="display: flex; height: fit-content; justify-self: center; align-items: center;">
+            <a mat-button [matMenuTriggerFor]="loggedInMenu">
+                <mat-icon style="font-size: 2em;" inline="true" *ngIf='isLoggedIn'>person</mat-icon>
+            </a>
+            <mat-menu #loggedInMenu="matMenu">
+                <button mat-menu-item (click)='logout()'>Odjavi se</button>
+            </mat-menu>
+            <div *ngIf='!isLoggedIn'>
+                <a mat-button style="font-size: 0.75em;" routerLink='login' routerLinkActive="button-selected">Uloguj se</a><br/>
+                <a mat-button style="font-size: 0.75em;" routerLink='register' routerLinkActive="button-selected">Registruj se</a>
+            </div>
         </div>
     </mat-toolbar>
     <div>

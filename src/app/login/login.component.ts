@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { User } from '../models/User';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,11 @@ import { User } from '../models/User';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private storage: StorageService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -23,7 +28,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.username, this.password, this.userType).subscribe((user: User) => {
       if(user) {
-        localStorage.setItem('user', JSON.stringify(user));
+        this.storage.setUser(user)
         if(user.userType == "user") {
           this.router.navigate(['home']);
         } else alert('OK');

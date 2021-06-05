@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,28 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'nekretomat';
+
+  isLoggedIn: Boolean;
+  private isLoggedInSubscription: Subscription;
+
+  constructor(
+    private router: Router,
+    private storage: StorageService
+  ) {}
+
+  ngOnInit(): void {
+    this.isLoggedInSubscription = this.storage.loggedInObserver().subscribe((val) => {
+      this.isLoggedIn = this.storage.getUser() != null
+    })
+  }
+
+  logout() {
+    this.storage.logout();
+    this.router.navigate(['/']);
+  }
+
+  ngOnDestroy(): void {
+    this.isLoggedInSubscription.unsubscribe();
+  }
 }
