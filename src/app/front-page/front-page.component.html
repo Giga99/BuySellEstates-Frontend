@@ -1,21 +1,90 @@
-<div style="margin-top: 5em; margin-left: auto; margin-right: auto; display: flex; justify-content: center;">
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item" *ngFor="let estate of promotedEstates; let i=index" [ngClass]="(i === 0) ? 'active' : ''">
-                <img class="d-block w-200 img-fluid" src="{{estate.gallery[0]}}">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>{{estate.title}}</h2>
-                    <p>{{estate.municipality}}, {{estate.city}}</p>
+<div style="padding-bottom: 2em;">
+    <div style="margin-top: 5em; margin-left: auto; margin-right: auto; display: flex; justify-content: center;">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item" *ngFor="let estate of promotedEstates; let i=index" [ngClass]="(i === 0) ? 'active' : ''">
+                    <img class="d-block w-200 h-100 img-fluid" src="{{estate.gallery[0]}}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>{{estate.title}}</h2>
+                        <p>{{estate.municipality}}, {{estate.city}}</p>
+                    </div>
                 </div>
             </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+    </div>
+    <div style="margin-top: 5em;">
+        <form>
+            <table class="form-style">
+                <tr>
+                    <td>
+                        <mat-label class="row-label">Pretraga:</mat-label>
+                    </td>
+                    <td>
+                        <mat-radio-group [(ngModel)]='searchType' name="searchType">
+                            <mat-radio-button color="primary" value="name" style="margin-right: 1em;">Po imenu</mat-radio-button>
+                            <mat-radio-button color="primary" value="city" style="margin-right: 1em;">Po gradu</mat-radio-button>
+                            <mat-radio-button color="primary" value="price" style="margin-right: 1em;">Po ceni</mat-radio-button>
+                        </mat-radio-group>
+                    </td>
+                </tr>
+                <tr *ngIf="searchType=='name'">
+                    <td>
+                        <mat-label class="row-label">Naziv:</mat-label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-input" name="nameSearch" [(ngModel)]='nameSearch'>
+                    </td>
+                </tr>
+                <tr *ngIf="searchType=='city'">
+                    <td>
+                        <mat-label class="row-label">Grad:</mat-label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-input" name="citySearch" [(ngModel)]='citySearch'>
+                    </td>
+                </tr>
+                <tr *ngIf="searchType=='price'">
+                    <mat-radio-group [(ngModel)]='priceSearchType' name="priceSearchType">
+                        <mat-radio-button color="primary" value="sale" style="margin-right: 1em;">Po ceni za kupovinu</mat-radio-button>
+                        <mat-radio-button color="primary" value="rent" style="margin-right: 1em;">Po ceni za izdavanje</mat-radio-button>
+                    </mat-radio-group>
+                </tr>
+                <tr *ngIf="searchType=='price'">
+                    <td>
+                        <mat-label class="row-label">Cena:</mat-label>
+                    </td>
+                    <td>
+                        <mat-slider thumbLabel tickInterval="1000" min="0" max="{{maxSalePrice}}" step="1000" value="0" aria-label="units" *ngIf="priceSearchType=='sale'" [(ngModel)]='searchSalePrice'></mat-slider>
+                        <mat-slider thumbLabel tickInterval="50" min="0" max="{{maxRentPrice}}" step="50" value="0" aria-label="units" *ngIf="priceSearchType=='rent'" [(ngModel)]='searchRentPrice'></mat-slider>
+                    </td>
+                </tr>
+                <tr *ngIf="searchType!=null">
+                    <th colspan="2">
+                        <button mat-raised-button (click)='search()'>Pretrazi</button>
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div style="margin-top: 5em; margin-left: auto; margin-right: auto;" *ngIf='searchedEstates'>
+        <mat-card *ngFor="let estate of searchedEstates" style="width: 50%; height: 50%; margin-top: 2em; margin-left: auto; margin-right: auto;">
+            <img mat-card-image src="{{estate.gallery[0]}}">
+            <mat-card-title>{{estate.title}}</mat-card-title>
+            <mat-card-subtitle>{{estate.municipality}}, {{estate.city}}</mat-card-subtitle>
+            <mat-card-content *ngIf="estate.rentOrSale=='sale'">Cena: {{estate.priceToBuy}}</mat-card-content>
+            <mat-card-content *ngIf="estate.rentOrSale=='rent'">Cena: {{estate.priceToRent}}</mat-card-content>
+            <mat-card-content *ngIf="estate.rentOrSale=='sale'">Prodaja</mat-card-content>
+            <mat-card-content *ngIf="estate.rentOrSale=='rent'">Izdavanje</mat-card-content>
+            <mat-card-content>Kvadratura: {{estate.squareFootage}}</mat-card-content>
+            <mat-card-content>{{estate.type}} {{estate.numberOfRooms}}</mat-card-content>
+        </mat-card>
     </div>
 </div>
