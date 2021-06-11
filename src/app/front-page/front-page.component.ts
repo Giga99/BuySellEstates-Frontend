@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { EstatesService } from '../estates.service';
 import { Estate } from '../models/estate';
+import { Subscription } from 'rxjs';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-front-page',
@@ -19,8 +22,18 @@ export class FrontPageComponent implements OnInit {
   maxRentPrice: Number = 0;
   searchSalePrice: Number;
   searchRentPrice: Number;
+  
+  isLoggedIn: Boolean;
+  private isLoggedInSubscription: Subscription;
 
-  constructor(private estatesService: EstatesService) { 
+  constructor(
+    private estatesService: EstatesService, 
+    private router: Router,
+    private storage: StorageService
+    ) { 
+  }
+
+  ngOnInit(): void {
     this.estatesService.getPromotedEstates().subscribe((list: Array<Estate>) => {
       this.promotedEstates = list;
     })
@@ -32,9 +45,10 @@ export class FrontPageComponent implements OnInit {
         if(estate.priceToRent > this.maxRentPrice) this.maxRentPrice = estate.priceToRent
       })
     })
-  }
 
-  ngOnInit(): void {
+    this.isLoggedInSubscription = this.storage.loggedInObserver().subscribe((val) => {
+      this.isLoggedIn = this.storage.getUser() != null
+    })
   }
 
   search() {
@@ -57,5 +71,13 @@ export class FrontPageComponent implements OnInit {
         })
       }
     }
+  }
+
+  navigateToInfo(id: Number) {
+    if(this.isLoggedIn) this.router.navigate(['/estateInfo', id]);
+  }
+  
+  ngOnDestroy(): void {
+    this.isLoggedInSubscription.unsubscribe();
   }
 }

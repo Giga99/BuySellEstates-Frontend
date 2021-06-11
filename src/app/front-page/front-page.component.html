@@ -3,7 +3,9 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item" *ngFor="let estate of promotedEstates; let i=index" [ngClass]="(i === 0) ? 'active' : ''">
-                    <img class="d-block w-200 h-100 img-fluid" src="{{estate.gallery[0]}}">
+                    <a (click)="navigateToInfo(estate.id)">
+                        <img class="d-block w-200 h-100 img-fluid" src="{{estate.gallery[0]}}">
+                    </a>
                     <div class="carousel-caption d-none d-md-block">
                         <h2>{{estate.title}}</h2>
                         <p>{{estate.municipality}}, {{estate.city}}</p>
@@ -75,16 +77,18 @@
         </form>
     </div>
     <div style="margin-top: 5em; margin-left: auto; margin-right: auto;" *ngIf='searchedEstates'>
-        <mat-card *ngFor="let estate of searchedEstates" style="width: 50%; height: 50%; margin-top: 2em; margin-left: auto; margin-right: auto;">
-            <img mat-card-image src="{{estate.gallery[0]}}">
-            <mat-card-title>{{estate.title}}</mat-card-title>
-            <mat-card-subtitle>{{estate.municipality}}, {{estate.city}}</mat-card-subtitle>
-            <mat-card-content *ngIf="estate.rentOrSale=='sale'">Cena: {{estate.priceToBuy}}</mat-card-content>
-            <mat-card-content *ngIf="estate.rentOrSale=='rent'">Cena: {{estate.priceToRent}}</mat-card-content>
-            <mat-card-content *ngIf="estate.rentOrSale=='sale'">Prodaja</mat-card-content>
-            <mat-card-content *ngIf="estate.rentOrSale=='rent'">Izdavanje</mat-card-content>
-            <mat-card-content>Kvadratura: {{estate.squareFootage}}</mat-card-content>
-            <mat-card-content>{{estate.type}} {{estate.numberOfRooms}}</mat-card-content>
-        </mat-card>
+        <a *ngFor="let estate of searchedEstates" (click)="navigateToInfo(estate.id)">
+            <mat-card style="width: 50%; height: 50%; margin-top: 2em; margin-left: auto; margin-right: auto;">
+                <img mat-card-image src="{{estate.gallery[0]}}">
+                <mat-card-title>{{estate.title}}</mat-card-title>
+                <mat-card-subtitle>{{estate.municipality}}, {{estate.city}}</mat-card-subtitle>
+                <mat-card-content *ngIf="estate.rentOrSale=='sale'">Cena: {{estate.priceToBuy}}</mat-card-content>
+                <mat-card-content *ngIf="estate.rentOrSale=='rent'">Cena: {{estate.priceToRent}}</mat-card-content>
+                <mat-card-content *ngIf="estate.rentOrSale=='sale'">Prodaja</mat-card-content>
+                <mat-card-content *ngIf="estate.rentOrSale=='rent'">Izdavanje</mat-card-content>
+                <mat-card-content>Kvadratura: {{estate.squareFootage}}</mat-card-content>
+                <mat-card-content>{{estate.type}} {{estate.numberOfRooms}}</mat-card-content>
+            </mat-card>
+        </a>
     </div>
 </div>

@@ -4,6 +4,7 @@ export class Estate {
     ownerUsername: string;
     municipality: string;
     city: string;
+    address: string;
     priceToBuy: number;
     priceToRent: number;
     type: string;

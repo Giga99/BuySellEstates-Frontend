@@ -35,4 +35,11 @@ export class EstatesService {
     }
     return this.http.post(`${Constants.URI}/estates/searchAllEstatesByPrice`, data);
   }
+
+  getEstateById(id: Number) {
+    const data = {
+      id: id
+    }
+    return this.http.post(`${Constants.URI}/estates/getEstateById`, data);
+  }
 }

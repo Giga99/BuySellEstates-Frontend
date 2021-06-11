@@ -19,6 +19,7 @@ import { RegisterComponent } from './register/register.component';
 import { FrontPageComponent } from './front-page/front-page.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EstateInfoComponent } from './estate-info/estate-info.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     RegisterComponent,
     FrontPageComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    EstateInfoComponent
   ],
   imports: [
     BrowserModule,
