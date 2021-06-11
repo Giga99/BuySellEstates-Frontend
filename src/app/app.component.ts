@@ -25,6 +25,10 @@ export class AppComponent {
     })
   }
 
+  changePassword() {
+    this.router.navigate(['changePassword'])
+  }
+
   logout() {
     this.storage.logout();
     this.router.navigate(['/']);

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-change-password',
@@ -8,7 +10,11 @@ import { AuthService } from '../auth.service';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private storage: StorageService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
@@ -22,7 +28,10 @@ export class ChangePasswordComponent implements OnInit {
     if (this.newPassword != this.newPasswordConfirmation) alert("Lozinke se ne poklapaju!");
     else {
       this.authService.changePassword(this.username, this.oldPassword, this.newPassword).subscribe(response => {
-        alert(response['message']);
+        if(response['message'] == 'password updated') {
+          this.storage.logout();
+          this.router.navigate(['/']);
+        }
       })
     }
   }
