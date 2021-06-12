@@ -16,4 +16,6 @@ export class Estate {
     furnished: boolean;
     gallery: Array<String>;
     promoted: boolean;
+    reviewed: boolean;
+    approved: boolean;
 }

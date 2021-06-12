@@ -9,6 +9,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { UpdateEmailComponent } from './update-email/update-email.component';
 import { UpdateUserInfoComponent } from './update-user-info/update-user-info.component';
 import { UpdateUsernameComponent } from './update-username/update-username.component';
+import { UserEstatesComponent } from './user-estates/user-estates.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'changePassword', component: ChangePasswordComponent }
     ]
   },
+  { path: 'userEstates', component: UserEstatesComponent },
   { path: '**', component: FrontPageComponent }
 ];
 

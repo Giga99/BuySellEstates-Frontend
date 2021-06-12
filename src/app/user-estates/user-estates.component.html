@@ -1,0 +1,18 @@
+<div style="padding-bottom: 2em;">
+    <h1 style="margin-top: 5em; text-align: center; font-weight: bold; font-size: 2em;">Vase nekretnine</h1>
+    <div style="margin-top: 5em; margin-left: auto; margin-right: auto;" *ngIf='estates'>
+        <a *ngFor="let estate of estates" (click)="navigateToInfo(estate.id)">
+            <mat-card style="width: 50%; height: 50%; margin-top: 2em; margin-left: auto; margin-right: auto;">
+                <img mat-card-image src="{{estate.gallery[0]}}">
+                <mat-card-title>{{estate.title}}</mat-card-title>
+                <mat-card-subtitle>{{estate.municipality}}, {{estate.city}}</mat-card-subtitle>
+                <mat-card-content *ngIf="estate.rentOrSale=='sale'">Cena: {{estate.priceToBuy}}</mat-card-content>
+                <mat-card-content *ngIf="estate.rentOrSale=='rent'">Cena: {{estate.priceToRent}}</mat-card-content>
+                <mat-card-content *ngIf="estate.rentOrSale=='sale'">Prodaja</mat-card-content>
+                <mat-card-content *ngIf="estate.rentOrSale=='rent'">Izdavanje</mat-card-content>
+                <mat-card-content>Kvadratura: {{estate.squareFootage}}</mat-card-content>
+                <mat-card-content>{{estate.type}} {{estate.numberOfRooms}}</mat-card-content>
+            </mat-card>
+        </a>
+    </div>
+</div>

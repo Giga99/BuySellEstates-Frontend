@@ -3,11 +3,11 @@ export class User {
     lastname: string;
     username: string;
     password: string;
-    profileImage: string;
     email: string;
     city: string;
     country: string;
     accepted: boolean;
+    reviewed: boolean;
     userType: string;
     agency: string;
 
@@ -21,6 +21,6 @@ export class User {
         this.country = country;
         this.userType = "user";
         this.accepted = false;
-        this.profileImage = '';
+        this.reviewed = false;
     }
 }

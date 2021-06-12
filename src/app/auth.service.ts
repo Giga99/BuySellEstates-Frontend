@@ -30,6 +30,7 @@ export class AuthService {
       city: user.city,
       country: user.country,
       accepted: user.accepted,
+      reviewed: user.reviewed,
       userType: user.userType,
       agency: user.agency
     }
