@@ -29,6 +29,10 @@ export class AppComponent {
     this.router.navigate(['userEstates']);
   }
 
+  addEstate() {
+    this.router.navigate(['addEstate']);
+  }
+
   settings() {
     this.router.navigate(['settings']);
   }

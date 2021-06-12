@@ -12,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +27,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { UpdateUsernameComponent } from './update-username/update-username.component';
 import { UpdateEmailComponent } from './update-email/update-email.component';
 import { UserEstatesComponent } from './user-estates/user-estates.component';
+import { AddEstateComponent } from './add-estate/add-estate.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { UserEstatesComponent } from './user-estates/user-estates.component';
     SettingsComponent,
     UpdateUsernameComponent,
     UpdateEmailComponent,
-    UserEstatesComponent
+    UserEstatesComponent,
+    AddEstateComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { UserEstatesComponent } from './user-estates/user-estates.component';
     MatCardModule,
     MatSliderModule,
     MatSidenavModule,
+    MatCheckboxModule,
     NgbModule
   ],
   providers: [

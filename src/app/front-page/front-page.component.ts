@@ -22,15 +22,15 @@ export class FrontPageComponent implements OnInit {
   maxRentPrice: Number = 0;
   searchSalePrice: Number;
   searchRentPrice: Number;
-  
+
   isLoggedIn: Boolean;
   private isLoggedInSubscription: Subscription;
 
   constructor(
-    private estatesService: EstatesService, 
+    private estatesService: EstatesService,
     private router: Router,
     private storage: StorageService
-    ) { 
+  ) {
   }
 
   ngOnInit(): void {
@@ -41,8 +41,8 @@ export class FrontPageComponent implements OnInit {
     this.estatesService.searchEstatesByName("").subscribe((list: Array<Estate>) => {
       this.searchedEstates = list
       list.forEach((estate) => {
-        if(estate.priceToBuy > this.maxSalePrice) this.maxSalePrice = estate.priceToBuy
-        if(estate.priceToRent > this.maxRentPrice) this.maxRentPrice = estate.priceToRent
+        if (estate.priceToBuy > this.maxSalePrice) this.maxSalePrice = estate.priceToBuy
+        if (estate.priceToRent > this.maxRentPrice) this.maxRentPrice = estate.priceToRent
       })
     })
 
@@ -52,16 +52,16 @@ export class FrontPageComponent implements OnInit {
   }
 
   search() {
-    if(this.searchType == "name") {
+    if (this.searchType == "name") {
       this.estatesService.searchEstatesByName(this.nameSearch).subscribe((list: Array<Estate>) => {
         this.searchedEstates = list;
       })
-    } else if(this.searchType == "city") {
+    } else if (this.searchType == "city") {
       this.estatesService.searchEstatesByCity(this.citySearch).subscribe((list: Array<Estate>) => {
         this.searchedEstates = list;
       })
     } else {
-      if(this.priceSearchType == "sale") {
+      if (this.priceSearchType == "sale") {
         this.estatesService.searchEstatesByPrice(this.priceSearchType, 0, this.searchSalePrice).subscribe((list: Array<Estate>) => {
           this.searchedEstates = list;
         })
@@ -74,9 +74,9 @@ export class FrontPageComponent implements OnInit {
   }
 
   navigateToInfo(id: Number) {
-    if(this.isLoggedIn) this.router.navigate(['/estateInfo', id]);
+    if (this.isLoggedIn) this.router.navigate(['/estateInfo', id]);
   }
-  
+
   ngOnDestroy(): void {
     this.isLoggedInSubscription.unsubscribe();
   }

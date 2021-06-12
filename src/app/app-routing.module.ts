@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AddEstateComponent } from './add-estate/add-estate.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EstateInfoComponent } from './estate-info/estate-info.component';
 import { FrontPageComponent } from './front-page/front-page.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
     ]
   },
   { path: 'userEstates', component: UserEstatesComponent },
+  { path: 'addEstate', component: AddEstateComponent },
   { path: '**', component: FrontPageComponent }
 ];
 

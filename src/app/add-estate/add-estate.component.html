@@ -1,0 +1,124 @@
+<div>
+    <form>
+        <table class="form-style">
+            <tr>
+                <th colspan="2">
+                    <mat-label class="form-header">Dodavanje nove nekretnine</mat-label>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Naziv:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="title" [(ngModel)]='title' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Opstina:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="municipality" [(ngModel)]='municipality' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Grad:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="city" [(ngModel)]='city' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Adresa:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="address" [(ngModel)]='address' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <mat-radio-group [(ngModel)]='rentOrSale' name="rentOrSale" required='true'>
+                    <mat-radio-button color="primary" value="sale" style="margin-right: 1em;">Prodaja</mat-radio-button>
+                    <mat-radio-button color="primary" value="rent" style="margin-right: 1em;">Izdavanje</mat-radio-button>
+                </mat-radio-group>
+            </tr>
+            <tr *ngIf="rentOrSale=='sale'">
+                <td>
+                    <mat-label class="row-label">Cena za prodaju(u evrima):</mat-label>
+                </td>
+                <td>
+                    <input type="number" class="form-input" name="priceToBuy" [(ngModel)]='priceToBuy'>
+                </td>
+            </tr>
+            <tr *ngIf="rentOrSale=='rent'">
+                <td>
+                    <mat-label class="row-label">Cena za izdavanje(mesecno u evrima):</mat-label>
+                </td>
+                <td>
+                    <input type="number" class="form-input" name="priceToRent" [(ngModel)]='priceToRent'>
+                </td>
+            </tr>
+            <tr>
+                <mat-radio-group [(ngModel)]='type' name="type" required='true'>
+                    <mat-radio-button color="primary" value="Stan" style="margin-right: 1em;">Stan</mat-radio-button>
+                    <mat-radio-button color="primary" value="Kuca" style="margin-right: 1em;">Kuca</mat-radio-button>
+                </mat-radio-group>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Kvadratura:</mat-label>
+                </td>
+                <td>
+                    <input type="number" name="squareFootage" [(ngModel)]='squareFootage' required='true'>
+                </td>
+            </tr>
+            <tr *ngIf="type=='Stan'">
+                <td>
+                    <mat-label class="row-label">Ukupan broj spratova zgrade:</mat-label>
+                </td>
+                <td>
+                    <input type="number" class="form-input" name="numberOfFloors" [(ngModel)]='numberOfFloors'>
+                </td>
+            </tr>
+            <tr *ngIf="type=='Stan'">
+                <td>
+                    <mat-label class="row-label">Broj sprata:</mat-label>
+                </td>
+                <td>
+                    <input type="number" class="form-input" name="floorNumber" [(ngModel)]='floorNumber'>
+                </td>
+            </tr>
+            <tr *ngIf="type=='Kuca'">
+                <td>
+                    <mat-label class="row-label">Broj spratova kuce:</mat-label>
+                </td>
+                <td>
+                    <input type="number" class="form-input" name="numberOfFloors" [(ngModel)]='numberOfFloors'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Broj soba(garsonjera, jednosoban, dvosoban...):</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="numberOfRooms" [(ngModel)]='numberOfRooms' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Namesten:</mat-label>
+                </td>
+                <td>
+                    <mat-checkbox name="furnished" [(ngModel)]='furnished'></mat-checkbox>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <button mat-raised-button (click)='addEstate()'>Dodaj nekretninu</button>
+                </th>
+            </tr>
+        </table>
+    </form>
+</div>
