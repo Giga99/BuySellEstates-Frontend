@@ -11,6 +11,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,8 @@ import { FrontPageComponent } from './front-page/front-page.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EstateInfoComponent } from './estate-info/estate-info.component';
+import { UpdateUserInfoComponent } from './update-user-info/update-user-info.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import { EstateInfoComponent } from './estate-info/estate-info.component';
     RegisterComponent,
     FrontPageComponent,
     ChangePasswordComponent,
-    EstateInfoComponent
+    EstateInfoComponent,
+    UpdateUserInfoComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +49,7 @@ import { EstateInfoComponent } from './estate-info/estate-info.component';
     MatRadioModule,
     MatCardModule,
     MatSliderModule,
+    MatSidenavModule,
     NgbModule
   ],
   providers: [

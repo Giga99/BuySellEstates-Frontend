@@ -9,7 +9,7 @@
                 <mat-icon style="font-size: 2em;" inline="true" *ngIf='isLoggedIn'>person</mat-icon>
             </a>
             <mat-menu #loggedInMenu="matMenu">
-                <button mat-menu-item (click)='logout()'>Promeni lozinku</button>
+                <button mat-menu-item (click)='settings()'>Podesavanja</button>
                 <button mat-menu-item (click)='logout()'>Odjavi se</button>
             </mat-menu>
             <div *ngIf='!isLoggedIn'>

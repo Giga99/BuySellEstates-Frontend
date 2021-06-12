@@ -25,8 +25,8 @@ export class AppComponent {
     })
   }
 
-  changePassword() {
-    this.router.navigate(['changePassword'])
+  settings() {
+    this.router.navigate(['settings']);
   }
 
   logout() {
