@@ -37,4 +37,11 @@ export class UsersService {
     }
     return this.http.post(`${Constants.URI}/users/updateUserEmail`, data);
   }
+
+  getUserByUsername(username) {
+    const data = {
+      username: username
+    }
+    return this.http.post(`${Constants.URI}/users/getUserByUsername`, data);
+  }
 }

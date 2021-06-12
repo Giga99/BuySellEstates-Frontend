@@ -29,8 +29,13 @@ export class UpdateUserInfoComponent implements OnInit {
 
   updateInfo() {
     this.usersService.updateUserInfo(this.user.username, this.firstname, this.lastname, this.city, this.country).subscribe((res) => {
-      if(res['message'] == 'user info updated') {
-        this.router.navigate(['..'])
+      if (res['message'] == 'user info updated') {
+        this.usersService.getUserByUsername(this.user.username).subscribe((user: User) => {
+          if (user) {
+            this.storage.setUser(user)
+            this.router.navigate(['..'])
+          } else console.log(user['message'])
+        })
       }
     })
   }
