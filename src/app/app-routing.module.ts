@@ -6,7 +6,9 @@ import { FrontPageComponent } from './front-page/front-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SettingsComponent } from './settings/settings.component';
+import { UpdateEmailComponent } from './update-email/update-email.component';
 import { UpdateUserInfoComponent } from './update-user-info/update-user-info.component';
+import { UpdateUsernameComponent } from './update-username/update-username.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,7 +19,9 @@ const routes: Routes = [
   {
     path: 'settings', component: SettingsComponent, children: [
       { path: 'updateUserInfo', component: UpdateUserInfoComponent },
-      { path: 'changePassword', component: ChangePasswordComponent },
+      { path: 'updateUsername', component: UpdateUsernameComponent },
+      { path: 'updateEmail', component: UpdateEmailComponent },
+      { path: 'changePassword', component: ChangePasswordComponent }
     ]
   },
   { path: '**', component: FrontPageComponent }

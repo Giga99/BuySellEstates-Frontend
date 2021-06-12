@@ -1,0 +1,40 @@
+<div>
+    <form>
+        <table class="form-style">
+            <tr>
+                <th colspan="2">
+                    <mat-label class="form-header">Promena korisnickog imena</mat-label>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Staro korisnicko ime:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="oldUsername" [(ngModel)]='oldUsername' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Lozinka:</mat-label>
+                </td>
+                <td>
+                    <input type="password" name="password" [(ngModel)]='password' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Novo korisnicko ime:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="newUsername" [(ngModel)]='newUsername' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <button mat-raised-button (click)='updateUsername()'>Promeni korisnicko ime</button>
+                </th>
+            </tr>
+        </table>
+    </form>
+</div>

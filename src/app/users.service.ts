@@ -19,4 +19,22 @@ export class UsersService {
     }
     return this.http.post(`${Constants.URI}/users/updateUserInfo`, data);
   }
+
+  updateUsername(oldUsername, password, newUsername) {
+    const data = {
+      oldUsername: oldUsername,
+      password: password,
+      newUsername: newUsername
+    }
+    return this.http.post(`${Constants.URI}/users/updateUserUsername`, data);
+  }
+
+  updateEmail(oldEmail, password, newEmail) {
+    const data = {
+      oldEmail: oldEmail,
+      password: password,
+      newEmail: newEmail
+    }
+    return this.http.post(`${Constants.URI}/users/updateUserEmail`, data);
+  }
 }

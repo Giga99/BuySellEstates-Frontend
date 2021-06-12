@@ -23,6 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EstateInfoComponent } from './estate-info/estate-info.component';
 import { UpdateUserInfoComponent } from './update-user-info/update-user-info.component';
 import { SettingsComponent } from './settings/settings.component';
+import { UpdateUsernameComponent } from './update-username/update-username.component';
+import { UpdateEmailComponent } from './update-email/update-email.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { SettingsComponent } from './settings/settings.component';
     ChangePasswordComponent,
     EstateInfoComponent,
     UpdateUserInfoComponent,
-    SettingsComponent
+    SettingsComponent,
+    UpdateUsernameComponent,
+    UpdateEmailComponent
   ],
   imports: [
     BrowserModule,
