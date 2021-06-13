@@ -4,6 +4,7 @@ import { EstatesService } from '../estates.service';
 import { Estate } from '../models/estate';
 import { Subscription } from 'rxjs';
 import { StorageService } from '../storage.service';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-front-page',
@@ -25,6 +26,7 @@ export class FrontPageComponent implements OnInit {
 
   isLoggedIn: Boolean;
   private isLoggedInSubscription: Subscription;
+  username = ""
 
   constructor(
     private estatesService: EstatesService,
@@ -48,6 +50,7 @@ export class FrontPageComponent implements OnInit {
 
     this.isLoggedInSubscription = this.storage.loggedInObserver().subscribe((val) => {
       this.isLoggedIn = this.storage.getUser() != null
+      if(this.isLoggedIn) this.username = this.storage.getUser().username;
     })
   }
 
@@ -74,7 +77,11 @@ export class FrontPageComponent implements OnInit {
   }
 
   navigateToInfo(id: Number) {
-    if (this.isLoggedIn) this.router.navigate(['/estateInfo', id]);
+    if (this.isLoggedIn) this.router.navigate(['estateInfo', id]);
+  }
+
+  navigateToEdit(id: Number) {
+    if (this.isLoggedIn) this.router.navigate(['editEstate', id]);
   }
 
   ngOnDestroy(): void {

@@ -28,6 +28,7 @@ import { UpdateUsernameComponent } from './update-username/update-username.compo
 import { UpdateEmailComponent } from './update-email/update-email.component';
 import { UserEstatesComponent } from './user-estates/user-estates.component';
 import { AddEstateComponent } from './add-estate/add-estate.component';
+import { EditEstateComponent } from './edit-estate/edit-estate.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AddEstateComponent } from './add-estate/add-estate.component';
     UpdateUsernameComponent,
     UpdateEmailComponent,
     UserEstatesComponent,
-    AddEstateComponent
+    AddEstateComponent,
+    EditEstateComponent
   ],
   imports: [
     BrowserModule,

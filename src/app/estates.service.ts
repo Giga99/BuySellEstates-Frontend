@@ -75,7 +75,7 @@ export class EstatesService {
     return this.http.post(`${Constants.URI}/estates/addEstate`, data);
   }
 
-  updateEstate(id, title, municipality, city, address, priceToBuy, priceToRent, squareFootage, rentOrSale, numberOfFloors, floorNumber, numberOfRooms, furnished) {
+  editEstate(id, title, municipality, city, address, priceToBuy, priceToRent, squareFootage, rentOrSale, numberOfFloors, floorNumber, numberOfRooms, furnished) {
     const data = {
       id: id,
       title: title,
@@ -91,7 +91,7 @@ export class EstatesService {
       numberOfRooms: numberOfRooms,
       furnished: furnished
     }
-    return this.http.post(`${Constants.URI}/estates/updateEstate`, data);
+    return this.http.post(`${Constants.URI}/estates/editEstate`, data);
   }
 
   answerEstateAdding(id, approved) {

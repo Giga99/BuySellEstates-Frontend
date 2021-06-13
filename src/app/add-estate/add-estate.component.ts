@@ -60,7 +60,6 @@ export class AddEstateComponent implements OnInit {
       ["https://nikana.gr/images/4463/venetia-apartment-limenaria-thassos-7.jpg"]
     );
 
-    console.log(estate)
     this.estatesService.addEstate(estate).subscribe(response => {
       if (response['message'] == 'estate added') {
         this.router.navigate(['..']);

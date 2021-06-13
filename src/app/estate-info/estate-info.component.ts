@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { EstatesService } from '../estates.service';
 import { Estate } from '../models/estate';
 
@@ -13,7 +12,7 @@ export class EstateInfoComponent implements OnInit {
 
   estate: Estate;
 
-  constructor(private estatesService: EstatesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private estatesService: EstatesService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     let id = this.route.snapshot.paramMap.get('id');

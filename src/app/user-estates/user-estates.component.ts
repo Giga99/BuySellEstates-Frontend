@@ -30,6 +30,10 @@ export class UserEstatesComponent implements OnInit {
   }
 
   navigateToInfo(id: Number) {
-    this.router.navigate(['/estateInfo', id]);
+    this.router.navigate(['estateInfo', id]);
+  }
+
+  navigateToEdit(id: Number) {
+    this.router.navigate(['editEstate', id]);
   }
 }
