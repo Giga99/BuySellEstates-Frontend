@@ -34,4 +34,46 @@
             </a>
         </div>
     </div>
+    <div *ngIf="estate.ownerUsername!=username">
+        <form>
+            <table class="form-style">
+                <tr *ngIf="estate.rentOrSale=='sale'">
+                    <th colspan="2">
+                        <mat-label class="form-header">Kupite nekretninu</mat-label>
+                    </th>
+                </tr>
+                <tr *ngIf="estate.rentOrSale=='rent'">
+                    <th colspan="2">
+                        <mat-label class="form-header">Iznajmite nekretninu</mat-label>
+                    </th>
+                </tr>
+                <tr *ngIf="estate.rentOrSale=='sale'">
+                    <td>
+                        <mat-label class="row-label">Nacin placanja:</mat-label>
+                    </td>
+                    <td>
+                        <mat-radio-group [(ngModel)]='cashOrCredit' name="cashOrCredit" required='true'>
+                            <mat-radio-button color="primary" value="credit" style="margin-right: 1em;">Kredit</mat-radio-button>
+                            <mat-radio-button color="primary" value="cash" style="margin-right: 1em;">Gotovina</mat-radio-button>
+                        </mat-radio-group>
+                    </td>
+                </tr>
+                <tr *ngIf="estate.rentOrSale=='sale' && cashOrCredit=='credit'">
+                    <th colspan="2">
+                        <mat-label class="form-header">Ukupno za platiti: {{estate.priceToBuy}} + 20% ucesce = {{creditPrice}}</mat-label>
+                    </th>
+                </tr>
+                <tr *ngIf="estate.rentOrSale=='sale' && cashOrCredit=='cash'">
+                    <th colspan="2">
+                        <mat-label class="form-header">Ukupno za platiti: {{estate.priceToBuy}}</mat-label>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <button mat-raised-button (click)='sendOffer()'>Posalji ponudu</button>
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>
