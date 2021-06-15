@@ -6,11 +6,23 @@
         </div>
         <a *ngFor="let thread of threads" style="text-decoration: none;" [routerLink]="['threadInfo', thread.id]">
             <mat-card style="width: 80%; height: fit-content; margin-left: auto; margin-right: auto; margin-top: 2em; text-align: center;">
-                <mat-card-title>{{thread.title}}</mat-card-title>
+                <mat-card-content></mat-card-content>
+                <mat-card-header>
+                    <span mat-card-avatar *ngIf='!thread.read' style="height: 1em; width: 1em; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                    <mat-card-title>{{thread.title}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-actions>
+                    <a>
+                        <mat-icon>archive</mat-icon>
+                    </a>
+                </mat-card-actions>
             </mat-card>
         </a>
+        <div style="margin-left: auto; margin-right: auto; margin-top: 3em;">
+            <a mat-button style="font-size: 1.5em; text-decoration: none;" routerLinkActive="button-selected">Nova poruka</a>
+        </div>
     </div>
-    <div class="border" style="width: 50%; height: 100%; margin-left: auto; margin-right: auto; display: flex; flex-direction: column;">
+    <div class="border" style="width: 60%; height: 100%; margin-left: auto; margin-right: auto; display: flex; flex-direction: column;">
         <router-outlet></router-outlet>
     </div>
 </div>

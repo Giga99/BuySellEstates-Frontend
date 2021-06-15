@@ -31,12 +31,21 @@ export class OffersService {
     return this.http.post(`${Constants.URI}/offers/sendOffer`, data);
   }
 
-  answerEstateOffer(id, accepted) {
+  answerEstateOffer(id, accepted, estateId) {
     const data = {
       id: id,
-      accepted: accepted
+      accepted: accepted,
+      estateId: estateId
     }
 
     return this.http.post(`${Constants.URI}/offers/answerEstateOffer`, data);
+  }
+
+  isOfferActive(offerId) {
+    const data = {
+      offerId: offerId
+    };
+
+    return this.http.post(`${Constants.URI}/offers/isOfferActive`, data);
   }
 }

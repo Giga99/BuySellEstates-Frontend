@@ -88,11 +88,11 @@
                 <mat-card-content *ngIf="estate.rentOrSale=='rent'">Izdavanje</mat-card-content>
                 <mat-card-content>Kvadratura: {{estate.squareFootage}}</mat-card-content>
                 <mat-card-content>{{estate.type}} {{estate.numberOfRooms}}</mat-card-content>
-                <mat-card-content *ngIf="estate.ownerUsername==username">
+                <mat-card-actions *ngIf="estate.ownerUsername==username">
                     <a (click)='navigateToEdit(estate.id)'>
                         <mat-icon>edit</mat-icon>
                     </a>
-                </mat-card-content>
+                </mat-card-actions>
             </mat-card>
         </a>
     </div>

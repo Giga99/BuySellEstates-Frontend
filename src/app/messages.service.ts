@@ -46,4 +46,20 @@ export class MessagesService {
 
     return this.http.post(`${Constants.URI}/messages/sendMessageOffer`, data);
   }
+
+  getThreadById(id) {
+    const data = {
+      id: id
+    }
+
+    return this.http.post(`${Constants.URI}/messages/getThreadById`, data);
+  }
+  
+  readMessage(id) {
+    const data = {
+      id: id
+    }
+
+    return this.http.post(`${Constants.URI}/messages/readMessage`, data);
+  }
 }

@@ -1,1 +1,18 @@
-<p>thread-info works! {{id}}</p>
+<div style="margin-top: 5em; margin-left: auto; margin-right: auto; padding-bottom: 2em;">
+    <div>
+        <button mat-button *ngIf="thread.estateOwner!=username" (click)="goToEstateInfo()">Daj ponudu</button>
+    </div>
+    <div style="display: flex; flex-direction: column; padding-left: 2em; padding-right: 2em;">
+        <mat-card style="margin-top: 2em;" *ngFor="let message of thread.messages; let i = index" [ngStyle]="{'align-self': (message.sender == username) ? 'center' : 'start'}">
+            <mat-card-header>
+                <mat-card-title>{{(message.sender == username || thread.estateOwner==username) ? message.sender : 'Vlasnik'}}</mat-card-title>
+                <mat-card-subtitle>{{message.date}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>{{message.text}}</mat-card-content>
+            <mat-card-actions *ngIf="message.isOffer && activeOffers[i]">
+                <button mat-button (click)="answerOffer(message.offerId, true)">Prihvati ponudu</button>
+                <button mat-button (click)="answerOffer(message.offerId, false)">Odbij ponudu</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

@@ -46,18 +46,18 @@ export class EstateInfoComponent implements OnInit {
       this.offersService.sendOffer(this.estate.id, this.estate.ownerUsername, this.username, -1, -1).subscribe((response1) => {
         this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe((response2) => {
           this.messagesService.sendMessageOffer(response2['id'], 'Korisnik: ' + this.username + ' zeli da kupi nekretninu: ' + this.estate.title, this.username, new Date().toISOString().substring(0, 10), -1, -1, response1['offerId']).subscribe((response3) => {
-            alert(response3.toString());
+            alert("Ponuda uspesno poslata");
           });
         });
       });
     } else {
       let dateFrom = this.date.value['start'].toISOString().substring(0, 10);
       let dateTo = this.date.value['end'].toISOString().substring(0, 10);
-      this.offersService.checkEstateAvailability(this.estate.id, dateFrom, dateTo).subscribe((respons1) => {
-        if(respons1['message'] == "estate is available") {
+      this.offersService.checkEstateAvailability(this.estate.id, dateFrom, dateTo).subscribe((response1) => {
+        if(response1['message'] == "estate is available") {
           this.offersService.sendOffer(this.estate.id, this.estate.ownerUsername, this.username, dateFrom, dateTo).subscribe((response2) => {
             this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe((response3) => {
-              this.messagesService.sendMessageOffer(response3['id'], 'Korisnik: ' + this.username + ' zeli da iznajmi vasu nekretninu: ' + this.estate.title + ' u periodu od' + dateFrom + ' do ' + dateTo, this.username, new Date().toISOString().substring(0, 10), dateFrom, dateTo, respons1['offerId']).subscribe((response4) => {
+              this.messagesService.sendMessageOffer(response3['id'], 'Korisnik: ' + this.username + ' zeli da iznajmi vasu nekretninu: ' + this.estate.title + ' u periodu od ' + dateFrom + ' do ' + dateTo, this.username, new Date().toISOString().substring(0, 10), dateFrom, dateTo, response2['offerId']).subscribe((response4) => {
                 alert("Ponuda uspesno poslata");
               });
             });
