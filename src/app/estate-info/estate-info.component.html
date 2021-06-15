@@ -53,19 +53,35 @@
                     </td>
                     <td>
                         <mat-radio-group [(ngModel)]='cashOrCredit' name="cashOrCredit" required='true'>
-                            <mat-radio-button color="primary" value="credit" style="margin-right: 1em;">Kredit</mat-radio-button>
-                            <mat-radio-button color="primary" value="cash" style="margin-right: 1em;">Gotovina</mat-radio-button>
+                            <mat-radio-button color="primary" value="credit" style="margin-right: 1em;">Kredit
+                            </mat-radio-button>
+                            <mat-radio-button color="primary" value="cash" style="margin-right: 1em;">Gotovina
+                            </mat-radio-button>
                         </mat-radio-group>
                     </td>
                 </tr>
                 <tr *ngIf="estate.rentOrSale=='sale' && cashOrCredit=='credit'">
                     <th colspan="2">
-                        <mat-label class="form-header">Ukupno za platiti: {{estate.priceToBuy}} + 20% ucesce = {{creditPrice}}</mat-label>
+                        <mat-label class="form-header">Ukupno za platiti: {{estate.priceToBuy}} + 20% ucesce = {{creditPrice}}
+                        </mat-label>
                     </th>
                 </tr>
                 <tr *ngIf="estate.rentOrSale=='sale' && cashOrCredit=='cash'">
                     <th colspan="2">
                         <mat-label class="form-header">Ukupno za platiti: {{estate.priceToBuy}}</mat-label>
+                    </th>
+                </tr>
+                <tr *ngIf="estate.rentOrSale=='rent'">
+                    <th colspan="2">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Unesite datume iznajmljivanja</mat-label>
+                            <mat-date-range-input [formGroup]="date" [rangePicker]="picker">
+                                <input matStartDate formControlName="start" placeholder="Pocetak">
+                                <input matEndDate formControlName="end" placeholder="Kraj">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                        </mat-form-field>
                     </th>
                 </tr>
                 <tr>

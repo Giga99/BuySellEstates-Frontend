@@ -13,6 +13,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +33,8 @@ import { UpdateEmailComponent } from './update-email/update-email.component';
 import { UserEstatesComponent } from './user-estates/user-estates.component';
 import { AddEstateComponent } from './add-estate/add-estate.component';
 import { EditEstateComponent } from './edit-estate/edit-estate.component';
+import { InboxComponent } from './inbox/inbox.component';
+import { ThreadInfoComponent } from './thread-info/thread-info.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +50,9 @@ import { EditEstateComponent } from './edit-estate/edit-estate.component';
     UpdateEmailComponent,
     UserEstatesComponent,
     AddEstateComponent,
-    EditEstateComponent
+    EditEstateComponent,
+    InboxComponent,
+    ThreadInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -62,10 +70,14 @@ import { EditEstateComponent } from './edit-estate/edit-estate.component';
     MatSliderModule,
     MatSidenavModule,
     MatCheckboxModule,
+    MatDatepickerModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatNativeDateModule,
     NgbModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue:'de-DE' }
+    { provide: LOCALE_ID, useValue: 'de-DE' }
   ],
   bootstrap: [AppComponent]
 })

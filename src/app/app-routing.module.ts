@@ -5,9 +5,11 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { EditEstateComponent } from './edit-estate/edit-estate.component';
 import { EstateInfoComponent } from './estate-info/estate-info.component';
 import { FrontPageComponent } from './front-page/front-page.component';
+import { InboxComponent } from './inbox/inbox.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ThreadInfoComponent } from './thread-info/thread-info.component';
 import { UpdateEmailComponent } from './update-email/update-email.component';
 import { UpdateUserInfoComponent } from './update-user-info/update-user-info.component';
 import { UpdateUsernameComponent } from './update-username/update-username.component';
@@ -30,6 +32,11 @@ const routes: Routes = [
   { path: 'userEstates', component: UserEstatesComponent },
   { path: 'addEstate', component: AddEstateComponent },
   { path: 'editEstate/:id', component: EditEstateComponent },
+  {
+    path: 'inbox', component: InboxComponent, children: [
+      { path: 'threadInfo/:id', component: ThreadInfoComponent }
+    ]
+  },
   { path: '**', component: FrontPageComponent }
 ];
 

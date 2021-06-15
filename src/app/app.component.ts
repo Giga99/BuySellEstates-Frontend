@@ -33,6 +33,10 @@ export class AppComponent {
     this.router.navigate(['addEstate']);
   }
 
+  inbox() {
+    this.router.navigate(['inbox']);
+  }
+
   settings() {
     this.router.navigate(['settings']);
   }
