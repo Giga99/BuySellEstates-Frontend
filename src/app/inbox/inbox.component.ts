@@ -21,7 +21,8 @@ export class InboxComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.username = this.storage.getUser().username;
+    let user = this.storage.getUser()
+    this.username = user.userType == 'agent' ? user.agency : user.username;
     this.messagesService.getAllThreadsForUser(this.username).subscribe((threads: Array<Thread>) => {
       this.threads = threads;
     })

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { User } from './models/User';
 import { StorageService } from './storage.service';
 
 @Component({
@@ -13,6 +14,8 @@ export class AppComponent {
 
   isLoggedIn: Boolean;
   private isLoggedInSubscription: Subscription;
+  showUserOptions = false;
+  showAgentOptions = false;
 
   constructor(
     private router: Router,
@@ -22,11 +25,25 @@ export class AppComponent {
   ngOnInit(): void {
     this.isLoggedInSubscription = this.storage.loggedInObserver().subscribe((val) => {
       this.isLoggedIn = this.storage.getUser() != null
+      if(this.isLoggedIn) {
+        let user = this.storage.getUser();
+
+        this.showUserOptions = user.userType == "user";
+        this.showAgentOptions = user.userType == "agent";
+      }
     })
   }
 
   userEstates() {
     this.router.navigate(['userEstates']);
+  }
+
+  estateRequests() {
+    this.router.navigate(['agentEstateRequests']);
+  }
+  
+  allEstates() {
+    this.router.navigate(['agentAllEstates']);
   }
 
   addEstate() {

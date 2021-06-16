@@ -35,6 +35,9 @@ import { AddEstateComponent } from './add-estate/add-estate.component';
 import { EditEstateComponent } from './edit-estate/edit-estate.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { ThreadInfoComponent } from './thread-info/thread-info.component';
+import { AgentComponent } from './agent/agent.component';
+import { AgentEstateRequestsComponent } from './agent-estate-requests/agent-estate-requests.component';
+import { AgentAllEstatesComponent } from './agent-all-estates/agent-all-estates.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { ThreadInfoComponent } from './thread-info/thread-info.component';
     AddEstateComponent,
     EditEstateComponent,
     InboxComponent,
-    ThreadInfoComponent
+    ThreadInfoComponent,
+    AgentComponent,
+    AgentEstateRequestsComponent,
+    AgentAllEstatesComponent
   ],
   imports: [
     BrowserModule,

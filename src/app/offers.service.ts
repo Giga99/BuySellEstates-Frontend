@@ -31,14 +31,15 @@ export class OffersService {
     return this.http.post(`${Constants.URI}/offers/sendOffer`, data);
   }
 
-  answerEstateOffer(id, accepted, estateId) {
+  answerEstateOffer(id, accepted, estateId, isAgent: Boolean) {
     const data = {
       id: id,
       accepted: accepted,
       estateId: estateId
     }
 
-    return this.http.post(`${Constants.URI}/offers/answerEstateOffer`, data);
+    if(isAgent)return this.http.post(`${Constants.URI}/offers/answerEstateOfferAgent`, data);
+    else return this.http.post(`${Constants.URI}/offers/answerEstateOffer`, data);
   }
 
   isOfferActive(offerId) {

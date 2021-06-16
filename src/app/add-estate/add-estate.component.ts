@@ -35,7 +35,8 @@ export class AddEstateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ownerUsername = this.storage.getUser().username;
+    let user = this.storage.getUser()
+    this.ownerUsername = user.userType == 'agent' ? user.agency : user.username;
   }
 
   addEstate() {

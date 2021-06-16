@@ -101,4 +101,16 @@ export class EstatesService {
     }
     return this.http.post(`${Constants.URI}/estates/answerEstateAdding`, data);
   }
+  
+  getAddedEstates() {
+    return this.http.get(`${Constants.URI}/estates/getAddedEstates`);
+  }
+
+  togglePromotedEstate(id, promoted) {
+    const data = {
+      id: id,
+      promoted: promoted
+    }
+    return this.http.post(`${Constants.URI}/estates/togglePromotedEstate`, data);
+  }
 }

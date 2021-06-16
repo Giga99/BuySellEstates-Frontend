@@ -38,19 +38,22 @@ export class FrontPageComponent implements OnInit {
   ngOnInit(): void {
     this.estatesService.getPromotedEstates().subscribe((list: Array<Estate>) => {
       this.promotedEstates = list;
-    })
+    });
 
     this.estatesService.searchEstatesByName("").subscribe((list: Array<Estate>) => {
-      this.searchedEstates = list
+      this.searchedEstates = list;
       list.forEach((estate) => {
         if (estate.priceToBuy > this.maxSalePrice) this.maxSalePrice = estate.priceToBuy
         if (estate.priceToRent > this.maxRentPrice) this.maxRentPrice = estate.priceToRent
-      })
-    })
+      });
+    });
 
     this.isLoggedInSubscription = this.storage.loggedInObserver().subscribe((val) => {
       this.isLoggedIn = this.storage.getUser() != null
-      if(this.isLoggedIn) this.username = this.storage.getUser().username;
+      if (this.isLoggedIn) {
+        let user = this.storage.getUser()
+        this.username = user.userType == 'agent' ? user.agency : user.username;
+      }
     })
   }
 

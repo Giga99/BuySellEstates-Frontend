@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddEstateComponent } from './add-estate/add-estate.component';
+import { AgentAllEstatesComponent } from './agent-all-estates/agent-all-estates.component';
+import { AgentEstateRequestsComponent } from './agent-estate-requests/agent-estate-requests.component';
+import { AgentComponent } from './agent/agent.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EditEstateComponent } from './edit-estate/edit-estate.component';
 import { EstateInfoComponent } from './estate-info/estate-info.component';
@@ -37,6 +40,9 @@ const routes: Routes = [
       { path: 'threadInfo/:id', component: ThreadInfoComponent }
     ]
   },
+  { path: 'agent', component: AgentComponent },
+  { path: 'agentEstateRequests', component: AgentEstateRequestsComponent },
+  { path: 'agentAllEstates', component: AgentAllEstatesComponent },
   { path: '**', component: FrontPageComponent }
 ];
 

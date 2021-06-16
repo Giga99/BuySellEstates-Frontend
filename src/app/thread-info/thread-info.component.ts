@@ -13,6 +13,7 @@ import { StorageService } from '../storage.service';
 export class ThreadInfoComponent implements OnInit {
 
   id: string;
+  isAgent: boolean;
   thread: Thread;
   username: string;
   activeOffers = Array<boolean>();
@@ -24,7 +25,9 @@ export class ThreadInfoComponent implements OnInit {
     private storage: StorageService,
     private offersService: OffersService
   ) {
-    this.username = this.storage.getUser().username;
+    let user = this.storage.getUser();
+    this.isAgent = user.userType == 'agent';
+    this.username = this.isAgent ? user.agency : user.username;
     this.id = this.route.snapshot.paramMap.get('id');
     this.messagesService.getThreadById(this.id).subscribe((thread: Thread) => {
       this.thread = thread;
@@ -47,7 +50,7 @@ export class ThreadInfoComponent implements OnInit {
         this.thread = thread;
         if (thread.messages[thread.messages.length - 1].sender != this.username) {
           this.messagesService.readMessage(this.id).subscribe((response) => {
-            console.log('message');
+            console.log(response['message']);
           });
         }
       });
@@ -59,7 +62,7 @@ export class ThreadInfoComponent implements OnInit {
   }
 
   answerOffer(offerId: number, answer: boolean) {
-    this.offersService.answerEstateOffer(offerId, answer, this.thread.estateId).subscribe((response) => {
+    this.offersService.answerEstateOffer(offerId, answer, this.thread.estateId, this.isAgent).subscribe((response) => {
       if (response['message'] == 'offer answered') {
         if (answer == true) alert('Ponuda prihvacena!');
         else alert('Ponuda odbijena!');

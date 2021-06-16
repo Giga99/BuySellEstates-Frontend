@@ -12,7 +12,6 @@ import { StorageService } from '../storage.service';
 })
 export class UserEstatesComponent implements OnInit {
 
-  private user: User;
   estates: Array<Estate>;
 
   constructor(
@@ -22,8 +21,9 @@ export class UserEstatesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = this.storage.getUser();
-    this.estatesService.getUserEstates(this.user.username).subscribe((estates: Array<Estate>) => {
+    let user = this.storage.getUser()
+    let username = user.userType == 'agent' ? user.agency : user.username;
+    this.estatesService.getUserEstates(username).subscribe((estates: Array<Estate>) => {
       console.log(estates);
       this.estates = estates;
     })

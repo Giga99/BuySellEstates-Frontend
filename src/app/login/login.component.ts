@@ -12,7 +12,7 @@ import { StorageService } from '../storage.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router,
     private storage: StorageService
   ) { }
@@ -27,10 +27,12 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.login(this.username, this.password, this.userType).subscribe((user: User) => {
-      if(user) {
+      if (user) {
         this.storage.setUser(user)
-        if(user.userType == "user") {
+        if (user.userType == "user") {
           this.router.navigate(['home']);
+        } else if (user.userType == "agent") {
+          this.router.navigate(['agent']);
         } else alert('OK');
       } else {
         alert('GRESKA')
