@@ -31,6 +31,7 @@ export class AgentAllEstatesComponent implements OnInit {
   promoteEstate(estateId: number, promoted: boolean) {
     this.estatesService.togglePromotedEstate(estateId, promoted).subscribe((response) => {
       console.log(response['message']);
+      this.router.navigate(['agentAllEstates']);
     });
   }
 

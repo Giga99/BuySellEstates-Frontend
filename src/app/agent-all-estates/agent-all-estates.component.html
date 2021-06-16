@@ -15,10 +15,10 @@
                     <a *ngIf="estate.ownerUsername==username" (click)='navigateToEdit(estate.id)'>
                         <mat-icon>edit</mat-icon>
                     </a>
-                    <button mat-button *ngIf="estate.promoted" (click)='promoteEstate(estate.id, true)'>
+                    <button mat-button *ngIf="!estate.promoted" (click)='promoteEstate(estate.id, true)'>
                         Promovisi nekretninu
                     </button>
-                    <button mat-button *ngIf="!estate.promoted" (click)='navigateToEdit(estate.id, false)'>
+                    <button mat-button *ngIf="estate.promoted" (click)='navigateToEdit(estate.id, false)'>
                         Ukloni iz promovisanih nekretnina
                     </button>
                 </mat-card-actions>
