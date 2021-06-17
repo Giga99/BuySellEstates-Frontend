@@ -46,6 +46,10 @@ export class AppComponent {
     this.router.navigate(['agentAllEstates']);
   }
 
+  agreedOffers() {
+    this.router.navigate(['allAgreedOffers']);
+  }
+
   addEstate() {
     this.router.navigate(['addEstate']);
   }

@@ -43,7 +43,7 @@ export class EstateInfoComponent implements OnInit {
 
   sendOffer() {
     if (this.estate.rentOrSale == 'sale') {
-      this.offersService.sendOffer(this.estate.id, this.estate.ownerUsername, this.username, -1, -1).subscribe((response1) => {
+      this.offersService.sendOffer(this.estate.id, this.estate.title, this.estate.ownerUsername, this.username, -1, -1, this.cashOrCredit == 'cash' ? this.estate.priceToBuy : this.creditPrice).subscribe((response1) => {
         this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe((response2) => {
           this.messagesService.sendMessageOffer(response2['id'], 'Korisnik: ' + this.username + ' zeli da kupi nekretninu: ' + this.estate.title, this.username, new Date().toISOString(), -1, -1, response1['offerId']).subscribe((response3) => {
             alert("Ponuda uspesno poslata");
@@ -55,7 +55,7 @@ export class EstateInfoComponent implements OnInit {
       let dateTo = this.date.value['end'].toISOString().substring(0, 10);
       this.offersService.checkEstateAvailability(this.estate.id, dateFrom, dateTo).subscribe((response1) => {
         if(response1['message'] == "estate is available") {
-          this.offersService.sendOffer(this.estate.id, this.estate.ownerUsername, this.username, dateFrom, dateTo).subscribe((response2) => {
+          this.offersService.sendOffer(this.estate.id, this.estate.title, this.estate.ownerUsername, this.username, dateFrom, dateTo, this.estate.priceToRent).subscribe((response2) => {
             this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe((response3) => {
               this.messagesService.sendMessageOffer(response3['id'], 'Korisnik: ' + this.username + ' zeli da iznajmi vasu nekretninu: ' + this.estate.title + ' u periodu od ' + dateFrom + ' do ' + dateTo, this.username, new Date().toISOString(), dateFrom, dateTo, response2['offerId']).subscribe((response4) => {
                 alert("Ponuda uspesno poslata");

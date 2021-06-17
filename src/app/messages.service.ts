@@ -41,7 +41,7 @@ export class MessagesService {
       date: date,
       dateFrom: dateFrom,
       dateTo: dateTo,
-      offerId: offerId,
+      offerId: offerId
     }
 
     return this.http.post(`${Constants.URI}/messages/sendMessageOffer`, data);

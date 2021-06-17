@@ -19,13 +19,15 @@ export class OffersService {
     return this.http.post(`${Constants.URI}/offers/checkEstateAvailability`, data);
   }
 
-  sendOffer(estateId, estateOwner, bidder, dateFrom, dateTo) {
+  sendOffer(estateId, estateName, estateOwner, bidder, dateFrom, dateTo, priceToPay) {
     const data = {
       estateId: estateId,
+      estateName: estateName,
       estateOwner: estateOwner,
       bidder: bidder,
       dateFrom: dateFrom,
-      dateTo: dateTo
+      dateTo: dateTo,
+      priceToPay: priceToPay
     }
 
     return this.http.post(`${Constants.URI}/offers/sendOffer`, data);
@@ -38,7 +40,7 @@ export class OffersService {
       estateId: estateId
     }
 
-    if(isAgent)return this.http.post(`${Constants.URI}/offers/answerEstateOfferAgent`, data);
+    if (isAgent) return this.http.post(`${Constants.URI}/offers/answerEstateOfferAgent`, data);
     else return this.http.post(`${Constants.URI}/offers/answerEstateOffer`, data);
   }
 
@@ -48,5 +50,17 @@ export class OffersService {
     };
 
     return this.http.post(`${Constants.URI}/offers/isOfferActive`, data);
+  }
+
+  getAllAgreedOffers() {
+    return this.http.get(`${Constants.URI}/offers/getAllAgreedOffers`);
+  }
+
+  getAllAgencyAgreedOffers(agency) {
+    const data = {
+      agency: agency
+    };
+
+    return this.http.post(`${Constants.URI}/offers/getAllAgencyAgreedOffers`, data);
   }
 }

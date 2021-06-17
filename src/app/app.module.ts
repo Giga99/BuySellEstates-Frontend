@@ -38,6 +38,7 @@ import { ThreadInfoComponent } from './thread-info/thread-info.component';
 import { AgentComponent } from './agent/agent.component';
 import { AgentEstateRequestsComponent } from './agent-estate-requests/agent-estate-requests.component';
 import { AgentAllEstatesComponent } from './agent-all-estates/agent-all-estates.component';
+import { AllAgreedOffersComponent } from './all-agreed-offers/all-agreed-offers.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AgentAllEstatesComponent } from './agent-all-estates/agent-all-estates.
     ThreadInfoComponent,
     AgentComponent,
     AgentEstateRequestsComponent,
-    AgentAllEstatesComponent
+    AgentAllEstatesComponent,
+    AllAgreedOffersComponent
   ],
   imports: [
     BrowserModule,
