@@ -11,6 +11,7 @@ import { StorageService } from '../storage.service';
 export class AllAgreedOffersComponent implements OnInit {
 
   allAgreedOffers: Array<Offer>;
+  allOffersRequests: Array<Offer>;
   agencyProfit = 0;
 
   constructor(private offersService: OffersService, private storage: StorageService) { }
@@ -25,6 +26,18 @@ export class AllAgreedOffersComponent implements OnInit {
         this.agencyProfit += (offer.dateFrom == "-1") ? offer.priceToPay : this.getRentProfit(offer);
       });
     });
+
+    this.offersService.getAllOffersRequests().subscribe((offers: Array<Offer>) => {
+      this.allOffersRequests = offers;
+    });
+  }
+
+  answerOfferRequest(offerId: number, accepted: boolean) {
+    this.offersService.answerOfferRequest(offerId, accepted).subscribe((response) => {
+      console.log(response['message'])
+      if (response['message'] == 'offer request answered') alert("Uspesno odgovoreno na zahtev za ponudu!");
+      window.location.reload();
+    });
   }
 
   private getRentProfit(offer: Offer): number {
@@ -35,6 +48,6 @@ export class AllAgreedOffersComponent implements OnInit {
     let monthsFrom = Number.parseInt(offer.dateFrom.substring(5, 7));
     let daysFrom = Number.parseInt(offer.dateFrom.substring(8));
 
-    return ((yearsTo-yearsFrom)*12+monthsTo-monthsFrom)*offer.priceToPay + (daysTo-daysFrom)*offer.priceToPay/30;
+    return ((yearsTo - yearsFrom) * 12 + monthsTo - monthsFrom) * offer.priceToPay + (daysTo - daysFrom) * offer.priceToPay / 30;
   }
 }

@@ -1,6 +1,7 @@
-<div style="padding-bottom: 2em;">
+<div style="padding-bottom: 2em; text-align: center;">
     <div style="margin-top: 5em; margin-left: auto; margin-right: auto;" *ngIf='allAgreedOffers'>
-        <mat-card *ngFor="let offer of allAgreedOffers" style="width: 50%; height: 50%; margin-top: 2em; margin-left: auto; margin-right: auto;">
+        <mat-label>Ugovorene prodaje:</mat-label>
+        <mat-card *ngFor="let offer of allAgreedOffers" style="width: 30%; height: 30%; margin-top: 2em; margin-left: auto; margin-right: auto;">
             <mat-card-title>{{offer.estateName}}</mat-card-title>
             <mat-card-subtitle>Vlasnik: {{offer.estateOwner}}</mat-card-subtitle>
             <mat-card-content>Cena: {{offer.priceToPay}}</mat-card-content>
@@ -9,7 +10,26 @@
             <mat-card-content *ngIf="offer.dateFrom!='-1'">Od {{offer.dateFrom}} do {{offer.dateTo}}</mat-card-content>
         </mat-card>
     </div>
-    <div style="margin-top: 5em; text-align: center;">
+    <div style="margin-top: 5em;">
         <mat-label>Profit agencije je: {{agencyProfit}} eura</mat-label>
+    </div>
+    <div style="margin-top: 5em; margin-left: auto; margin-right: auto;" *ngIf='allOffersRequests'>
+        <mat-label>Svi zahtevi za ponudama:</mat-label>
+        <mat-card *ngFor="let offer of allOffersRequests" style="width: 30%; height: 30%; margin-top: 2em; margin-left: auto; margin-right: auto;">
+            <mat-card-title>{{offer.estateName}}</mat-card-title>
+            <mat-card-subtitle>Vlasnik: {{offer.estateOwner}}</mat-card-subtitle>
+            <mat-card-content>Cena: {{offer.priceToPay}}</mat-card-content>
+            <mat-card-content *ngIf="offer.dateFrom=='-1'">Kupac: {{offer.bidder}}</mat-card-content>
+            <mat-card-content *ngIf="offer.dateFrom!='-1'">Iznajmljivac: {{offer.bidder}}</mat-card-content>
+            <mat-card-content *ngIf="offer.dateFrom!='-1'">Od {{offer.dateFrom}} do {{offer.dateTo}}</mat-card-content>
+            <mat-card-actions>
+                <a style="padding: 2em; margin-left: 2em;" (click)='answerOfferRequest(offer.id, true)'>
+                    <mat-icon>done</mat-icon>
+                </a>
+                <a style="padding: 2em; margin-left: 2em;" (click)='answerOfferRequest(offer.id, false)'>
+                    <mat-icon>close</mat-icon>
+                </a>
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>

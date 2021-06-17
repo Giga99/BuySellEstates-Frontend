@@ -63,4 +63,17 @@ export class OffersService {
 
     return this.http.post(`${Constants.URI}/offers/getAllAgencyAgreedOffers`, data);
   }
+  
+  getAllOffersRequests() {
+    return this.http.get(`${Constants.URI}/offers/getAllOffersRequests`);
+  }
+  
+  answerOfferRequest(id, accepted) {
+    const data = {
+      id: id,
+      accepted: accepted
+    }
+
+    return this.http.post(`${Constants.URI}/offers/answerOfferRequest`, data);
+  }
 }
