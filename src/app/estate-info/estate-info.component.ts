@@ -18,6 +18,7 @@ export class EstateInfoComponent implements OnInit {
   cashOrCredit = '';
   creditPrice: number;
   username: string;
+  userType: string;
   date = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
@@ -39,6 +40,7 @@ export class EstateInfoComponent implements OnInit {
       this.creditPrice = estate.priceToBuy * 120 / 100;
     });
     this.username = this.storage.getUser().username;
+    this.userType = this.storage.getUser().userType;
   }
 
   sendOffer() {

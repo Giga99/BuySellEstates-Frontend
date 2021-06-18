@@ -34,7 +34,7 @@
             </a>
         </div>
     </div>
-    <div *ngIf="estate.ownerUsername!=username">
+    <div *ngIf="estate.ownerUsername!=username && userType!='agent'">
         <form>
             <table class="form-style">
                 <tr *ngIf="estate.rentOrSale=='sale'">

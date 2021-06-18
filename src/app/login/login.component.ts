@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['home']);
         } else if (user.userType == "agent") {
           this.router.navigate(['agent']);
-        } else alert('OK');
+        } else {
+          this.router.navigate(['admin']);
+        }
       } else {
         alert('GRESKA')
       }

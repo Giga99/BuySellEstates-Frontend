@@ -1,0 +1,37 @@
+<div style="padding-bottom: 2em; text-align: center;">
+    <div style="margin-top: 5em; margin-left: auto; margin-right: auto;" *ngIf='registrationRequests'>
+        <mat-label>Svi zahtevi za registracijama:</mat-label>
+        <mat-card *ngFor="let request of registrationRequests" style="width: 30%; height: 30%; margin-top: 2em; margin-left: auto; margin-right: auto;">
+            <mat-card-title>{{request.username}}</mat-card-title>
+            <mat-card-subtitle>{{request.firstname}} {{request.lastname}}</mat-card-subtitle>
+            <mat-card-content>{{request.email}}</mat-card-content>
+            <mat-card-content>{{request.city}}, {{request.country}}</mat-card-content>
+            <mat-card-actions>
+                <a style="padding: 2em; margin-left: 2em;" (click)='answerRegistrationRequest(request.username, true)'>
+                    <mat-icon>done</mat-icon>
+                </a>
+                <a style="padding: 2em; margin-left: 2em;" (click)='answerRegistrationRequest(request.username, false)'>
+                    <mat-icon>close</mat-icon>
+                </a>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <div style="margin-top: 5em; margin-left: auto; margin-right: auto;" *ngIf='allUsers'>
+        <mat-label>Svi korisnici u sistemu:</mat-label>
+        <mat-card *ngFor="let user of allUsers" style="width: 30%; height: 30%; margin-top: 2em; margin-left: auto; margin-right: auto;">
+            <mat-card-title>{{user.username}}</mat-card-title>
+            <mat-card-subtitle>{{user.firstname}} {{user.lastname}}</mat-card-subtitle>
+            <mat-card-content>{{user.email}}</mat-card-content>
+            <mat-card-content>{{user.city}}, {{user.country}}</mat-card-content>
+            <mat-card-actions>
+                <a style="padding: 2em; margin-left: 2em;" (click)='deleteUser(user.username)'>
+                    <mat-icon>delete</mat-icon>
+                </a>
+                <a style="padding: 2em; margin-left: 2em;" (click)='editUser(user.username)'>
+                    <mat-icon>edit</mat-icon>
+                </a>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <a style="margin-top: 5em; margin-bottom: 5em; margin-left: auto; margin-right: auto;" mat-button (click)='navigateToAddUser()'>Dodaj novog korisnika</a>
+</div>

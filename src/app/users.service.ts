@@ -44,4 +44,29 @@ export class UsersService {
     }
     return this.http.post(`${Constants.URI}/users/getUserByUsername`, data);
   }
+
+  getRegistrationRequests() {
+    return this.http.get(`${Constants.URI}/users/getRegistrationRequests`);
+  }
+
+  answerUserRegistration(username, accepted) {
+    const data = {
+      username: username,
+      accepted: accepted
+    }
+
+    return this.http.post(`${Constants.URI}/users/answerUserRegistration`, data);
+  }
+
+  getAllUsers() {
+    return this.http.get(`${Constants.URI}/users/getAllUsers`);
+  }
+
+  deleteUser(username) {
+    const data = {
+      username: username
+    }
+
+    return this.http.post(`${Constants.URI}/users/deleteUser`, data);
+  }
 }

@@ -1,6 +1,6 @@
 <div>
     <mat-toolbar class="toolbar-attributes mat-elevation-z4" color="secondary">
-        <a mat-button routerLink="{{showAgentOptions ? 'agent' : 'home' }}" routerLinkActive="button-selected">
+        <a mat-button routerLink="{{showAgentOptions ? 'agent' : (showAdminOptions ? 'admin' : 'home') }}" routerLinkActive="button-selected">
             <mat-icon style="font-size: 2em;" inline="true">home</mat-icon>
         </a>
         <mat-label style="font-size: 2em;">Nekretomat</mat-label>
@@ -9,17 +9,18 @@
                 <mat-icon style="font-size: 2em;" inline="true" *ngIf='isLoggedIn'>person</mat-icon>
             </a>
             <mat-menu #loggedInMenu="matMenu">
-                <button mat-menu-item *ngIf="showUserOptions" (click)='userEstates()'>Pregled Vasih
+                <button mat-menu-item *ngIf="showUserOptions || showAdminOptions" routerLink='userEstates' routerLinkActive="button-selected">Pregled Vasih
                     nekretnina</button>
-                <button mat-menu-item *ngIf="showAgentOptions" (click)='estateRequests()'>Pregled zahteva za
-                    dodavanje nekretnina</button>
-                <button mat-menu-item *ngIf="showAgentOptions" (click)='allEstates()'>Pregled svih
+                <button mat-menu-item *ngIf="showAgentOptions || showAdminOptions" routerLink='estateRequests' routerLinkActive="button-selected">Pregled
+                    zahteva za dodavanje nekretnina</button>
+                <button mat-menu-item *ngIf="showAdminOptions" routerLink='registrationRequests' routerLinkActive="button-selected">Pregled zahteva za registraciju i svih korisnika</button>
+                <button mat-menu-item *ngIf="showAgentOptions || showAdminOptions" routerLink='agentAllEstates' routerLinkActive="button-selected">Pregled svih
                     nekretnina</button>
-                <button mat-menu-item *ngIf="showAgentOptions" (click)='agreedOffers()'>Pregled svih
-                    ugovorenih prodaja</button>
-                <button mat-menu-item (click)='addEstate()'>Dodaj novu nekretninu</button>
-                <button mat-menu-item (click)='inbox()'>Sanduce</button>
-                <button mat-menu-item *ngIf="showUserOptions" (click)='settings()'>Podesavanja</button>
+                <button mat-menu-item *ngIf="showAgentOptions || showAdminOptions" routerLink='allAgreedOffers' routerLinkActive="button-selected">Pregled svih
+                    ugovorenih prodaja i zahteva za ponudu</button>
+                <button mat-menu-item routerLink='addEstate' routerLinkActive="button-selected">Dodaj novu nekretninu</button>
+                <button mat-menu-item routerLink='inbox' routerLinkActive="button-selected">Sanduce</button>
+                <button mat-menu-item *ngIf="showUserOptions || showAdminOptions" routerLink='settings' routerLinkActive="button-selected">Podesavanja</button>
                 <button mat-menu-item (click)='logout()'>Odjavi se</button>
             </mat-menu>
             <div *ngIf='!isLoggedIn'>

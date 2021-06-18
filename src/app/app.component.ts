@@ -16,6 +16,7 @@ export class AppComponent {
   private isLoggedInSubscription: Subscription;
   showUserOptions = false;
   showAgentOptions = false;
+  showAdminOptions = false;
 
   constructor(
     private router: Router,
@@ -30,36 +31,9 @@ export class AppComponent {
 
         this.showUserOptions = user.userType == "user";
         this.showAgentOptions = user.userType == "agent";
+        this.showAdminOptions = user.userType == "admin";
       }
     })
-  }
-
-  userEstates() {
-    this.router.navigate(['userEstates']);
-  }
-
-  estateRequests() {
-    this.router.navigate(['agentEstateRequests']);
-  }
-  
-  allEstates() {
-    this.router.navigate(['agentAllEstates']);
-  }
-
-  agreedOffers() {
-    this.router.navigate(['allAgreedOffers']);
-  }
-
-  addEstate() {
-    this.router.navigate(['addEstate']);
-  }
-
-  inbox() {
-    this.router.navigate(['inbox']);
-  }
-
-  settings() {
-    this.router.navigate(['settings']);
   }
 
   logout() {

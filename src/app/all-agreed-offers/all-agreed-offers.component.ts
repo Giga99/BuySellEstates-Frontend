@@ -20,8 +20,8 @@ export class AllAgreedOffersComponent implements OnInit {
     this.offersService.getAllAgreedOffers().subscribe((offers: Array<Offer>) => {
       this.allAgreedOffers = offers;
     });
-
-    this.offersService.getAllAgencyAgreedOffers(this.storage.getUser().agency).subscribe((offers: Array<Offer>) => {
+    // this.storage.getUser().agency
+    this.offersService.getAllAgencyAgreedOffers('agency1').subscribe((offers: Array<Offer>) => {
       offers.forEach((offer) => {
         this.agencyProfit += (offer.dateFrom == "-1") ? offer.priceToPay : this.getRentProfit(offer);
       });

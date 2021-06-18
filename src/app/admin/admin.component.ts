@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import * as c3 from 'c3';
 import { EstatesService } from '../estates.service';
 import { Estate } from '../models/estate';
-import * as c3 from 'c3';
-import { Primitive } from 'c3';
 
 @Component({
-  selector: 'app-agent',
-  templateUrl: './agent.component.html',
-  styleUrls: ['./agent.component.css']
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.css']
 })
-export class AgentComponent implements OnInit {
+export class AdminComponent implements OnInit {
 
   constructor(private estatesService: EstatesService) { }
 

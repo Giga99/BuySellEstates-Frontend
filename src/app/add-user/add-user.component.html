@@ -1,0 +1,91 @@
+<div>
+    <form>
+        <table class="form-style">
+            <tr>
+                <th colspan="2">
+                    <mat-label class="form-header">Dodaj novog korisnika</mat-label>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Ime:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="firstname" [(ngModel)]='firstname' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Prezime:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="lastname" [(ngModel)]='lastname' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Korisnicko ime:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="username" [(ngModel)]='username' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Lozinka:</mat-label>
+                </td>
+                <td>
+                    <input type="password" name="password" [(ngModel)]='password' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Email:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="email" [(ngModel)]='email' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Grad:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="city" [(ngModel)]='city' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Drzava:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="country" [(ngModel)]='country' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Tip korisnika:</mat-label>
+                </td>
+                <td>
+                    <mat-radio-group [(ngModel)]='userType' name="userType">
+                        <mat-radio-button color="primary" value="user" style="margin-right: 1em;">Korisnik</mat-radio-button>
+                        <mat-radio-button color="primary" value="agent" style="margin-right: 1em;">Agent</mat-radio-button>
+                    </mat-radio-group>
+                </td>
+            </tr>
+            <tr *ngIf="userType=='agent'">
+                <td>
+                    <mat-label class="row-label">Agencija:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="agency" [(ngModel)]='agency' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <button mat-raised-button (click)='register()'>Registruj se</button>
+                </th>
+            </tr>
+        </table>
+    </form>
+</div>

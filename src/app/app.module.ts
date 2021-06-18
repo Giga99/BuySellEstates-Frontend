@@ -39,6 +39,10 @@ import { AgentComponent } from './agent/agent.component';
 import { AgentEstateRequestsComponent } from './agent-estate-requests/agent-estate-requests.component';
 import { AgentAllEstatesComponent } from './agent-all-estates/agent-all-estates.component';
 import { AllAgreedOffersComponent } from './all-agreed-offers/all-agreed-offers.component';
+import { AdminComponent } from './admin/admin.component';
+import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,11 @@ import { AllAgreedOffersComponent } from './all-agreed-offers/all-agreed-offers.
     AgentComponent,
     AgentEstateRequestsComponent,
     AgentAllEstatesComponent,
-    AllAgreedOffersComponent
+    AllAgreedOffersComponent,
+    AdminComponent,
+    RegistrationRequestsComponent,
+    EditUserComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,

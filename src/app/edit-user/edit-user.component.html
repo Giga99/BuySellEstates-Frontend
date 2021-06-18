@@ -1,0 +1,48 @@
+<div>
+    <form>
+        <table class="form-style">
+            <tr>
+                <th colspan="2">
+                    <mat-label class="form-header">Promena podataka</mat-label>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Ime:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="firstname" [(ngModel)]='firstname' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Prezime:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="lastname" [(ngModel)]='lastname' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Grad:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="city" [(ngModel)]='city' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Drzava:</mat-label>
+                </td>
+                <td>
+                    <input type="text" name="country" [(ngModel)]='country' required='true'>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <button mat-raised-button (click)='updateInfo()'>Promeni podatke</button>
+                </th>
+            </tr>
+        </table>
+    </form>
+</div>

@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddEstateComponent } from './add-estate/add-estate.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { AdminComponent } from './admin/admin.component';
 import { AgentAllEstatesComponent } from './agent-all-estates/agent-all-estates.component';
 import { AgentEstateRequestsComponent } from './agent-estate-requests/agent-estate-requests.component';
 import { AgentComponent } from './agent/agent.component';
 import { AllAgreedOffersComponent } from './all-agreed-offers/all-agreed-offers.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EditEstateComponent } from './edit-estate/edit-estate.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 import { EstateInfoComponent } from './estate-info/estate-info.component';
 import { FrontPageComponent } from './front-page/front-page.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ThreadInfoComponent } from './thread-info/thread-info.component';
 import { UpdateEmailComponent } from './update-email/update-email.component';
@@ -45,6 +49,10 @@ const routes: Routes = [
   { path: 'agentEstateRequests', component: AgentEstateRequestsComponent },
   { path: 'agentAllEstates', component: AgentAllEstatesComponent },
   { path: 'allAgreedOffers', component: AllAgreedOffersComponent },
+  { path: 'admin', component: AdminComponent },
+  { path: 'registrationRequests', component: RegistrationRequestsComponent },
+  { path: 'editUser/:username', component: EditUserComponent },
+  { path: 'addUser', component: AddUserComponent },
   { path: '**', component: FrontPageComponent }
 ];
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EstatesService } from '../estates.service';
 import { Estate } from '../models/estate';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-estate',
@@ -27,7 +28,7 @@ export class EditEstateComponent implements OnInit {
 
   constructor(
     private estatesService: EstatesService,
-    private router: Router,
+    private location: Location,
     private route: ActivatedRoute
   ) {
   }
@@ -68,7 +69,7 @@ export class EditEstateComponent implements OnInit {
       this.furnished
     ).subscribe(response => {
       if (response['message'] == 'estate updated') {
-        this.router.navigate(['..']);
+        this.location.back();
       }
     });
   }
