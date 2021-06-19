@@ -4,4 +4,36 @@
         <div style="margin: 2em;" id="chart2"></div>
         <div style="margin: 2em;" id="chart3"></div>
     </div>
+    <div style="margin-top: 5em; margin-left: auto; margin-right: auto;">
+        <form>
+            <table class="form-style">
+                <tr>
+                    <th colspan="2">
+                        <mat-label class="form-header">Promena procenata</mat-label>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="row-label">Procenat za iznajmljivanje:</mat-label>
+                    </td>
+                    <td>
+                        <input type="number" name="rentFee" [(ngModel)]='rentFee' required='true'>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="row-label">Procenat za kupovinu:</mat-label>
+                    </td>
+                    <td>
+                        <input type="number" name="saleFee" [(ngModel)]='saleFee' required='true'>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <button mat-raised-button (click)='updateFees()'>Promeni procente</button>
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>

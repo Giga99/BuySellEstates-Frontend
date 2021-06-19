@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FeesService } from '../fees.service';
+import { Fee } from '../models/fee';
 import { Offer } from '../models/offer';
 import { OffersService } from '../offers.service';
 import { StorageService } from '../storage.service';
@@ -13,18 +15,31 @@ export class AllAgreedOffersComponent implements OnInit {
   allAgreedOffers: Array<Offer>;
   allOffersRequests: Array<Offer>;
   agencyProfit = 0;
+  fee: Fee;
 
-  constructor(private offersService: OffersService, private storage: StorageService) { }
+  constructor(
+    private offersService: OffersService,
+    private feesService: FeesService
+  ) {
+  }
 
   ngOnInit(): void {
-    this.offersService.getAllAgreedOffers().subscribe((offers: Array<Offer>) => {
-      this.allAgreedOffers = offers;
-    });
-    // this.storage.getUser().agency
-    this.offersService.getAllAgencyAgreedOffers('agency1').subscribe((offers: Array<Offer>) => {
-      offers.forEach((offer) => {
-        this.agencyProfit += (offer.dateFrom == "-1") ? offer.priceToPay : this.getRentProfit(offer);
-      });
+    this.feesService.getFees(1).subscribe((fee: Fee) => {
+      if (fee) {
+        this.fee = fee;
+        this.offersService.getAllAgreedOffers().subscribe((offers: Array<Offer>) => {
+          this.allAgreedOffers = offers.filter((offer) => offer.dateFrom != "-1");
+          offers.forEach((offer) => {
+            this.agencyProfit += (offer.dateFrom != "-1") ? (this.getRentProfit(offer) * this.fee.rentFee / 100) : (offer.priceToPay * this.fee.saleFee / 100);
+          });
+          // this.storage.getUser().agency
+          this.offersService.getAllAgencyAgreedOffers('agency1').subscribe((offers: Array<Offer>) => {
+            offers.forEach((offer) => {
+              this.agencyProfit += (offer.dateFrom == "-1") ? offer.priceToPay : this.getRentProfit(offer);
+            });
+          });
+        });
+      }
     });
 
     this.offersService.getAllOffersRequests().subscribe((offers: Array<Offer>) => {

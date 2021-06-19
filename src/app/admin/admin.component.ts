@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as c3 from 'c3';
 import { EstatesService } from '../estates.service';
+import { FeesService } from '../fees.service';
 import { Estate } from '../models/estate';
+import { Fee } from '../models/fee';
 
 @Component({
   selector: 'app-admin',
@@ -10,7 +12,20 @@ import { Estate } from '../models/estate';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private estatesService: EstatesService) { }
+  rentFee: number;
+  saleFee: number;
+
+  constructor(
+    private estatesService: EstatesService,
+    private feesService: FeesService
+  ) {
+    this.feesService.getFees(1).subscribe((fee: Fee) => {
+      if (fee) {
+        this.rentFee = fee.rentFee;
+        this.saleFee = fee.saleFee;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.estatesService.searchEstatesByName('').subscribe((estates: Array<Estate>) => {
@@ -65,6 +80,12 @@ export class AdminComponent implements OnInit {
         }
       });
     });
+  }
+
+  updateFees() {
+    this.feesService.updateFees(1, this.rentFee, this.saleFee).subscribe((response) => {
+      alert(response['message']);
+    })
   }
 
   private countEstatesForPriceRange(estates: Array<Estate>, min: number, max: number): number {
