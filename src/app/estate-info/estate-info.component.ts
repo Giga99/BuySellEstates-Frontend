@@ -6,6 +6,7 @@ import { MessagesService } from '../messages.service';
 import { Estate } from '../models/estate';
 import { OffersService } from '../offers.service';
 import { StorageService } from '../storage.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-estate-info',
@@ -30,7 +31,8 @@ export class EstateInfoComponent implements OnInit {
     private route: ActivatedRoute,
     private messagesService: MessagesService,
     private offersService: OffersService,
-    private storage: StorageService
+    private storage: StorageService,
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +50,10 @@ export class EstateInfoComponent implements OnInit {
       this.offersService.sendOffer(this.estate.id, this.estate.title, this.estate.ownerUsername, this.username, -1, -1, this.cashOrCredit == 'cash' ? this.estate.priceToBuy : this.creditPrice).subscribe((response1) => {
         this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe((response2) => {
           this.messagesService.sendMessageOffer(response2['id'], 'Korisnik: ' + this.username + ' zeli da kupi nekretninu: ' + this.estate.title, this.username, new Date().toISOString(), -1, -1, response1['offerId']).subscribe((response3) => {
-            alert("Ponuda uspesno poslata");
+            this.snackbar.open('Ponuda uspesno poslata', 'U redu', {
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
           });
         });
       });
@@ -56,16 +61,22 @@ export class EstateInfoComponent implements OnInit {
       let dateFrom = this.date.value['start'].toISOString().substring(0, 10);
       let dateTo = this.date.value['end'].toISOString().substring(0, 10);
       this.offersService.checkEstateAvailability(this.estate.id, dateFrom, dateTo).subscribe((response1) => {
-        if(response1['message'] == "estate is available") {
+        if (response1['message'] == "estate is available") {
           this.offersService.sendOffer(this.estate.id, this.estate.title, this.estate.ownerUsername, this.username, dateFrom, dateTo, this.estate.priceToRent).subscribe((response2) => {
             this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe((response3) => {
               this.messagesService.sendMessageOffer(response3['id'], 'Korisnik: ' + this.username + ' zeli da iznajmi vasu nekretninu: ' + this.estate.title + ' u periodu od ' + dateFrom + ' do ' + dateTo, this.username, new Date().toISOString(), dateFrom, dateTo, response2['offerId']).subscribe((response4) => {
-                alert("Ponuda uspesno poslata");
+                this.snackbar.open('Ponuda uspesno poslata', 'U redu', {
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                });
               });
             });
           });
         } else {
-          alert("Nekretnina je zauzeta u tom periodu!");
+          this.snackbar.open('Nekretnina je zauzeta u tom periodu!', 'U redu', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
         }
       });
     }

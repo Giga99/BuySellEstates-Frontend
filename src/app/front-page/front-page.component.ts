@@ -4,7 +4,7 @@ import { EstatesService } from '../estates.service';
 import { Estate } from '../models/estate';
 import { Subscription } from 'rxjs';
 import { StorageService } from '../storage.service';
-import { User } from '../models/User';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-front-page',
@@ -31,7 +31,8 @@ export class FrontPageComponent implements OnInit {
   constructor(
     private estatesService: EstatesService,
     private router: Router,
-    private storage: StorageService
+    private storage: StorageService,
+    private snackbar: MatSnackBar
   ) {
   }
 
@@ -61,20 +62,27 @@ export class FrontPageComponent implements OnInit {
     if (this.searchType == "name") {
       this.estatesService.searchEstatesByName(this.nameSearch).subscribe((list: Array<Estate>) => {
         this.searchedEstates = list;
-      })
+      });
     } else if (this.searchType == "city") {
-      this.estatesService.searchEstatesByCity(this.citySearch).subscribe((list: Array<Estate>) => {
-        this.searchedEstates = list;
-      })
+      if (this.citySearch == undefined || this.citySearch == null || this.citySearch == '') {
+        this.snackbar.open('Unesite grad po kojem zelite da pretrazite', 'U redu', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      } else {
+        this.estatesService.searchEstatesByCity(this.citySearch).subscribe((list: Array<Estate>) => {
+          this.searchedEstates = list;
+        });
+      }
     } else {
       if (this.priceSearchType == "sale") {
         this.estatesService.searchEstatesByPrice(this.priceSearchType, 0, this.searchSalePrice).subscribe((list: Array<Estate>) => {
           this.searchedEstates = list;
-        })
+        });
       } else {
         this.estatesService.searchEstatesByPrice(this.priceSearchType, 0, this.searchRentPrice).subscribe((list: Array<Estate>) => {
           this.searchedEstates = list;
-        })
+        });
       }
     }
   }
