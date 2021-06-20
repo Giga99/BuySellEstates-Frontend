@@ -36,16 +36,29 @@ export class LoginComponent implements OnInit {
     let password = this.loginForm.get('password').value
     let userType = this.loginForm.get('userType').value
     this.submited = true;
-    if (username != null && username != '' && password != null && password != '' && userType != null && userType != '') {
+
+    if (this.loginForm.valid) {
       this.authService.login(username, password, userType).subscribe((user: User) => {
         if (user) {
-          this.storage.setUser(user)
-          if (user.userType == "user") {
-            this.router.navigate(['home']);
-          } else if (user.userType == "agent") {
-            this.router.navigate(['agent']);
+          if (user.reviewed == false) {
+            this.snackbar.open('Korisnikov zahtev za registraciju se trenutno razmatra, molimo vas sacekajte odluku', 'U redu', {
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+          } else if (user.accepted == false) {
+            this.snackbar.open('Korisnikov zahtev za registraciju je odbijen', 'U redu', {
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
           } else {
-            this.router.navigate(['admin']);
+            this.storage.setUser(user)
+            if (user.userType == "user") {
+              this.router.navigate(['home']);
+            } else if (user.userType == "agent") {
+              this.router.navigate(['agent']);
+            } else {
+              this.router.navigate(['admin']);
+            }
           }
         } else {
           this.snackbar.open('Pogresni podaci', 'U redu', {
