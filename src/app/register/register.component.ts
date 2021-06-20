@@ -16,7 +16,6 @@ export class RegisterComponent implements OnInit {
   submited = false;
   image;
   imagePreview;
-  regex;
 
   constructor(
     private authService: AuthService,
@@ -25,13 +24,13 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.regex = /^(?!.*([A-Za-z0-9!@#$%^&*()_+{}[\]|\\\/?.,><:"';])\1{3})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]|\\\/?.,><:"';])[A-Za-z\d!@#$%^&*()_+{}[\]|\\\/?.,><:"';]{8,24}$/;
+    let regex = /^(?!.*([A-Za-z0-9!@#$%^&*()_+{}[\]|\\\/?.,><:"';])\1{3})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]|\\\/?.,><:"';])[A-Za-z\d!@#$%^&*()_+{}[\]|\\\/?.,><:"';]{8,24}$/;
 
     this.registerForm = new FormGroup({
       firstname: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
       username: new FormControl(null, [Validators.required]),
-      password: new FormControl(null, [Validators.required, Validators.pattern(this.regex)]),
+      password: new FormControl(null, [Validators.required, Validators.pattern(regex)]),
       confirmPassword: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       city: new FormControl(null, [Validators.required]),
@@ -56,7 +55,7 @@ export class RegisterComponent implements OnInit {
     let firstname = this.registerForm.get('firstname').value;
     let lastname = this.registerForm.get('lastname').value;
     let username = this.registerForm.get('username').value;
-    let password: string = this.registerForm.get('password').value;
+    let password = this.registerForm.get('password').value;
     let confirmPassword = this.registerForm.get('confirmPassword').value;
     let email = this.registerForm.get('email').value;
     let city = this.registerForm.get('city').value;

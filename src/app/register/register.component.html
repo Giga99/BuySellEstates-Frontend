@@ -11,7 +11,7 @@
                     <mat-label class="row-label">Ime:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="firstname" formControlName='firstname'>
+                    <input type="text" name="firstname" formControlName='firstname' required>
                     <mat-label class="error" *ngIf="registerForm.get('firstname').hasError('required') && submited">
                         *Ime je obavezno
                     </mat-label>
@@ -22,7 +22,7 @@
                     <mat-label class="row-label">Prezime:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="lastname" formControlName='lastname'>
+                    <input type="text" name="lastname" formControlName='lastname' required>
                     <mat-label class="error" *ngIf="registerForm.get('lastname').hasError('required') && submited">
                         *Prezime je obavezno
                     </mat-label>
@@ -33,7 +33,7 @@
                     <mat-label class="row-label">Korisnicko ime:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="username" formControlName='username'>
+                    <input type="text" name="username" formControlName='username' required>
                     <mat-label class="error" *ngIf="registerForm.get('username').hasError('required') && submited">
                         *Korisnicko ime je obavezno
                     </mat-label>
@@ -44,7 +44,7 @@
                     <mat-label class="row-label">Lozinka:</mat-label>
                 </td>
                 <td>
-                    <input type="password" name="password" formControlName='password'>
+                    <input type="password" name="password" formControlName='password' required>
                     <mat-label class="error" *ngIf="registerForm.get('password').hasError('required') && submited">
                         *Lozinka je obavezna
                     </mat-label>
@@ -59,7 +59,7 @@
                     <mat-label class="row-label">Potvrda lozinke:</mat-label>
                 </td>
                 <td>
-                    <input type="password" name="confirmPassword" formControlName='confirmPassword'>
+                    <input type="password" name="confirmPassword" formControlName='confirmPassword' required>
                     <mat-label class="error" *ngIf="registerForm.get('confirmPassword').hasError('required') && submited">
                         *Potvrda lozinke je obavezna
                     </mat-label>
@@ -70,7 +70,7 @@
                     <mat-label class="row-label">Email:</mat-label>
                 </td>
                 <td>
-                    <input type="email" name="email" formControlName='email'>
+                    <input type="email" name="email" formControlName='email' required>
                     <mat-label class="error" *ngIf="registerForm.get('email').hasError('required') && submited">
                         *Email je obavezan
                     </mat-label>
@@ -84,7 +84,7 @@
                     <mat-label class="row-label">Grad:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="city" formControlName='city'>
+                    <input type="text" name="city" formControlName='city' required>
                     <mat-label class="error" *ngIf="registerForm.get('city').hasError('required') && submited">
                         *Grad je obavezan
                     </mat-label>
@@ -95,7 +95,7 @@
                     <mat-label class="row-label">Drzava:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="country" formControlName='country'>
+                    <input type="text" name="country" formControlName='country' required>
                     <mat-label class="error" *ngIf="registerForm.get('country').hasError('required') && submited">
                         *Drzava je obavezna
                     </mat-label>
