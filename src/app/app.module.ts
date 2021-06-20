@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -90,6 +91,7 @@ import { AddUserComponent } from './add-user/add-user.component';
     MatInputModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+    MatSnackBarModule,
     NgbModule
   ],
   providers: [

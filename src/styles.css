@@ -65,3 +65,8 @@ body {
     padding: 1em;
     width: 12em;
 }
+
+.error {
+    color: red;
+    margin-left: 2em;
+}

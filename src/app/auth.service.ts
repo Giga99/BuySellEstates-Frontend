@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username, password, userType) {
+  login(username: string, password: string, userType: string) {
     const data = {
       username: username,
       password: password,
