@@ -1,10 +1,18 @@
 <div>
+    <div *ngIf="imagePreview">
+        <img style="display: block; margin-top: 5em; margin-left: auto; margin-right: auto;" width="15%" height="15%" src="{{imagePreview}}">
+    </div>
     <form>
         <table class="form-style">
             <tr>
                 <th colspan="2">
                     <mat-label class="form-header">Dodaj novog korisnika</mat-label>
                 </th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="file" name="image" (change)="selectImage($event)" required='true' />
+                </td>
             </tr>
             <tr>
                 <td>
@@ -71,14 +79,6 @@
                         <mat-radio-button color="primary" value="user" style="margin-right: 1em;">Korisnik</mat-radio-button>
                         <mat-radio-button color="primary" value="agent" style="margin-right: 1em;">Agent</mat-radio-button>
                     </mat-radio-group>
-                </td>
-            </tr>
-            <tr *ngIf="userType=='agent'">
-                <td>
-                    <mat-label class="row-label">Agencija:</mat-label>
-                </td>
-                <td>
-                    <input type="text" name="agency" [(ngModel)]='agency' required='true'>
                 </td>
             </tr>
             <tr>
