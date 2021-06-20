@@ -29,6 +29,7 @@ export class AuthService {
       email: user.email,
       city: user.city,
       country: user.country,
+      profileImage: user.profileImage,
       accepted: user.accepted,
       reviewed: user.reviewed,
       userType: user.userType,

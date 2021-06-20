@@ -7,6 +7,16 @@
                 </th>
             </tr>
             <tr>
+                <th colspan="2">
+                    <img width="25%" height="25%" src="{{profileImage}}">
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="file" name="image" (change)="selectImage($event)" required='true' />
+                </td>
+            </tr>
+            <tr>
                 <td>
                     <mat-label class="row-label">Ime:</mat-label>
                 </td>

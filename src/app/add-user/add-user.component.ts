@@ -32,7 +32,7 @@ export class AddUserComponent implements OnInit {
 
   register() {
     const user = new User(
-      this.firstname, this.lastname, this.username, this.password, this.email, this.city, this.country
+      this.firstname, this.lastname, this.username, this.password, this.email, this.city, this.country, ''
     );
     user.userType = this.userType;
     user.agency = this.agency;

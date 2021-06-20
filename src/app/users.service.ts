@@ -9,13 +9,14 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-  updateUserInfo(username, firstname, lastname, city, country) {
+  updateUserInfo(username, firstname, lastname, city, country, profileImage) {
     const data = {
       username: username,
       firstname: firstname,
       lastname: lastname,
       city: city,
-      country: country
+      country: country,
+      profileImage: profileImage
     }
     return this.http.post(`${Constants.URI}/users/updateUserInfo`, data);
   }
