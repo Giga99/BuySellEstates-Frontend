@@ -19,7 +19,8 @@ export class AllAgreedOffersComponent implements OnInit {
 
   constructor(
     private offersService: OffersService,
-    private feesService: FeesService
+    private feesService: FeesService,
+    private storage: StorageService
   ) {
   }
 
@@ -28,12 +29,11 @@ export class AllAgreedOffersComponent implements OnInit {
       if (fee) {
         this.fee = fee;
         this.offersService.getAllAgreedOffers().subscribe((offers: Array<Offer>) => {
-          this.allAgreedOffers = offers.filter((offer) => offer.dateFrom != "-1");
+          this.allAgreedOffers = offers.filter((offer) => offer.dateFrom == "-1");
           offers.forEach((offer) => {
             this.agencyProfit += (offer.dateFrom != "-1") ? (this.getRentProfit(offer) * this.fee.rentFee / 100) : (offer.priceToPay * this.fee.saleFee / 100);
           });
-          // this.storage.getUser().agency
-          this.offersService.getAllAgencyAgreedOffers('agency1').subscribe((offers: Array<Offer>) => {
+          this.offersService.getAllAgencyAgreedOffers(this.storage.getUser().agency).subscribe((offers: Array<Offer>) => {
             offers.forEach((offer) => {
               this.agencyProfit += (offer.dateFrom == "-1") ? offer.priceToPay : this.getRentProfit(offer);
             });
@@ -49,7 +49,6 @@ export class AllAgreedOffersComponent implements OnInit {
 
   answerOfferRequest(offerId: number, accepted: boolean) {
     this.offersService.answerOfferRequest(offerId, accepted).subscribe((response) => {
-      console.log(response['message'])
       if (response['message'] == 'offer request answered') alert("Uspesno odgovoreno na zahtev za ponudu!");
       window.location.reload();
     });

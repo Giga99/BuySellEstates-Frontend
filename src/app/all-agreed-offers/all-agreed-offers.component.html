@@ -18,7 +18,7 @@
         <mat-card *ngFor="let offer of allOffersRequests" style="width: 30%; height: 30%; margin-top: 2em; margin-left: auto; margin-right: auto;">
             <mat-card-title>{{offer.estateName}}</mat-card-title>
             <mat-card-subtitle>Vlasnik: {{offer.estateOwner}}</mat-card-subtitle>
-            <mat-card-content>Cena: {{offer.priceToPay}}</mat-card-content>
+            <mat-card-content>Cena: {{offer.priceToPay}} eura</mat-card-content>
             <mat-card-content *ngIf="offer.dateFrom=='-1'">Kupac: {{offer.bidder}}</mat-card-content>
             <mat-card-content *ngIf="offer.dateFrom!='-1'">Iznajmljivac: {{offer.bidder}}</mat-card-content>
             <mat-card-content *ngIf="offer.dateFrom!='-1'">Od {{offer.dateFrom}} do {{offer.dateTo}}</mat-card-content>

@@ -9,7 +9,7 @@
                 <mat-card-subtitle>{{message.date}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>{{message.text}}</mat-card-content>
-            <mat-card-actions *ngIf="message.isOffer && activeOffers[i]">
+            <mat-card-actions *ngIf="message.isOffer && activeOffers[i] && thread.estateOwner == username">
                 <button mat-button (click)="answerOffer(message.offerId, true)">Prihvati ponudu</button>
                 <button mat-button (click)="answerOffer(message.offerId, false)">Odbij ponudu</button>
             </mat-card-actions>

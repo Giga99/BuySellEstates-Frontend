@@ -7,6 +7,7 @@ import { FilesService } from '../files.service';
 import { Estate } from '../models/estate';
 import { User } from '../models/User';
 import { StorageService } from '../storage.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-estate',
@@ -21,19 +22,21 @@ export class AddEstateComponent implements OnInit {
   furnished = false;
   multipleImages: File[];
   gallery = [];
+  user: User;
 
   constructor(
     private estatesService: EstatesService,
     private router: Router,
     private storage: StorageService,
     private filesService: FilesService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private location: Location
   ) {
   }
 
   ngOnInit(): void {
-    let user = this.storage.getUser()
-    this.ownerUsername = user.userType == 'agent' ? user.agency : user.username;
+    this.user = this.storage.getUser()
+    this.ownerUsername = this.user.userType == 'agent' ? this.user.agency : this.user.username;
 
     this.addEstateForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
@@ -79,9 +82,7 @@ export class AddEstateComponent implements OnInit {
     let numberOfRooms = this.addEstateForm.get('numberOfRooms').value;
     this.submited = true;
 
-    console.log(this.addEstateForm);
-
-    if(this.gallery.length < 3 && this.gallery.length > 0) {
+    if (this.gallery.length < 3 && this.gallery.length > 0) {
       this.snackbar.open('Potrebne su najmanje tri slike nekretnine', 'U redu', {
         horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -108,7 +109,13 @@ export class AddEstateComponent implements OnInit {
 
         this.estatesService.addEstate(estate).subscribe(response => {
           if (response['message'] == 'estate added') {
-            this.router.navigate(['..']);
+            if (this.user.userType == 'agent') {
+              this.estatesService.answerEstateAdding(response['id'], true).subscribe(response => {
+                if(response['message'] == 'estate updated') {
+                  this.location.back();
+                }
+              });
+            } else this.location.back();
           }
         });
       });
