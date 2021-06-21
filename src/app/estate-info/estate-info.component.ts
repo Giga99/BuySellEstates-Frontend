@@ -46,16 +46,30 @@ export class EstateInfoComponent implements OnInit {
   }
 
   sendOffer() {
-    if (this.estate.rentOrSale == 'sale') {
-      this.offersService.sendOffer(this.estate.id, this.estate.title, this.estate.ownerUsername, this.username, -1, -1, this.cashOrCredit == 'cash' ? this.estate.priceToBuy : this.creditPrice).subscribe((response1) => {
-        this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe((response2) => {
-          this.messagesService.sendMessageOffer(response2['id'], 'Korisnik: ' + this.username + ' zeli da kupi nekretninu: ' + this.estate.title, this.username, new Date().toISOString(), -1, -1, response1['offerId']).subscribe((response3) => {
-            this.snackbar.open('Ponuda uspesno poslata', 'U redu', {
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
+    if (this.cashOrCredit == '') {
+      this.snackbar.open('Izaberite nacin placanja!', 'U redu', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else if (this.estate.rentOrSale == 'sale') {
+      this.offersService.isEstateSold(this.estate.id).subscribe((isSold: boolean) => {
+        if (isSold) {
+          this.snackbar.open('Nekretnina je prodata!', 'U redu', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        } else {
+          this.offersService.sendOffer(this.estate.id, this.estate.title, this.estate.ownerUsername, this.username, -1, -1, this.cashOrCredit == 'cash' ? this.estate.priceToBuy : this.creditPrice).subscribe((response1) => {
+            this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe((response2) => {
+              this.messagesService.sendMessageOffer(response2['id'], 'Korisnik: ' + this.username + ' zeli da kupi nekretninu: ' + this.estate.title, this.username, new Date().toISOString(), -1, -1, response1['offerId']).subscribe((response3) => {
+                this.snackbar.open('Ponuda uspesno poslata', 'U redu', {
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                });
+              });
             });
           });
-        });
+        }
       });
     } else {
       let dateFrom = this.date.value['start'].toISOString().substring(0, 10);

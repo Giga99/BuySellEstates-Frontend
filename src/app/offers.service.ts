@@ -76,4 +76,12 @@ export class OffersService {
 
     return this.http.post(`${Constants.URI}/offers/answerOfferRequest`, data);
   }
+  
+  isEstateSold(estateId) {
+    const data = {
+      estateId: estateId
+    }
+
+    return this.http.post(`${Constants.URI}/offers/isEstateSold`, data);
+  }
 }
