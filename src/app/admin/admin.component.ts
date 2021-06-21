@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as c3 from 'c3';
 import { EstatesService } from '../estates.service';
 import { FeesService } from '../fees.service';
@@ -17,7 +18,8 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private estatesService: EstatesService,
-    private feesService: FeesService
+    private feesService: FeesService,
+    private snackbar: MatSnackBar
   ) {
     this.feesService.getFees(1).subscribe((fee: Fee) => {
       if (fee) {
@@ -84,7 +86,10 @@ export class AdminComponent implements OnInit {
 
   updateFees() {
     this.feesService.updateFees(1, this.rentFee, this.saleFee).subscribe((response) => {
-      alert(response['message']);
+      this.snackbar.open(response['message'], 'U redu', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
     })
   }
 

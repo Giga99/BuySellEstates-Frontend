@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FeesService } from '../fees.service';
 import { Fee } from '../models/fee';
 import { Offer } from '../models/offer';
@@ -20,7 +21,8 @@ export class AllAgreedOffersComponent implements OnInit {
   constructor(
     private offersService: OffersService,
     private feesService: FeesService,
-    private storage: StorageService
+    private storage: StorageService,
+    private snackbar: MatSnackBar
   ) {
   }
 
@@ -49,7 +51,17 @@ export class AllAgreedOffersComponent implements OnInit {
 
   answerOfferRequest(offerId: number, accepted: boolean) {
     this.offersService.answerOfferRequest(offerId, accepted).subscribe((response) => {
-      if (response['message'] == 'offer request answered') alert("Uspesno odgovoreno na zahtev za ponudu!");
+      if (response['message'] == 'offer request answered') {
+        this.snackbar.open("Uspesno odgovoreno na zahtev za ponudu!", 'U redu', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      } else {
+        this.snackbar.open(response['message'], 'U redu', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }
       window.location.reload();
     });
   }

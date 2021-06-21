@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessagesService } from '../messages.service';
 import { Thread } from '../models/thread';
@@ -23,7 +24,8 @@ export class ThreadInfoComponent implements OnInit {
     private router: Router,
     private messagesService: MessagesService,
     private storage: StorageService,
-    private offersService: OffersService
+    private offersService: OffersService,
+    private snackbar: MatSnackBar
   ) {
     let user = this.storage.getUser();
     this.isAgent = user.userType == 'agent';
@@ -64,11 +66,26 @@ export class ThreadInfoComponent implements OnInit {
   answerOffer(offerId: number, answer: boolean) {
     this.offersService.answerEstateOffer(offerId, answer, this.thread.estateId, this.isAgent).subscribe((response) => {
       if (response['message'] == 'offer answered') {
-        if (answer == true) alert('Ponuda prihvacena!');
-        else alert('Ponuda odbijena!');
+        if (answer == true) {
+          this.snackbar.open("Ponuda prihvacena!", 'U redu', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        }
+        else {
+          this.snackbar.open("Ponuda odbijena!", 'U redu', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        }
         window.location.reload();
       }
-      else alert(response['message']);
+      else {
+        this.snackbar.open(response['message'], 'U redu', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      }
     });
   }
 }
