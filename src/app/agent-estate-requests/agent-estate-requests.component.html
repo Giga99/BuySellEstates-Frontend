@@ -1,5 +1,6 @@
-<div style="padding-bottom: 2em;">
+<div style="padding-bottom: 2em; text-align: center;">
     <div style="margin-top: 5em; margin-left: auto; margin-right: auto;" *ngIf='addedEstates'>
+        <mat-label>Svi zahtevi za ponudama:</mat-label>
         <a *ngFor="let estate of addedEstates" (click)="navigateToInfo(estate.id)">
             <mat-card style="width: 50%; height: 50%; margin-top: 2em; margin-left: auto; margin-right: auto;">
                 <img mat-card-image src="{{estate.gallery[0]}}">

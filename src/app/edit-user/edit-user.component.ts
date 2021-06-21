@@ -47,9 +47,21 @@ export class EditUserComponent implements OnInit {
   }
 
   updateInfo() {
-    this.filesService.uploadSingleFile(this.image).subscribe((response) => {
-      let path: string = response['path'];
-      this.usersService.updateUserInfo(this.user.username, this.firstname, this.lastname, this.city, this.country , "../.." + path.substring(19).replace("\\", "/").replace("\\", "/").replace("\\", "/")).subscribe((res) => {
+    if (this.image != undefined) {
+      this.filesService.uploadSingleFile(this.image).subscribe((response) => {
+        let path: string = response['path'];
+        this.usersService.updateUserInfo(this.user.username, this.firstname, this.lastname, this.city, this.country, "../.." + path.substring(19).replace("\\", "/").replace("\\", "/").replace("\\", "/")).subscribe((res) => {
+          if (res['message'] == 'user info updated') {
+            this.usersService.getUserByUsername(this.user.username).subscribe((user: User) => {
+              if (user) {
+                this.location.back();
+              } else console.log(user['message'])
+            })
+          }
+        });
+      });
+    } else {
+      this.usersService.updateUserInfo(this.user.username, this.firstname, this.lastname, this.city, this.country, this.profileImage).subscribe((res) => {
         if (res['message'] == 'user info updated') {
           this.usersService.getUserByUsername(this.user.username).subscribe((user: User) => {
             if (user) {
@@ -58,6 +70,6 @@ export class EditUserComponent implements OnInit {
           })
         }
       });
-    });
+    }
   }
 }

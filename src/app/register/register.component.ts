@@ -61,7 +61,6 @@ export class RegisterComponent implements OnInit {
     let city = this.registerForm.get('city').value;
     let country = this.registerForm.get('country').value;
     this.submited = true;
-    console.log(this.registerForm.valid);
 
     if (password != confirmPassword && password != null && password != '' && confirmPassword != null && confirmPassword != '') {
       this.snackbar.open('Lozinka i potvrda lozinke se ne poklapaju', 'U redu', {

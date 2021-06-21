@@ -1,25 +1,20 @@
 <div>
-    <div *ngIf="imagePreview">
-        <img style="display: block; margin-top: 5em; margin-left: auto; margin-right: auto;" width="15%" height="15%" src="{{imagePreview}}">
-    </div>
-    <form>
-        <table class="form-style">
-            <tr>
+    <form [formGroup]="addUserForm" (ngSubmit)="register()">
+        <table class="mat-elevation-z2 form-style" style="width: fit-content; padding: 2em;">
+            <tr style="text-align: center;">
                 <th colspan="2">
                     <mat-label class="form-header">Dodaj novog korisnika</mat-label>
                 </th>
             </tr>
             <tr>
                 <td>
-                    <input type="file" name="image" (change)="selectImage($event)" required='true' />
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <mat-label class="row-label">Ime:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="firstname" [(ngModel)]='firstname' required='true'>
+                    <input type="text" name="firstname" formControlName='firstname' required>
+                    <mat-label class="error" *ngIf="addUserForm.get('firstname').hasError('required') && submited">
+                        *Ime je obavezno
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -27,7 +22,10 @@
                     <mat-label class="row-label">Prezime:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="lastname" [(ngModel)]='lastname' required='true'>
+                    <input type="text" name="lastname" formControlName='lastname' required>
+                    <mat-label class="error" *ngIf="addUserForm.get('lastname').hasError('required') && submited">
+                        *Prezime je obavezno
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -35,7 +33,10 @@
                     <mat-label class="row-label">Korisnicko ime:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="username" [(ngModel)]='username' required='true'>
+                    <input type="text" name="username" formControlName='username' required>
+                    <mat-label class="error" *ngIf="addUserForm.get('username').hasError('required') && submited">
+                        *Korisnicko ime je obavezno
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -43,7 +44,25 @@
                     <mat-label class="row-label">Lozinka:</mat-label>
                 </td>
                 <td>
-                    <input type="password" name="password" [(ngModel)]='password' required='true'>
+                    <input type="password" name="password" formControlName='password' required>
+                    <mat-label class="error" *ngIf="addUserForm.get('password').hasError('required') && submited">
+                        *Lozinka je obavezna
+                    </mat-label>
+                    <mat-label class="error" *ngIf="addUserForm.get('password').hasError('pattern') && submited">
+                        *Lozinka mora da ima barem jedno veliko slovo, jedno malo slovo, jedan numerik, jedan specijalan karakter.
+                        <br /> Mora da ima najmanje 8 a najvise 24 karaktera i ne sme da ima vise od 3 uzastopna karaktera.
+                    </mat-label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-label class="row-label">Potvrda lozinke:</mat-label>
+                </td>
+                <td>
+                    <input type="password" name="confirmPassword" formControlName='confirmPassword' required>
+                    <mat-label class="error" *ngIf="addUserForm.get('confirmPassword').hasError('required') && submited">
+                        *Potvrda lozinke je obavezna
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -51,7 +70,13 @@
                     <mat-label class="row-label">Email:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="email" [(ngModel)]='email' required='true'>
+                    <input type="email" name="email" formControlName='email' required>
+                    <mat-label class="error" *ngIf="addUserForm.get('email').hasError('required') && submited">
+                        *Email je obavezan
+                    </mat-label>
+                    <mat-label class="error" *ngIf="addUserForm.get('email').hasError('email') && submited">
+                        *Email je loseg formata
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -59,7 +84,10 @@
                     <mat-label class="row-label">Grad:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="city" [(ngModel)]='city' required='true'>
+                    <input type="text" name="city" formControlName='city' required>
+                    <mat-label class="error" *ngIf="addUserForm.get('city').hasError('required') && submited">
+                        *Grad je obavezan
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -67,7 +95,10 @@
                     <mat-label class="row-label">Drzava:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="country" [(ngModel)]='country' required='true'>
+                    <input type="text" name="country" formControlName='country' required>
+                    <mat-label class="error" *ngIf="addUserForm.get('country').hasError('required') && submited">
+                        *Drzava je obavezna
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -75,15 +106,35 @@
                     <mat-label class="row-label">Tip korisnika:</mat-label>
                 </td>
                 <td>
-                    <mat-radio-group [(ngModel)]='userType' name="userType">
-                        <mat-radio-button color="primary" value="user" style="margin-right: 1em;">Korisnik</mat-radio-button>
-                        <mat-radio-button color="primary" value="agent" style="margin-right: 1em;">Agent</mat-radio-button>
+                    <mat-radio-group formControlName='userType' name="userType">
+                        <mat-radio-button color="primary" value="user" style="margin-right: 1em;">Korisnik
+                        </mat-radio-button>
+                        <mat-radio-button color="primary" value="agent" style="margin-right: 1em;">Agent
+                        </mat-radio-button>
                     </mat-radio-group>
+                    <mat-label class="error" *ngIf="addUserForm.get('userType').hasError('required') && submited">
+                        *Tip korisnika je obavezan
+                    </mat-label>
                 </td>
             </tr>
             <tr>
+                <td>
+                    <mat-label class="row-label">Izaberite profilnu sliku(opciono):</mat-label>
+                </td>
+                <td>
+                    <input type="file" name="image" (change)="selectImage($event)" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div *ngIf="imagePreview">
+                        <img style="display: block; margin-left: auto; margin-right: auto;" src="{{imagePreview}}">
+                    </div>
+                </td>
+            </tr>
+            <tr style="text-align: center;">
                 <th colspan="2">
-                    <button mat-raised-button (click)='register()'>Registruj se</button>
+                    <button mat-raised-button (click)='register()' type='submit'>Registruj se</button>
                 </th>
             </tr>
         </table>
