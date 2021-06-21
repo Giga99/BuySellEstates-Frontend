@@ -17,11 +17,11 @@
         <p *ngIf="estate.rentOrSale=='rent'">Cena: {{estate.priceToRent}}</p>
         <p>Vlasnik: {{estate.ownerUsername}}</p>
     </div>
-    <div style="margin-top: 2em; margin-left: auto; margin-right: auto; display: flex; justify-content: center;">
+    <div style="width: 50%; height: 50%; margin-top: 2em; margin-left: auto; margin-right: auto; display: flex; justify-content: center;">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item" *ngFor="let image of estate.gallery; let i=index" [ngClass]="(i === 0) ? 'active' : ''">
-                    <img class="d-block w-200 h-100 img-fluid" src="{{image}}">
+                <div class="carousel-item" style="width: 100%; height: 100%;" *ngFor="let image of estate.gallery; let i=index" [ngClass]="(i === 0) ? 'active' : ''">
+                    <img class="d-block w-100 img-fluid" src="{{image}}">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

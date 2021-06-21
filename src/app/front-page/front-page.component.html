@@ -1,10 +1,10 @@
 <div style="padding-bottom: 2em;">
-    <div style="margin-top: 5em; margin-left: auto; margin-right: auto; display: flex; justify-content: center;">
+    <div style="width: 50%; height: 40em; margin-top: 5em; margin-left: auto; margin-right: auto; display: flex; justify-content: center;">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item" *ngFor="let estate of promotedEstates; let i=index" [ngClass]="(i === 0) ? 'active' : ''">
+                <div class="carousel-item" *ngFor="let estate of promotedEstates; let i=index" [ngClass]="(i == 0) ? 'active' : ''">
                     <a (click)="navigateToInfo(estate.id)">
-                        <img class="d-block w-200 h-100 img-fluid" src="{{estate.gallery[0]}}">
+                        <img class="d-block w-100 img-fluid" src="{{estate.gallery[0]}}">
                     </a>
                     <div class="carousel-caption d-none d-md-block">
                         <h2>{{estate.title}}</h2>
@@ -31,9 +31,12 @@
                     </td>
                     <td>
                         <mat-radio-group [(ngModel)]='searchType' name="searchType">
-                            <mat-radio-button color="primary" value="name" style="margin-right: 1em;">Po imenu</mat-radio-button>
-                            <mat-radio-button color="primary" value="city" style="margin-right: 1em;">Po gradu</mat-radio-button>
-                            <mat-radio-button color="primary" value="price" style="margin-right: 1em;">Po ceni</mat-radio-button>
+                            <mat-radio-button color="primary" value="name" style="margin-right: 1em;">Po imenu
+                            </mat-radio-button>
+                            <mat-radio-button color="primary" value="city" style="margin-right: 1em;">Po gradu
+                            </mat-radio-button>
+                            <mat-radio-button color="primary" value="price" style="margin-right: 1em;">Po ceni
+                            </mat-radio-button>
                         </mat-radio-group>
                     </td>
                 </tr>
@@ -55,8 +58,10 @@
                 </tr>
                 <tr *ngIf="searchType=='price'">
                     <mat-radio-group [(ngModel)]='priceSearchType' name="priceSearchType">
-                        <mat-radio-button color="primary" value="sale" style="margin-right: 1em;">Po ceni za kupovinu</mat-radio-button>
-                        <mat-radio-button color="primary" value="rent" style="margin-right: 1em;">Po ceni za izdavanje</mat-radio-button>
+                        <mat-radio-button color="primary" value="sale" style="margin-right: 1em;">Po ceni za kupovinu
+                        </mat-radio-button>
+                        <mat-radio-button color="primary" value="rent" style="margin-right: 1em;">Po ceni za izdavanje
+                        </mat-radio-button>
                     </mat-radio-group>
                 </tr>
                 <tr *ngIf="searchType=='price'">
@@ -64,8 +69,10 @@
                         <mat-label class="row-label">Cena:</mat-label>
                     </td>
                     <td>
-                        <mat-slider thumbLabel tickInterval="1000" min="0" max="{{maxSalePrice}}" step="1000" value="0" aria-label="units" *ngIf="priceSearchType=='sale'" [(ngModel)]='searchSalePrice'></mat-slider>
-                        <mat-slider thumbLabel tickInterval="50" min="0" max="{{maxRentPrice}}" step="50" value="0" aria-label="units" *ngIf="priceSearchType=='rent'" [(ngModel)]='searchRentPrice'></mat-slider>
+                        <mat-slider thumbLabel tickInterval="1000" min="0" max="{{maxSalePrice}}" step="1000" value="0" aria-label="units" *ngIf="priceSearchType=='sale'" [(ngModel)]='searchSalePrice'>
+                        </mat-slider>
+                        <mat-slider thumbLabel tickInterval="50" min="0" max="{{maxRentPrice}}" step="50" value="0" aria-label="units" *ngIf="priceSearchType=='rent'" [(ngModel)]='searchRentPrice'>
+                        </mat-slider>
                     </td>
                 </tr>
                 <tr *ngIf="searchType!=null">

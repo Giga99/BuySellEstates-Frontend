@@ -1,7 +1,7 @@
 <div>
-    <form>
-        <table class="form-style">
-            <tr>
+    <form [formGroup]="addEstateForm" (ngSubmit)="addEstate()">
+        <table class="mat-elevation-z2 form-style" style="width: fit-content; padding: 2em;">
+            <tr style="text-align: center;">
                 <th colspan="2">
                     <mat-label class="form-header">Dodavanje nove nekretnine</mat-label>
                 </th>
@@ -11,7 +11,10 @@
                     <mat-label class="row-label">Naziv:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="title" [(ngModel)]='title' required='true'>
+                    <input type="text" name="title" formControlName='title' required>
+                    <mat-label class="error" *ngIf="addEstateForm.get('title').hasError('required') && submited">
+                        *Naziv je obavezan
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -19,7 +22,10 @@
                     <mat-label class="row-label">Opstina:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="municipality" [(ngModel)]='municipality' required='true'>
+                    <input type="text" name="municipality" formControlName='municipality' required>
+                    <mat-label class="error" *ngIf="addEstateForm.get('municipality').hasError('required') && submited">
+                        *Opstina je obavezna
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -27,7 +33,10 @@
                     <mat-label class="row-label">Grad:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="city" [(ngModel)]='city' required='true'>
+                    <input type="text" name="city" formControlName='city' required>
+                    <mat-label class="error" *ngIf="addEstateForm.get('city').hasError('required') && submited">
+                        *Grad je obavezan
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -35,68 +44,95 @@
                     <mat-label class="row-label">Adresa:</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="address" [(ngModel)]='address' required='true'>
+                    <input type="text" name="address" formControlName='address' required>
+                    <mat-label class="error" *ngIf="addEstateForm.get('address').hasError('required') && submited">
+                        *Adresa je obavezna
+                    </mat-label>
                 </td>
             </tr>
             <tr>
-                <mat-radio-group [(ngModel)]='rentOrSale' name="rentOrSale" required='true'>
+                <mat-radio-group formControlName='rentOrSale' name="rentOrSale" required>
                     <mat-radio-button color="primary" value="sale" style="margin-right: 1em;">Prodaja</mat-radio-button>
                     <mat-radio-button color="primary" value="rent" style="margin-right: 1em;">Izdavanje
                     </mat-radio-button>
                 </mat-radio-group>
+                <mat-label class="error" *ngIf="addEstateForm.get('rentOrSale').hasError('required') && submited">
+                    *Obavezno je staviti da li se prodaje ili izdaje
+                </mat-label>
             </tr>
-            <tr *ngIf="rentOrSale=='sale'">
+            <tr *ngIf="addEstateForm.get('rentOrSale').value=='sale'">
                 <td>
                     <mat-label class="row-label">Cena za prodaju(u evrima):</mat-label>
                 </td>
                 <td>
-                    <input type="number" class="form-input" name="priceToBuy" [(ngModel)]='priceToBuy'>
+                    <input type="number" class="form-input" name="priceToBuy" formControlName='priceToBuy' [required]="rentOrSale=='sale'">
+                    <mat-label class="error" *ngIf="addEstateForm.get('priceToBuy').hasError('required') && submited">
+                        *Cena je obavezna
+                    </mat-label>
                 </td>
             </tr>
-            <tr *ngIf="rentOrSale=='rent'">
+            <tr *ngIf="addEstateForm.get('rentOrSale').value=='rent'">
                 <td>
                     <mat-label class="row-label">Cena za izdavanje(mesecno u evrima):</mat-label>
                 </td>
                 <td>
-                    <input type="number" class="form-input" name="priceToRent" [(ngModel)]='priceToRent'>
+                    <input type="number" class="form-input" name="priceToRent" formControlName='priceToRent' [required]="rentOrSale=='sale'">
+                    <mat-label class="error" *ngIf="addEstateForm.get('priceToRent').hasError('required') && submited">
+                        *Cena je obavezna
+                    </mat-label>
                 </td>
             </tr>
             <tr>
-                <mat-radio-group [(ngModel)]='type' name="type" required='true'>
+                <mat-radio-group formControlName='type' name="type" required>
                     <mat-radio-button color="primary" value="Stan" style="margin-right: 1em;">Stan</mat-radio-button>
                     <mat-radio-button color="primary" value="Kuca" style="margin-right: 1em;">Kuca</mat-radio-button>
                 </mat-radio-group>
+                <mat-label class="error" *ngIf="addEstateForm.get('type').hasError('required') && submited">
+                    *Tip je obavezan
+                </mat-label>
             </tr>
             <tr>
                 <td>
                     <mat-label class="row-label">Kvadratura:</mat-label>
                 </td>
                 <td>
-                    <input type="number" name="squareFootage" [(ngModel)]='squareFootage' required='true'>
+                    <input type="number" name="squareFootage" formControlName='squareFootage' required>
+                    <mat-label class="error" *ngIf="addEstateForm.get('squareFootage').hasError('required') && submited">
+                        *Kvadratura je obavezna
+                    </mat-label>
                 </td>
             </tr>
-            <tr *ngIf="type=='Stan'">
+            <tr *ngIf="addEstateForm.get('type').value=='Stan'">
                 <td>
                     <mat-label class="row-label">Ukupan broj spratova zgrade:</mat-label>
                 </td>
                 <td>
-                    <input type="number" class="form-input" name="numberOfFloors" [(ngModel)]='numberOfFloors'>
+                    <input type="number" class="form-input" name="numberOfFloors" formControlName='numberOfFloors' [required]="type=='Stan'">
+                    <mat-label class="error" *ngIf="addEstateForm.get('numberOfFloors').hasError('required') && submited">
+                        *Broj spratova je obavezan
+                    </mat-label>
                 </td>
             </tr>
-            <tr *ngIf="type=='Stan'">
+            <tr *ngIf="addEstateForm.get('type').value=='Stan'">
                 <td>
                     <mat-label class="row-label">Broj sprata:</mat-label>
                 </td>
                 <td>
-                    <input type="number" class="form-input" name="floorNumber" [(ngModel)]='floorNumber'>
+                    <input type="number" class="form-input" name="floorNumber" formControlName='floorNumber' [required]="type=='Stan'">
+                    <mat-label class="error" *ngIf="addEstateForm.get('floorNumber').hasError('required') && submited">
+                        *Sprat stana je obavezan
+                    </mat-label>
                 </td>
             </tr>
-            <tr *ngIf="type=='Kuca'">
+            <tr *ngIf="addEstateForm.get('type').value=='Kuca'">
                 <td>
                     <mat-label class="row-label">Broj spratova kuce:</mat-label>
                 </td>
                 <td>
-                    <input type="number" class="form-input" name="numberOfFloors" [(ngModel)]='numberOfFloors'>
+                    <input type="number" class="form-input" name="numberOfFloors" formControlName='numberOfFloors'>
+                    <mat-label class="error" *ngIf="addEstateForm.get('numberOfFloors').hasError('required') && submited">
+                        *Broj spratova je obavezan
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -104,7 +140,10 @@
                     <mat-label class="row-label">Broj soba(garsonjera, jednosoban, dvosoban...):</mat-label>
                 </td>
                 <td>
-                    <input type="text" name="numberOfRooms" [(ngModel)]='numberOfRooms' required='true'>
+                    <input type="text" name="numberOfRooms" formControlName='numberOfRooms' required>
+                    <mat-label class="error" *ngIf="addEstateForm.get('numberOfRooms').hasError('required') && submited">
+                        *Broj soba je obavezan
+                    </mat-label>
                 </td>
             </tr>
             <tr>
@@ -120,9 +159,9 @@
                     <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
                 </td>
             </tr>
-            <tr>
+            <tr style="text-align: center;">
                 <th colspan="2">
-                    <button mat-raised-button (click)='addEstate()'>Dodaj nekretninu</button>
+                    <button mat-raised-button type="submit">Dodaj nekretninu</button>
                 </th>
             </tr>
         </table>

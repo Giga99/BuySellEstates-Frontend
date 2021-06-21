@@ -6,6 +6,9 @@ import { Subscription } from 'rxjs';
 import { StorageService } from '../storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { ViewChild } from '@angular/core';
+import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-front-page',
   templateUrl: './front-page.component.html',
