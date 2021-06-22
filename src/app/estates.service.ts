@@ -113,4 +113,11 @@ export class EstatesService {
     }
     return this.http.post(`${Constants.URI}/estates/togglePromotedEstate`, data);
   }
+
+  updateViews(id) {
+    const data = {
+      id: id
+    }
+    return this.http.post(`${Constants.URI}/estates/updateViews`, data);
+  }
 }

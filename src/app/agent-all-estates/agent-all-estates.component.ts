@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { EstatesService } from '../estates.service';
 import { Estate } from '../models/estate';
@@ -17,7 +18,8 @@ export class AgentAllEstatesComponent implements OnInit {
   constructor(
     private estatesService: EstatesService,
     private router: Router,
-    private storage: StorageService
+    private storage: StorageService,
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -30,8 +32,11 @@ export class AgentAllEstatesComponent implements OnInit {
 
   promoteEstate(estateId: number, promoted: boolean) {
     this.estatesService.togglePromotedEstate(estateId, promoted).subscribe((response) => {
-      console.log(response['message']);
-      this.router.navigate(['agentAllEstates']);
+      this.snackbar.open(response['message'], 'U redu', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+      window.location.reload();
     });
   }
 

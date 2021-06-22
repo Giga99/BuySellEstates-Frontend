@@ -14,6 +14,7 @@ export class Estate {
     floorNumber: number;
     numberOfRooms: string;
     furnished: boolean;
+    views: number;
     gallery: Array<String>;
     promoted: boolean;
     reviewed: boolean;

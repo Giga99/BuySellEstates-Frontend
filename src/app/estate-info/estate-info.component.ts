@@ -7,6 +7,7 @@ import { Estate } from '../models/estate';
 import { OffersService } from '../offers.service';
 import { StorageService } from '../storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-estate-info',
@@ -14,6 +15,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./estate-info.component.css']
 })
 export class EstateInfoComponent implements OnInit {
+
+  UPDATE_VIEWS = "updateViews";
 
   estate: Estate;
   cashOrCredit = '';
@@ -32,15 +35,29 @@ export class EstateInfoComponent implements OnInit {
     private messagesService: MessagesService,
     private offersService: OffersService,
     private storage: StorageService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private cookieService: CookieService
   ) { }
 
   ngOnInit(): void {
     let id = this.route.snapshot.paramMap.get('id');
-    this.estatesService.getEstateById(parseInt(id)).subscribe((estate: Estate) => {
-      this.estate = estate
-      this.creditPrice = estate.priceToBuy * 120 / 100;
-    });
+
+    console.log(this.cookieService.check(this.UPDATE_VIEWS));
+    if (this.cookieService.check(this.UPDATE_VIEWS)) {
+      this.estatesService.getEstateById(parseInt(id)).subscribe((estate: Estate) => {
+        this.estate = estate
+        this.creditPrice = estate.priceToBuy * 120 / 100;
+      });
+    } else {
+      this.estatesService.updateViews(parseInt(id)).subscribe(response => {
+        this.cookieService.set(this.UPDATE_VIEWS, "true", 3);
+        console.log(this.cookieService.check(this.UPDATE_VIEWS));
+        this.estatesService.getEstateById(parseInt(id)).subscribe((estate: Estate) => {
+          this.estate = estate
+          this.creditPrice = estate.priceToBuy * 120 / 100;
+        });
+      })
+    }
     this.username = this.storage.getUser().username;
     this.userType = this.storage.getUser().userType;
   }
