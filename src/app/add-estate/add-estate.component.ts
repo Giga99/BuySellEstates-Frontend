@@ -26,7 +26,6 @@ export class AddEstateComponent implements OnInit {
 
   constructor(
     private estatesService: EstatesService,
-    private router: Router,
     private storage: StorageService,
     private filesService: FilesService,
     private snackbar: MatSnackBar,

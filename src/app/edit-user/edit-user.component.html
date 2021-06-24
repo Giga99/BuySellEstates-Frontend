@@ -1,7 +1,7 @@
 <div>
     <form>
-        <table class="form-style">
-            <tr>
+        <table class="mat-elevation-z2 form-style" style="width: fit-content; padding: 2em;">
+            <tr style="text-align: center;">
                 <th colspan="2">
                     <mat-label class="form-header">Promena podataka</mat-label>
                 </th>
@@ -48,7 +48,7 @@
                     <input type="text" name="country" [(ngModel)]='country' required='true'>
                 </td>
             </tr>
-            <tr>
+            <tr style="text-align: center;">
                 <th colspan="2">
                     <button mat-raised-button (click)='updateInfo()'>Promeni podatke</button>
                 </th>
