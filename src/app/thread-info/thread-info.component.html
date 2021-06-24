@@ -12,7 +12,7 @@
                 </mat-card-title>
                 <mat-card-subtitle>{{message.date.substring(0,10)}}</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-content>{{message.text}}</mat-card-content>
+            <mat-card-content><pre>{{message.text}}</pre></mat-card-content>
             <mat-card-actions *ngIf="message.isOffer && activeOffers[i] && thread.estateOwner == username">
                 <button mat-button (click)="answerOffer(message.offerId, true)">Prihvati ponudu</button>
                 <button mat-button (click)="answerOffer(message.offerId, false)">Odbij ponudu</button>
@@ -21,8 +21,8 @@
     </div>
     <div style="padding-left: 2em; padding-right: 2em; margin-top: 3em; margin-bottom: 3em; width: 100%;">
         <form>
-            <input style="width: 90%;" type="text" multiple="true" name="message" [(ngModel)]="message">
-            <button mat-flat-button style="width: fit-content;" (click)="sendMessage()">
+            <textarea style="width: 90%;" type="text" placeholder="Unesite poruku..." name="message" [(ngModel)]="message"></textarea>
+            <button mat-flat-button style="width: fit-content; justify-content: center;" (click)="sendMessage()">
                 <mat-icon>send</mat-icon>
             </button>
         </form>
