@@ -1,12 +1,16 @@
 <div style="margin-top: 5em; margin-left: auto; margin-right: auto; padding-bottom: 2em;">
+    <div style="margin-top: 2em; text-align: center; font-weight: bold; font-size: x-large;">
+        <mat-label>{{thread.title}}</mat-label>
+    </div>
     <div style="margin-left: 2em;">
         <button mat-button *ngIf="thread.estateOwner!=username" (click)="goToEstateInfo()">Daj ponudu</button>
     </div>
     <div style="display: flex; flex-direction: column; padding-left: 2em; padding-right: 2em;">
         <mat-card style="margin-top: 2em;" *ngFor="let message of thread.messages; let i = index" [ngStyle]="{'align-self': (message.sender == username) ? 'center' : 'start'}">
             <mat-card-header>
-                <mat-card-title>{{(message.sender == thread.estateOwner) ? 'Vlasnik' : message.sender }}</mat-card-title>
-                <mat-card-subtitle>{{message.date}}</mat-card-subtitle>
+                <mat-card-title>{{(message.sender == thread.estateOwner) ? 'Vlasnik' : message.sender }}
+                </mat-card-title>
+                <mat-card-subtitle>{{message.date.substring(0,10)}}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>{{message.text}}</mat-card-content>
             <mat-card-actions *ngIf="message.isOffer && activeOffers[i] && thread.estateOwner == username">
@@ -14,5 +18,13 @@
                 <button mat-button (click)="answerOffer(message.offerId, false)">Odbij ponudu</button>
             </mat-card-actions>
         </mat-card>
+    </div>
+    <div style="padding-left: 2em; padding-right: 2em; margin-top: 3em; margin-bottom: 3em; width: 100%;">
+        <form>
+            <input style="width: 90%;" type="text" multiple="true" name="message" [(ngModel)]="message">
+            <button mat-flat-button style="width: fit-content;" (click)="sendMessage()">
+                <mat-icon>send</mat-icon>
+            </button>
+        </form>
     </div>
 </div>

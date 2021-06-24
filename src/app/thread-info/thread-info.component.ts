@@ -19,6 +19,8 @@ export class ThreadInfoComponent implements OnInit {
   username: string;
   activeOffers = Array<boolean>();
 
+  message = "";
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -33,7 +35,7 @@ export class ThreadInfoComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.messagesService.getThreadById(this.id).subscribe((thread: Thread) => {
       this.thread = thread;
-      if (thread.messages[thread.messages.length - 1].sender != this.username) {
+      if (!thread.read && thread.messages[thread.messages.length - 1].sender != this.username) {
         this.messagesService.readMessage(this.id).subscribe((response) => {
         });
       }
@@ -50,9 +52,8 @@ export class ThreadInfoComponent implements OnInit {
       this.id = this.route.snapshot.paramMap.get('id');
       this.messagesService.getThreadById(this.id).subscribe((thread: Thread) => {
         this.thread = thread;
-        if (thread.messages[thread.messages.length - 1].sender != this.username) {
+        if (!thread.read && thread.messages[thread.messages.length - 1].sender != this.username) {
           this.messagesService.readMessage(this.id).subscribe((response) => {
-            console.log(response['message']);
           });
         }
       });
@@ -87,5 +88,18 @@ export class ThreadInfoComponent implements OnInit {
         });
       }
     });
+  }
+
+  sendMessage() {
+    if (this.message != "") {
+      this.messagesService.sendMessage(this.thread.id, this.message, this.username, new Date().toISOString()).subscribe(response => {
+        this.message = "";
+        if (response['message'] == 'message sent') {
+          this.messagesService.getThreadById(this.thread.id).subscribe((thread: Thread) => {
+            this.thread = thread;
+          });
+        }
+      });
+    }
   }
 }
