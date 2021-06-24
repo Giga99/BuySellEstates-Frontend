@@ -73,4 +73,13 @@ export class MessagesService {
 
     return this.http.post(`${Constants.URI}/messages/readMessage`, data);
   }
+  
+  toggleActive(id, active) {
+    const data = {
+      id: id,
+      active: active
+    }
+
+    return this.http.post(`${Constants.URI}/messages/toggleArchive`, data);
+  }
 }

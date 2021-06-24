@@ -18,7 +18,8 @@ import { StorageService } from '../storage.service';
 export class InboxComponent implements OnInit {
 
   username: string;
-  threads: Array<Thread>;
+  activeThreads: Array<Thread>;
+  archivedThreads: Array<Thread>;
   showRedDot = [];
 
   constructor(
@@ -36,7 +37,8 @@ export class InboxComponent implements OnInit {
     let user = this.storage.getUser()
     this.username = user.userType == 'agent' ? user.agency : user.username;
     this.messagesService.getAllThreadsForUser(this.username).subscribe((threads: Array<Thread>) => {
-      this.threads = threads;
+      this.activeThreads = threads.filter(thread => thread.active);
+      this.archivedThreads = threads.filter(thread => !thread.active);
 
       threads.forEach((thread) => {
         this.showRedDot.push(!thread.read && thread.messages[thread.messages.length - 1].sender != this.username)
@@ -80,5 +82,11 @@ export class InboxComponent implements OnInit {
         });
       }
     })
+  }
+
+  toggleActive(id, active) {
+    this.messagesService.toggleActive(id, active).subscribe(response => {
+      window.location.reload();
+    });
   }
 }

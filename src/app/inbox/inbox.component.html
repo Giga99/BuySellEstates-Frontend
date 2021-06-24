@@ -1,22 +1,37 @@
 <div style="margin-top: 5em; margin-left: auto; margin-right: auto; display: flex; justify-content: center; padding-bottom: 2em;">
-    <div class="border" style="width: 30%; height: 100%; padding-bottom: 3em; padding-top: 3em; margin-left: auto; margin-right: auto; display: flex; flex-direction: column;">
-        <div style="margin-left: auto; margin-right: auto; display: flex; justify-content: center; gap: 2em;">
-            <a mat-button style="font-size: 1.5em; text-decoration: none;" routerLinkActive="button-selected">Aktivne poruke</a><br/>
-            <a mat-button style="font-size: 1.5em; text-decoration: none;" routerLinkActive="button-selected">Arhivirane poruke</a>
-        </div>
-        <a *ngFor="let thread of threads; let i=index" style="text-decoration: none;" [routerLink]="['threadInfo', thread.id]">
-            <mat-card style="width: 80%; height: fit-content; margin-left: auto; margin-right: auto; margin-top: 2em; text-align: center;">
-                <mat-card-header>
-                    <span mat-card-avatar *ngIf='showRedDot[i]' style="height: 1em; width: 1em; background-color: red; border-radius: 50%; display: inline-block;"></span>
-                    <mat-card-title>{{thread.title}}</mat-card-title>
-                </mat-card-header>
-                <mat-card-actions>
-                    <a>
-                        <mat-icon>archive</mat-icon>
-                    </a>
-                </mat-card-actions>
-            </mat-card>
-        </a>
+    <div class="border" style="width: 30%; height: 100%; padding-bottom: 3em; padding-top: 3em; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; text-align: center;">
+        <mat-tab-group dynamicHeight mat-align-tabs="center" style="margin-left: auto; margin-right: auto; padding-bottom: 2em; width: 100%;">
+            <mat-tab label="Aktivne poruke">
+                <a *ngFor="let thread of activeThreads; let i=index" style="text-decoration: none;" [routerLink]="['threadInfo', thread.id]">
+                    <mat-card style="width: 80%; height: fit-content; margin-left: auto; margin-right: auto; margin-top: 2em; margin-bottom: 2em;">
+                        <mat-card-header>
+                            <span mat-card-avatar *ngIf='showRedDot[i]' style="height: 1em; width: 1em; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                            <mat-card-title>{{thread.title}}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-actions>
+                            <button mat-flat-button (click)="toggleActive(thread.id, false)">
+                                <mat-icon>archive</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </a>
+            </mat-tab>
+            <mat-tab label="Arhivirane poruke">
+                <a *ngFor="let thread of archivedThreads; let i=index" style="text-decoration: none;" [routerLink]="['threadInfo', thread.id]">
+                    <mat-card style="width: 80%; height: fit-content; margin-left: auto; margin-right: auto; margin-top: 2em; margin-bottom: 2em;">
+                        <mat-card-header>
+                            <span mat-card-avatar *ngIf='showRedDot[i]' style="height: 1em; width: 1em; background-color: red; border-radius: 50%; display: inline-block;"></span>
+                            <mat-card-title>{{thread.title}}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-actions>
+                            <button mat-flat-button (click)="toggleActive(thread.id, true)">
+                                <mat-icon>unarchive</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </a>
+            </mat-tab>
+        </mat-tab-group>
         <div style="margin-left: auto; margin-right: auto; margin-top: 3em; text-align: center;">
             <button mat-raised-button style="font-size: 1.5em;" (click)="sendNewMessage()">Nova poruka</button>
         </div>

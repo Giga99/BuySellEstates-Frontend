@@ -92,14 +92,27 @@ export class ThreadInfoComponent implements OnInit {
 
   sendMessage() {
     if (this.message != "") {
-      this.messagesService.sendMessage(this.thread.id, this.message, this.username, new Date().toISOString()).subscribe(response => {
-        this.message = "";
-        if (response['message'] == 'message sent') {
-          this.messagesService.getThreadById(this.thread.id).subscribe((thread: Thread) => {
-            this.thread = thread;
+      if (!this.thread.active) {
+        this.messagesService.toggleActive(this.thread.id, true).subscribe(response1 => {
+          this.messagesService.sendMessage(this.thread.id, this.message, this.username, new Date().toISOString()).subscribe(response2 => {
+            this.message = "";
+            if (response2['message'] == 'message sent') {
+              this.messagesService.getThreadById(this.thread.id).subscribe((thread: Thread) => {
+                this.thread = thread;
+              });
+            }
           });
-        }
-      });
+        })
+      } else {
+        this.messagesService.sendMessage(this.thread.id, this.message, this.username, new Date().toISOString()).subscribe(response => {
+          this.message = "";
+          if (response['message'] == 'message sent') {
+            this.messagesService.getThreadById(this.thread.id).subscribe((thread: Thread) => {
+              this.thread = thread;
+            });
+          }
+        });
+      }
     }
   }
 }
