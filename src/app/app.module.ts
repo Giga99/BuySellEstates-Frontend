@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,6 +45,7 @@ import { AdminComponent } from './admin/admin.component';
 import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { DialogAddMessageComponent } from './dialog-add-message/dialog-add-message.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { AddUserComponent } from './add-user/add-user.component';
     AdminComponent,
     RegistrationRequestsComponent,
     EditUserComponent,
-    AddUserComponent
+    AddUserComponent,
+    DialogAddMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +95,7 @@ import { AddUserComponent } from './add-user/add-user.component';
     ReactiveFormsModule,
     MatNativeDateModule,
     MatSnackBarModule,
+    MatDialogModule,
     NgbModule
   ],
   providers: [

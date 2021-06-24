@@ -8,6 +8,13 @@ import { OffersService } from '../offers.service';
 import { StorageService } from '../storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddMessageComponent } from '../dialog-add-message/dialog-add-message.component';
+
+export class SendMessageDialogData {
+  title: string;
+  message: string;
+}
 
 @Component({
   selector: 'app-estate-info',
@@ -29,6 +36,8 @@ export class EstateInfoComponent implements OnInit {
   });
   date2: string;
 
+  message: string;
+
   constructor(
     private estatesService: EstatesService,
     private route: ActivatedRoute,
@@ -36,7 +45,8 @@ export class EstateInfoComponent implements OnInit {
     private offersService: OffersService,
     private storage: StorageService,
     private snackbar: MatSnackBar,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -111,5 +121,30 @@ export class EstateInfoComponent implements OnInit {
         }
       });
     }
+  }
+
+  sendMessage() {
+    this.dialog.open(DialogAddMessageComponent, {
+      width: '50%',
+      data: { title: this.estate.title, message: this.message }
+    }).afterClosed().subscribe(result => {
+      if (result != undefined) {
+        this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe(response1 => {
+          this.messagesService.sendMessage(response1['id'], result, this.username, new Date().toISOString()).subscribe(response2 => {
+            if (response2['message'] == 'message sent') {
+              this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
+            } else {
+              this.snackbar.open(response2['message'], 'U redu', {
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
+            }
+          });
+        });
+      }
+    });
   }
 }

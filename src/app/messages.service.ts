@@ -47,6 +47,17 @@ export class MessagesService {
     return this.http.post(`${Constants.URI}/messages/sendMessageOffer`, data);
   }
 
+  sendMessage(threadId, text, sender, date) {
+    const data = {
+      threadId: threadId,
+      text: text,
+      sender: sender,
+      date: date
+    }
+
+    return this.http.post(`${Constants.URI}/messages/sendMessage`, data);
+  }
+
   getThreadById(id) {
     const data = {
       id: id
