@@ -9,7 +9,7 @@
                             <mat-card-title>{{thread.title}}</mat-card-title>
                         </mat-card-header>
                         <mat-card-actions>
-                            <button mat-flat-button (click)="toggleActive(thread.id, false)">
+                            <button mat-flat-button (click)="toggleActive(thread, false)">
                                 <mat-icon>archive</mat-icon>
                             </button>
                         </mat-card-actions>
@@ -24,7 +24,7 @@
                             <mat-card-title>{{thread.title}}</mat-card-title>
                         </mat-card-header>
                         <mat-card-actions>
-                            <button mat-flat-button (click)="toggleActive(thread.id, true)">
+                            <button mat-flat-button (click)="toggleActive(thread, true)">
                                 <mat-icon>unarchive</mat-icon>
                             </button>
                         </mat-card-actions>

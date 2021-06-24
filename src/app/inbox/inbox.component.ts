@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { BlocksService } from '../blocks.service';
 import { DialogAddMessageComponent } from '../dialog-add-message/dialog-add-message.component';
 import { DialogNewMessageComponent } from '../dialog-new-message/dialog-new-message.component';
 import { EstatesService } from '../estates.service';
@@ -29,8 +30,8 @@ export class InboxComponent implements OnInit {
     private dialog1: MatDialog,
     private dialog2: MatDialog,
     private estatesService: EstatesService,
-    private snackbar: MatSnackBar
-
+    private snackbar: MatSnackBar,
+    private blocksService: BlocksService
   ) { }
 
   ngOnInit(): void {
@@ -64,11 +65,13 @@ export class InboxComponent implements OnInit {
               this.messagesService.startThread(estate.id, estate.title, true, false, '', this.username, estate.ownerUsername, estate.ownerUsername, []).subscribe(response1 => {
                 this.messagesService.sendMessage(response1['id'], result, this.username, new Date().toISOString()).subscribe(response2 => {
                   if (response2['message'] == 'message sent') {
-                    this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
-                      horizontalPosition: 'center',
-                      verticalPosition: 'top',
+                    this.messagesService.toggleActive(response1['id'], true).subscribe(response3 => {
+                      this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
+                        horizontalPosition: 'center',
+                        verticalPosition: 'top',
+                      });
+                      window.location.reload();
                     });
-                    window.location.reload();
                   } else {
                     this.snackbar.open(response2['message'], 'U redu', {
                       horizontalPosition: 'center',
@@ -84,9 +87,29 @@ export class InboxComponent implements OnInit {
     })
   }
 
-  toggleActive(id, active) {
-    this.messagesService.toggleActive(id, active).subscribe(response => {
-      window.location.reload();
-    });
+  toggleActive(thread: Thread, active: boolean) {
+    if (active) {
+      this.blocksService.isBlocked(this.username, this.username != thread.user1 ? thread.user1 : thread.user2).subscribe(response1 => {
+        if (response1['message'] == 'user blocked') {
+          this.snackbar.open('Korisnik je blokiran, prvo ga odblokirajte!', 'U redu', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        } else if (response1['message'] == 'user is blocked') {
+          this.snackbar.open('Blokirani ste od strane korisnika, poruke se ne mogu aktivirati!', 'U redu', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+        } else {
+          this.messagesService.toggleActive(thread.id, active).subscribe(response2 => {
+            window.location.reload();
+          });
+        }
+      });
+    } else {
+      this.messagesService.toggleActive(thread.id, active).subscribe(response2 => {
+        window.location.reload();
+      });
+    }
   }
 }

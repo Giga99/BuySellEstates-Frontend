@@ -1,9 +1,15 @@
 <div style="margin-top: 5em; margin-left: auto; margin-right: auto; padding-bottom: 2em;">
-    <div style="margin-top: 2em; text-align: center; font-weight: bold; font-size: x-large;">
+    <div style="text-align: center; font-weight: bold; font-size: x-large;">
         <mat-label>{{thread.title}}</mat-label>
     </div>
-    <div style="margin-left: 2em;">
-        <button mat-button *ngIf="thread.estateOwner!=username" (click)="goToEstateInfo()">Daj ponudu</button>
+    <div style="margin-left: 2em; margin-top: 2em;">
+        <button mat-raised-button style="margin-left: 2em;" *ngIf="thread.estateOwner!=username && !blockedUser && !blockedByUser" (click)="goToEstateInfo()">Daj ponudu</button>
+        <button mat-raised-button style="margin-left: 2em;" *ngIf="!blockedUser && !blockedByUser" (click)="blockUnblockUser()">Blokiraj
+            korisnika</button>
+        <button mat-raised-button style="margin-left: 2em;" *ngIf="blockedUser" (click)="blockUnblockUser()">Odblokiraj korisnika</button>
+    </div>
+    <div style="margin-left: 2em;" *ngIf="blockedByUser">
+        <mat-label style="color: red;">Blokirani ste od strane korisnika!</mat-label>
     </div>
     <div style="display: flex; flex-direction: column; padding-left: 2em; padding-right: 2em;">
         <mat-card style="margin-top: 2em;" *ngFor="let message of thread.messages; let i = index" [ngStyle]="{'align-self': (message.sender == username) ? 'center' : 'start'}">
@@ -12,14 +18,16 @@
                 </mat-card-title>
                 <mat-card-subtitle>{{message.date.substring(0,10)}}</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-content><pre>{{message.text}}</pre></mat-card-content>
+            <mat-card-content>
+                <pre>{{message.text}}</pre>
+            </mat-card-content>
             <mat-card-actions *ngIf="message.isOffer && activeOffers[i] && thread.estateOwner == username">
                 <button mat-button (click)="answerOffer(message.offerId, true)">Prihvati ponudu</button>
                 <button mat-button (click)="answerOffer(message.offerId, false)">Odbij ponudu</button>
             </mat-card-actions>
         </mat-card>
     </div>
-    <div style="padding-left: 2em; padding-right: 2em; margin-top: 3em; margin-bottom: 3em; width: 100%;">
+    <div style="padding-left: 2em; padding-right: 2em; margin-top: 3em; margin-bottom: 3em; width: 100%;" *ngIf="!blockedUser && !blockedByUser">
         <form>
             <textarea style="width: 90%;" type="text" placeholder="Unesite poruku..." name="message" [(ngModel)]="message"></textarea>
             <button mat-flat-button style="width: fit-content; justify-content: center;" (click)="sendMessage()">

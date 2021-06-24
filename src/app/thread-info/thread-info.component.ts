@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BlocksService } from '../blocks.service';
 import { MessagesService } from '../messages.service';
 import { Thread } from '../models/thread';
 import { OffersService } from '../offers.service';
@@ -18,6 +19,8 @@ export class ThreadInfoComponent implements OnInit {
   thread: Thread;
   username: string;
   activeOffers = Array<boolean>();
+  blockedUser: boolean;
+  blockedByUser: boolean;
 
   message = "";
 
@@ -27,7 +30,8 @@ export class ThreadInfoComponent implements OnInit {
     private messagesService: MessagesService,
     private storage: StorageService,
     private offersService: OffersService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private blocksService: BlocksService
   ) {
     let user = this.storage.getUser();
     this.isAgent = user.userType == 'agent';
@@ -39,10 +43,16 @@ export class ThreadInfoComponent implements OnInit {
         this.messagesService.readMessage(this.id).subscribe((response) => {
         });
       }
+
       thread.messages.forEach((message) => {
         this.offersService.isOfferActive(message.offerId).subscribe((response) => {
           this.activeOffers.push(response['message'] == 'active offer exists');
         });
+      });
+
+      this.blocksService.isBlocked(this.username, this.username != this.thread.user1 ? this.thread.user1 : this.thread.user2).subscribe(response => {
+        this.blockedUser = response['message'] == 'user blocked';
+        this.blockedByUser = response['message'] == 'user is blocked';
       });
     });
   }
@@ -114,5 +124,22 @@ export class ThreadInfoComponent implements OnInit {
         });
       }
     }
+  }
+
+  blockUnblockUser() {
+    let usernameToBlock = this.username != this.thread.user1 ? this.thread.user1 : this.thread.user2
+    this.blocksService.blockUnblockUser(this.username, usernameToBlock).subscribe(response1 => {
+      if (response1['message'] == 'user blocked') {
+        this.messagesService.getAllThreadsForUser(this.username).subscribe((threads: Array<Thread>) => {
+          threads.forEach(thread => {
+            if (thread.user1 == usernameToBlock || thread.user2 == usernameToBlock) {
+              this.messagesService.toggleActive(thread.id, false).subscribe(response => {
+              });
+            }
+          });
+          window.location.reload();
+        });
+      } else window.location.reload();
+    });
   }
 }
