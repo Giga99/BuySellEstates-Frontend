@@ -46,6 +46,7 @@ import { RegistrationRequestsComponent } from './registration-requests/registrat
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { DialogAddMessageComponent } from './dialog-add-message/dialog-add-message.component';
+import { DialogNewMessageComponent } from './dialog-new-message/dialog-new-message.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { DialogAddMessageComponent } from './dialog-add-message/dialog-add-messa
     RegistrationRequestsComponent,
     EditUserComponent,
     AddUserComponent,
-    DialogAddMessageComponent
+    DialogAddMessageComponent,
+    DialogNewMessageComponent
   ],
   imports: [
     BrowserModule,

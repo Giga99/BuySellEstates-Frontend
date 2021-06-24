@@ -11,7 +11,7 @@
                     <mat-label class="row-label">Korisnicko ime:</mat-label>
                 </td>
                 <td>
-                    <input matInput type="text" name="username" formControlName='username' required>
+                    <input type="text" name="username" formControlName='username' required>
                     <mat-label class="error" *ngIf="loginForm.get('username').hasError('required') && submited">
                         *Korisnicko ime je obavezno
                     </mat-label>

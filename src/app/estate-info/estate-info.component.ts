@@ -13,7 +13,6 @@ import { DialogAddMessageComponent } from '../dialog-add-message/dialog-add-mess
 
 export class SendMessageDialogData {
   title: string;
-  message: string;
 }
 
 @Component({
@@ -52,7 +51,6 @@ export class EstateInfoComponent implements OnInit {
   ngOnInit(): void {
     let id = this.route.snapshot.paramMap.get('id');
 
-    console.log(this.cookieService.check(this.UPDATE_VIEWS));
     if (this.cookieService.check(this.UPDATE_VIEWS)) {
       this.estatesService.getEstateById(parseInt(id)).subscribe((estate: Estate) => {
         this.estate = estate
@@ -61,7 +59,6 @@ export class EstateInfoComponent implements OnInit {
     } else {
       this.estatesService.updateViews(parseInt(id)).subscribe(response => {
         this.cookieService.set(this.UPDATE_VIEWS, "true", 3);
-        console.log(this.cookieService.check(this.UPDATE_VIEWS));
         this.estatesService.getEstateById(parseInt(id)).subscribe((estate: Estate) => {
           this.estate = estate
           this.creditPrice = estate.priceToBuy * 120 / 100;

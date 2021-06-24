@@ -17,7 +17,7 @@
         <p *ngIf="estate.rentOrSale=='rent'">Cena: {{estate.priceToRent}}</p>
         <p>Vlasnik: {{estate.ownerUsername}}</p>
         <p>Broj pregleda: {{estate.views}}</p>
-        <button mat-raised-button (click)="sendMessage()">Kontaktiraj vlasnika</button>
+        <button mat-raised-button (click)="sendMessage()" *ngIf="estate.ownerUsername!=username">Kontaktiraj vlasnika</button>
     </div>
     <div style="width: 50%; height: 50%; margin-top: 2em; margin-left: auto; margin-right: auto; display: flex; justify-content: center;">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">

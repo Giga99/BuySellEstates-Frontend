@@ -1,0 +1,12 @@
+<h5 mat-dialog-title style="text-align: center;">Izaberite nekretninu za koju zelite da kontaktirate vlasnika:</h5>
+<mat-dialog-content style="text-align: center;">
+    <form>
+        <select style="width: 100%;" name="estate" [(ngModel)]="estateId" style="margin-top: 3em;">
+            <option style="width: 100%;" *ngFor="let estate of estates" value="{{estate.id}}">{{estate.title}}</option>
+        </select>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close>Odustani</button>
+    <button mat-raised-button mat-dialog-close="{{estateId}}">Nastavi dalje</button>
+</mat-dialog-actions>
