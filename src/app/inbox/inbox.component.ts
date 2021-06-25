@@ -39,8 +39,8 @@ export class InboxComponent implements OnInit {
     let user = this.storage.getUser()
     this.username = user.userType == 'agent' ? user.agency : user.username;
     this.messagesService.getAllThreadsForUser(this.username).subscribe((threads: Array<Thread>) => {
-      this.activeThreads = threads.filter(thread => thread.active);
-      this.archivedThreads = threads.filter(thread => !thread.active);
+      this.activeThreads = threads.filter(thread => (thread.user1 == this.username && thread.active1) || (thread.user2 == this.username && thread.active2));
+      this.archivedThreads = threads.filter(thread => (thread.user1 == this.username && !thread.active1) || (thread.user2 == this.username && !thread.active2));
 
       this.activeThreads.forEach((thread) => {
         this.showRedDotActive.push(!thread.read && thread.messages[thread.messages.length - 1].sender != this.username)
@@ -70,12 +70,14 @@ export class InboxComponent implements OnInit {
               this.messagesService.startThread(estate.id, estate.title, true, false, '', this.username, estate.ownerUsername, estate.ownerUsername, []).subscribe(response1 => {
                 this.messagesService.sendMessage(response1['id'], result, this.username, new Date().toISOString()).subscribe(response2 => {
                   if (response2['message'] == 'message sent') {
-                    this.messagesService.toggleActive(response1['id'], true).subscribe(response3 => {
-                      this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
-                        horizontalPosition: 'center',
-                        verticalPosition: 'top',
+                    this.messagesService.getThreadById(response1['id']).subscribe((thread: Thread) => {
+                      this.messagesService.toggleActive(response1['id'], this.username == thread.user1, true).subscribe(response3 => {
+                        this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
+                          horizontalPosition: 'center',
+                          verticalPosition: 'top',
+                        });
+                        window.location.reload();
                       });
-                      window.location.reload();
                     });
                   } else {
                     this.snackbar.open(response2['message'], 'U redu', {
@@ -106,13 +108,13 @@ export class InboxComponent implements OnInit {
             verticalPosition: 'top',
           });
         } else {
-          this.messagesService.toggleActive(thread.id, active).subscribe(response2 => {
+          this.messagesService.toggleActive(thread.id, this.username == thread.user1, active).subscribe(response2 => {
             window.location.reload();
           });
         }
       });
     } else {
-      this.messagesService.toggleActive(thread.id, active).subscribe(response2 => {
+      this.messagesService.toggleActive(thread.id, this.username == thread.user1, active).subscribe(response2 => {
         window.location.reload();
       });
     }

@@ -4,7 +4,8 @@ export class Thread {
     id: number;
     estateId: number;
     title: string;
-    active: boolean;
+    active1: boolean;
+    active2: boolean;
     read: boolean;
     lastMessageDate: string;
     user1: string;

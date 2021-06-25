@@ -74,9 +74,10 @@ export class MessagesService {
     return this.http.post(`${Constants.URI}/messages/readMessage`, data);
   }
   
-  toggleActive(id, active) {
+  toggleActive(id, isUser1, active) {
     const data = {
       id: id,
+      isUser1: isUser1,
       active: active
     }
 

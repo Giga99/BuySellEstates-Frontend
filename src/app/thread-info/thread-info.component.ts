@@ -102,8 +102,8 @@ export class ThreadInfoComponent implements OnInit {
 
   sendMessage() {
     if (this.message != "") {
-      if (!this.thread.active) {
-        this.messagesService.toggleActive(this.thread.id, true).subscribe(response1 => {
+      if ((this.username == this.thread.user1 && !this.thread.active1) || (this.username == this.thread.user2 && !this.thread.active2)) {
+        this.messagesService.toggleActive(this.thread.id, this.username == this.thread.user1, true).subscribe(response1 => {
           this.messagesService.sendMessage(this.thread.id, this.message, this.username, new Date().toISOString()).subscribe(response2 => {
             this.message = "";
             if (response2['message'] == 'message sent') {
@@ -133,7 +133,7 @@ export class ThreadInfoComponent implements OnInit {
         this.messagesService.getAllThreadsForUser(this.username).subscribe((threads: Array<Thread>) => {
           threads.forEach(thread => {
             if (thread.user1 == usernameToBlock || thread.user2 == usernameToBlock) {
-              this.messagesService.toggleActive(thread.id, false).subscribe(response => {
+              this.messagesService.toggleActive(thread.id, this.username == thread.user1, false).subscribe(response => {
               });
             }
           });

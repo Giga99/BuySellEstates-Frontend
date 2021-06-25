@@ -11,6 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddMessageComponent } from '../dialog-add-message/dialog-add-message.component';
 import { BlocksService } from '../blocks.service';
+import { Thread } from '../models/thread';
 
 export class SendMessageDialogData {
   title: string;
@@ -50,14 +51,16 @@ export class EstateInfoComponent implements OnInit {
     private snackbar: MatSnackBar,
     private cookieService: CookieService,
     private dialog: MatDialog,
-    private blocksService: BlocksService
+    private blocksService: BlocksService,
   ) { }
 
   ngOnInit(): void {
     let id = this.route.snapshot.paramMap.get('id');
+    this.username = this.storage.getUser().username;
+    this.userType = this.storage.getUser().userType;
 
-    if (this.cookieService.check(this.UPDATE_VIEWS)) {
-      this.estatesService.getEstateById(parseInt(id)).subscribe((estate: Estate) => {
+    this.estatesService.getEstateById(parseInt(id)).subscribe((estate: Estate) => {
+      if (this.cookieService.check(this.username + "/" + id) || estate.ownerUsername == this.username) {
         this.estate = estate
         this.creditPrice = estate.priceToBuy * 120 / 100;
 
@@ -65,23 +68,21 @@ export class EstateInfoComponent implements OnInit {
           this.blockedUser = response['message'] == 'user blocked';
           this.blockedByUser = response['message'] == 'user is blocked';
         });
-      });
-    } else {
-      this.estatesService.updateViews(parseInt(id)).subscribe(response => {
-        this.cookieService.set(this.UPDATE_VIEWS, "true", 3);
-        this.estatesService.getEstateById(parseInt(id)).subscribe((estate: Estate) => {
-          this.estate = estate
-          this.creditPrice = estate.priceToBuy * 120 / 100;
+      } else {
+        this.estatesService.updateViews(parseInt(id)).subscribe(response => {
+          this.cookieService.set(this.username + "/" + id, "true", 3);
+          this.estatesService.getEstateById(parseInt(id)).subscribe((estate2: Estate) => {
+            this.estate = estate2
+            this.creditPrice = estate.priceToBuy * 120 / 100;
 
-          this.blocksService.isBlocked(this.username, this.estate.ownerUsername).subscribe(response => {
-            this.blockedUser = response['message'] == 'user blocked';
-            this.blockedByUser = response['message'] == 'user is blocked';
+            this.blocksService.isBlocked(this.username, this.estate.ownerUsername).subscribe(response => {
+              this.blockedUser = response['message'] == 'user blocked';
+              this.blockedByUser = response['message'] == 'user is blocked';
+            });
           });
-        });
-      })
-    }
-    this.username = this.storage.getUser().username;
-    this.userType = this.storage.getUser().userType;
+        })
+      }
+    });
   }
 
   sendOffer() {
@@ -95,8 +96,13 @@ export class EstateInfoComponent implements OnInit {
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
-    } else if (this.cashOrCredit == '') {
+    } else if (this.cashOrCredit == '' && this.estate.rentOrSale == 'sale') {
       this.snackbar.open('Izaberite nacin placanja!', 'U redu', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else if ((this.date.value['start'] == null || this.date.value['end'] == null) && this.estate.rentOrSale == 'rent') {
+      this.snackbar.open('Izaberite datum od i datum do!', 'U redu', {
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
@@ -111,9 +117,13 @@ export class EstateInfoComponent implements OnInit {
           this.offersService.sendOffer(this.estate.id, this.estate.title, this.estate.ownerUsername, this.username, -1, -1, this.cashOrCredit == 'cash' ? this.estate.priceToBuy : this.creditPrice).subscribe((response1) => {
             this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe((response2) => {
               this.messagesService.sendMessageOffer(response2['id'], 'Korisnik: ' + this.username + ' zeli da kupi nekretninu: ' + this.estate.title, this.username, new Date().toISOString(), -1, -1, response1['offerId']).subscribe((response3) => {
-                this.snackbar.open('Ponuda uspesno poslata', 'U redu', {
-                  horizontalPosition: 'center',
-                  verticalPosition: 'top',
+                this.messagesService.getThreadById(response2['id']).subscribe((thread: Thread) => {
+                  this.messagesService.toggleActive(thread.id, this.username == thread.user1, true).subscribe(response4 => {
+                    this.snackbar.open('Ponuda uspesno poslata', 'U redu', {
+                      horizontalPosition: 'center',
+                      verticalPosition: 'top',
+                    });
+                  });
                 });
               });
             });
@@ -128,9 +138,13 @@ export class EstateInfoComponent implements OnInit {
           this.offersService.sendOffer(this.estate.id, this.estate.title, this.estate.ownerUsername, this.username, dateFrom, dateTo, this.estate.priceToRent).subscribe((response2) => {
             this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe((response3) => {
               this.messagesService.sendMessageOffer(response3['id'], 'Korisnik: ' + this.username + ' zeli da iznajmi vasu nekretninu: ' + this.estate.title + ' u periodu od ' + dateFrom + ' do ' + dateTo, this.username, new Date().toISOString(), dateFrom, dateTo, response2['offerId']).subscribe((response4) => {
-                this.snackbar.open('Ponuda uspesno poslata', 'U redu', {
-                  horizontalPosition: 'center',
-                  verticalPosition: 'top',
+                this.messagesService.getThreadById(response3['id']).subscribe((thread: Thread) => {
+                  this.messagesService.toggleActive(thread.id, this.username == thread.user1, true).subscribe(response5 => {
+                    this.snackbar.open('Ponuda uspesno poslata', 'U redu', {
+                      horizontalPosition: 'center',
+                      verticalPosition: 'top',
+                    });
+                  });
                 });
               });
             });
@@ -165,9 +179,13 @@ export class EstateInfoComponent implements OnInit {
           this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe(response1 => {
             this.messagesService.sendMessage(response1['id'], result, this.username, new Date().toISOString()).subscribe(response2 => {
               if (response2['message'] == 'message sent') {
-                this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
-                  horizontalPosition: 'center',
-                  verticalPosition: 'top',
+                this.messagesService.getThreadById(response1['id']).subscribe((thread: Thread) => {
+                  this.messagesService.toggleActive(thread.id, this.username == thread.user1, true).subscribe(response3 => {
+                    this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
+                      horizontalPosition: 'center',
+                      verticalPosition: 'top',
+                    });
+                  });
                 });
               } else {
                 this.snackbar.open(response2['message'], 'U redu', {
