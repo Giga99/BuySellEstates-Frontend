@@ -13,6 +13,7 @@ import { StorageService } from '../storage.service';
 export class UserEstatesComponent implements OnInit {
 
   estates: Array<Estate>;
+  user: User;
 
   constructor(
     private estatesService: EstatesService,
@@ -21,11 +22,10 @@ export class UserEstatesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let user = this.storage.getUser()
-    let username = user.userType == 'agent' ? user.agency : user.username;
+    this.user = this.storage.getUser()
+    let username = this.user.userType == 'agent' ? this.user.agency : this.user.username;
     this.estatesService.getUserEstates(username).subscribe((estates: Array<Estate>) => {
-      console.log(estates);
-      this.estates = estates;
+      this.estates = estates.filter(estate => estate.approved);
     })
   }
 

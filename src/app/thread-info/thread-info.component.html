@@ -12,14 +12,14 @@
         <mat-label style="color: red;">Blokirani ste od strane korisnika!</mat-label>
     </div>
     <div style="display: flex; flex-direction: column; padding-left: 2em; padding-right: 2em;">
-        <mat-card style="margin-top: 2em;" *ngFor="let message of thread.messages; let i = index" [ngStyle]="{'align-self': (message.sender == username) ? 'center' : 'start'}">
+        <mat-card style="margin-top: 2em; width: 80%;" *ngFor="let message of thread.messages; let i = index" [ngStyle]="{'align-self': (message.sender == username) ? 'center' : 'start'}">
             <mat-card-header>
                 <mat-card-title>{{(message.sender == thread.estateOwner) ? 'Vlasnik' : message.sender }}
                 </mat-card-title>
                 <mat-card-subtitle>{{message.date.substring(0,10)}}</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-content>
-                <pre>{{message.text}}</pre>
+            <mat-card-content style="width: 100%;">
+                <pre style="width: 100%;">{{message.text}}</pre>
             </mat-card-content>
             <mat-card-actions *ngIf="message.isOffer && activeOffers[i] && thread.estateOwner == username">
                 <button mat-button (click)="answerOffer(message.offerId, true)">Prihvati ponudu</button>

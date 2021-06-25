@@ -48,9 +48,6 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { DialogAddMessageComponent } from './dialog-add-message/dialog-add-message.component';
 import { DialogNewMessageComponent } from './dialog-new-message/dialog-new-message.component';
-import { AdminGuard } from './admin.guard';
-import { AgentGuard } from './agent.guard';
-import { UserGuard } from './user.guard';
 
 @NgModule({
   declarations: [
@@ -106,10 +103,7 @@ import { UserGuard } from './user.guard';
     NgbModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'de-DE' },
-    AdminGuard,
-    AgentGuard,
-    UserGuard
+    { provide: LOCALE_ID, useValue: 'de-DE' }
   ],
   bootstrap: [AppComponent]
 })
