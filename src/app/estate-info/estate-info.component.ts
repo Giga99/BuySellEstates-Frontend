@@ -38,6 +38,9 @@ export class EstateInfoComponent implements OnInit {
 
   message: string;
 
+  blockedUser: boolean;
+  blockedByUser: boolean;
+
   constructor(
     private estatesService: EstatesService,
     private route: ActivatedRoute,
@@ -57,6 +60,11 @@ export class EstateInfoComponent implements OnInit {
       this.estatesService.getEstateById(parseInt(id)).subscribe((estate: Estate) => {
         this.estate = estate
         this.creditPrice = estate.priceToBuy * 120 / 100;
+
+        this.blocksService.isBlocked(this.username, this.estate.ownerUsername).subscribe(response => {
+          this.blockedUser = response['message'] == 'user blocked';
+          this.blockedByUser = response['message'] == 'user is blocked';
+        });
       });
     } else {
       this.estatesService.updateViews(parseInt(id)).subscribe(response => {
@@ -64,6 +72,11 @@ export class EstateInfoComponent implements OnInit {
         this.estatesService.getEstateById(parseInt(id)).subscribe((estate: Estate) => {
           this.estate = estate
           this.creditPrice = estate.priceToBuy * 120 / 100;
+
+          this.blocksService.isBlocked(this.username, this.estate.ownerUsername).subscribe(response => {
+            this.blockedUser = response['message'] == 'user blocked';
+            this.blockedByUser = response['message'] == 'user is blocked';
+          });
         });
       })
     }
@@ -72,7 +85,17 @@ export class EstateInfoComponent implements OnInit {
   }
 
   sendOffer() {
-    if (this.cashOrCredit == '') {
+    if (this.blockedUser) {
+      this.snackbar.open('Korisnik je blokiran, prvo ga odblokirajte!', 'U redu', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else if (this.blockedByUser) {
+      this.snackbar.open('Blokirani ste od strane korisnika, ponuda se ne moze poslati!', 'U redu', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else if (this.cashOrCredit == '') {
       this.snackbar.open('Izaberite nacin placanja!', 'U redu', {
         horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -123,41 +146,39 @@ export class EstateInfoComponent implements OnInit {
   }
 
   sendMessage() {
-    this.blocksService.isBlocked(this.username, this.estate.ownerUsername).subscribe(response1 => {
-      if (response1['message'] == 'user blocked') {
-        this.snackbar.open('Korisnik je blokiran, prvo ga odblokirajte!', 'U redu', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      } else if (response1['message'] == 'user is blocked') {
-        this.snackbar.open('Blokirani ste od strane korisnika, poruke se ne mogu poslati!', 'U redu', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-      } else {
-        this.dialog.open(DialogAddMessageComponent, {
-          width: '50%',
-          data: { title: this.estate.title, message: this.message }
-        }).afterClosed().subscribe(result => {
-          if (result != undefined) {
-            this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe(response1 => {
-              this.messagesService.sendMessage(response1['id'], result, this.username, new Date().toISOString()).subscribe(response2 => {
-                if (response2['message'] == 'message sent') {
-                  this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
-                    horizontalPosition: 'center',
-                    verticalPosition: 'top',
-                  });
-                } else {
-                  this.snackbar.open(response2['message'], 'U redu', {
-                    horizontalPosition: 'center',
-                    verticalPosition: 'top',
-                  });
-                }
-              });
+    if (this.blockedUser) {
+      this.snackbar.open('Korisnik je blokiran, prvo ga odblokirajte!', 'U redu', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else if (this.blockedByUser) {
+      this.snackbar.open('Blokirani ste od strane korisnika, poruke se ne mogu poslati!', 'U redu', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      this.dialog.open(DialogAddMessageComponent, {
+        width: '50%',
+        data: { title: this.estate.title, message: this.message }
+      }).afterClosed().subscribe(result => {
+        if (result != undefined) {
+          this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe(response1 => {
+            this.messagesService.sendMessage(response1['id'], result, this.username, new Date().toISOString()).subscribe(response2 => {
+              if (response2['message'] == 'message sent') {
+                this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                });
+              } else {
+                this.snackbar.open(response2['message'], 'U redu', {
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                });
+              }
             });
-          }
-        });
-      }
-    });
+          });
+        }
+      });
+    }
   }
 }
