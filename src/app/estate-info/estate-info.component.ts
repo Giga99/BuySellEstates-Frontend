@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddMessageComponent } from '../dialog-add-message/dialog-add-message.component';
+import { BlocksService } from '../blocks.service';
 
 export class SendMessageDialogData {
   title: string;
@@ -45,7 +46,8 @@ export class EstateInfoComponent implements OnInit {
     private storage: StorageService,
     private snackbar: MatSnackBar,
     private cookieService: CookieService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private blocksService: BlocksService
   ) { }
 
   ngOnInit(): void {
@@ -121,25 +123,39 @@ export class EstateInfoComponent implements OnInit {
   }
 
   sendMessage() {
-    this.dialog.open(DialogAddMessageComponent, {
-      width: '50%',
-      data: { title: this.estate.title, message: this.message }
-    }).afterClosed().subscribe(result => {
-      if (result != undefined) {
-        this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe(response1 => {
-          this.messagesService.sendMessage(response1['id'], result, this.username, new Date().toISOString()).subscribe(response2 => {
-            if (response2['message'] == 'message sent') {
-              this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
+    this.blocksService.isBlocked(this.username, this.estate.ownerUsername).subscribe(response1 => {
+      if (response1['message'] == 'user blocked') {
+        this.snackbar.open('Korisnik je blokiran, prvo ga odblokirajte!', 'U redu', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      } else if (response1['message'] == 'user is blocked') {
+        this.snackbar.open('Blokirani ste od strane korisnika, poruke se ne mogu poslati!', 'U redu', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      } else {
+        this.dialog.open(DialogAddMessageComponent, {
+          width: '50%',
+          data: { title: this.estate.title, message: this.message }
+        }).afterClosed().subscribe(result => {
+          if (result != undefined) {
+            this.messagesService.startThread(this.estate.id, this.estate.title, true, false, '', this.username, this.estate.ownerUsername, this.estate.ownerUsername, []).subscribe(response1 => {
+              this.messagesService.sendMessage(response1['id'], result, this.username, new Date().toISOString()).subscribe(response2 => {
+                if (response2['message'] == 'message sent') {
+                  this.snackbar.open('Poruka uspesno poslata!', 'U redu', {
+                    horizontalPosition: 'center',
+                    verticalPosition: 'top',
+                  });
+                } else {
+                  this.snackbar.open(response2['message'], 'U redu', {
+                    horizontalPosition: 'center',
+                    verticalPosition: 'top',
+                  });
+                }
               });
-            } else {
-              this.snackbar.open(response2['message'], 'U redu', {
-                horizontalPosition: 'center',
-                verticalPosition: 'top',
-              });
-            }
-          });
+            });
+          }
         });
       }
     });
