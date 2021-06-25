@@ -21,7 +21,8 @@ export class InboxComponent implements OnInit {
   username: string;
   activeThreads: Array<Thread>;
   archivedThreads: Array<Thread>;
-  showRedDot = [];
+  showRedDotActive = [];
+  showRedDotArchive = [];
 
   constructor(
     private storage: StorageService,
@@ -41,8 +42,12 @@ export class InboxComponent implements OnInit {
       this.activeThreads = threads.filter(thread => thread.active);
       this.archivedThreads = threads.filter(thread => !thread.active);
 
-      threads.forEach((thread) => {
-        this.showRedDot.push(!thread.read && thread.messages[thread.messages.length - 1].sender != this.username)
+      this.activeThreads.forEach((thread) => {
+        this.showRedDotActive.push(!thread.read && thread.messages[thread.messages.length - 1].sender != this.username)
+      });
+
+      this.archivedThreads.forEach((thread) => {
+        this.showRedDotArchive.push(!thread.read && thread.messages[thread.messages.length - 1].sender != this.username)
       });
     })
   }
