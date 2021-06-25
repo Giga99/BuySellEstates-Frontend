@@ -43,7 +43,7 @@ const routes: Routes = [
       { path: 'changePassword', component: ChangePasswordComponent, canActivate: [SettingsGuard] }
     ]
   },
-  { path: 'userEstates', component: UserEstatesComponent, canActivate: [SettingsGuard] },
+  { path: 'userEstates', component: UserEstatesComponent, canActivate: [AuthGuard] },
   { path: 'addEstate', component: AddEstateComponent, canActivate: [AuthGuard] },
   { path: 'editEstate/:id', component: EditEstateComponent, canActivate: [AuthGuard] },
   {

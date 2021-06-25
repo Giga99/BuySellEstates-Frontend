@@ -1,5 +1,7 @@
 <div style="padding-bottom: 2em;">
-    <h1 style="margin-top: 5em; text-align: center; font-weight: bold; font-size: 2em;">Vase nekretnine</h1>
+    <h1 style="margin-top: 5em; text-align: center; font-weight: bold; font-size: 2em;">
+        {{user.userType=='agent' ? 'Nekretnine agencije' : 'Vase nekretnine'}}
+    </h1>
     <div style="margin-top: 5em; margin-left: auto; margin-right: auto;" *ngIf='estates'>
         <a *ngFor="let estate of estates" (click)="navigateToInfo(estate.id)">
             <mat-card style="width: 50%; height: 50%; margin-top: 2em; margin-left: auto; margin-right: auto;">
