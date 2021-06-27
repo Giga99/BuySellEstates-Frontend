@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FilesService } from '../files.service';
 import { User } from '../models/User';
@@ -24,7 +25,8 @@ export class UpdateUserInfoComponent implements OnInit {
     private storage: StorageService,
     private usersService: UsersService,
     private router: Router,
-    private filesService: FilesService
+    private filesService: FilesService,
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -44,18 +46,59 @@ export class UpdateUserInfoComponent implements OnInit {
   }
 
   updateInfo() {
-    this.filesService.uploadSingleFile(this.image).subscribe((response) => {
-      let path: string = response['path'];
-      this.usersService.updateUserInfo(this.user.username, this.firstname, this.lastname, this.city, this.country, "../.." + path.substring(19).replace("\\", "/").replace("\\", "/").replace("\\", "/")).subscribe((res) => {
+    if (this.image != undefined) {
+      this.filesService.uploadSingleFile(this.image).subscribe((response) => {
+        let path: string = response['path'];
+        this.usersService.updateUserInfo(this.user.username, this.firstname, this.lastname, this.city, this.country, "../.." + path.substring(19).replace("\\", "/").replace("\\", "/").replace("\\", "/")).subscribe((res) => {
+          if (res['message'] == 'user info updated') {
+            this.usersService.getUserByUsername(this.user.username).subscribe((user: User) => {
+              if (user) {
+                this.storage.setUser(user);
+                this.snackbar.open('Uspesno izmenjeni korisnicki podaci', 'U redu', {
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                });
+                this.router.navigate(['..']);
+              } else {
+                this.snackbar.open(user['message'], 'U redu', {
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top',
+                });
+              }
+            })
+          } else {
+            this.snackbar.open(res['message'], 'U redu', {
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+          }
+        });
+      });
+    } else {
+      this.usersService.updateUserInfo(this.user.username, this.firstname, this.lastname, this.city, this.country, "../../assets/users/personPlaceHolder.jpg").subscribe((res) => {
         if (res['message'] == 'user info updated') {
           this.usersService.getUserByUsername(this.user.username).subscribe((user: User) => {
             if (user) {
               this.storage.setUser(user);
+              this.snackbar.open('Uspesno izmenjeni korisnicki podaci', 'U redu', {
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
               this.router.navigate(['..']);
-            } else console.log(user['message'])
+            } else {
+              this.snackbar.open(user['message'], 'U redu', {
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              });
+            }
           })
+        } else {
+          this.snackbar.open(res['message'], 'U redu', {
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
         }
       });
-    });
+    }
   }
 }
