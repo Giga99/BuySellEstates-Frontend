@@ -19,7 +19,7 @@ export class UpdateUserInfoComponent implements OnInit {
   city: string;
   country: string;
   profileImage: string;
-  image
+  image;
 
   constructor(
     private storage: StorageService,
@@ -75,7 +75,7 @@ export class UpdateUserInfoComponent implements OnInit {
         });
       });
     } else {
-      this.usersService.updateUserInfo(this.user.username, this.firstname, this.lastname, this.city, this.country, "../../assets/users/personPlaceHolder.jpg").subscribe((res) => {
+      this.usersService.updateUserInfo(this.user.username, this.firstname, this.lastname, this.city, this.country, this.profileImage).subscribe((res) => {
         if (res['message'] == 'user info updated') {
           this.usersService.getUserByUsername(this.user.username).subscribe((user: User) => {
             if (user) {
