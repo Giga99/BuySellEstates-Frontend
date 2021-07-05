@@ -1,0 +1,500 @@
+{
+    "_id" : ObjectId("60c93df8e662944774ae6240"),
+    "active1" : true,
+    "active2" : true,
+    "messages" : [ 
+        {
+            "id" : 1,
+            "text" : "Korisnik: Giga999 zeli da kupi nekretninu: Nekretnina1",
+            "sender" : "Giga999",
+            "date" : "2021-06-15T23:55:36.779Z",
+            "isOffer" : true,
+            "dateFrom" : -1,
+            "dateTo" : -1,
+            "offerId" : 1
+        }, 
+        {
+            "id" : 2,
+            "text" : "Korisnik: Giga999 zeli da kupi nekretninu: Nekretnina1",
+            "sender" : "Giga999",
+            "date" : "2021-06-15T23:56:40.049Z",
+            "isOffer" : true,
+            "dateFrom" : -1,
+            "dateTo" : -1,
+            "offerId" : 4
+        }, 
+        {
+            "id" : 3,
+            "text" : "Zdravo",
+            "sender" : "Giga999",
+            "date" : "2021-06-24T16:44:43.483Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 4,
+            "text" : "Zdravo",
+            "sender" : "Giga99",
+            "date" : "2021-06-24T18:40:40.975Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 5,
+            "text" : "hello",
+            "sender" : "Giga99",
+            "date" : "2021-06-24T18:44:46.248Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 6,
+            "text" : "hello",
+            "sender" : "Giga99",
+            "date" : "2021-06-24T18:45:55.205Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 7,
+            "text" : "123",
+            "sender" : "Giga999",
+            "date" : "2021-06-25T00:12:35.945Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 8,
+            "text" : "Test",
+            "sender" : "Giga999",
+            "date" : "2021-06-25T20:42:03.868Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }
+    ],
+    "estateId" : 1,
+    "title" : "Nekretnina1",
+    "read" : true,
+    "lastMessageDate" : "2021-06-25T20:42:03.868Z",
+    "user1" : "Giga999",
+    "user2" : "Giga99",
+    "estateOwner" : "Giga99",
+    "id" : 1,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("60c93e0fe662944774ae6242"),
+    "active1" : true,
+    "active2" : true,
+    "messages" : [ 
+        {
+            "id" : 1,
+            "text" : "Korisnik: Giga999 zeli da iznajmi vasu nekretninu: Nekretnina2 u periodu od 2021-06-16 do 2021-06-23",
+            "sender" : "Giga999",
+            "date" : "2021-06-15T23:55:59.439Z",
+            "isOffer" : true,
+            "dateFrom" : "2021-06-16",
+            "dateTo" : "2021-06-23",
+            "offerId" : 2
+        }, 
+        {
+            "id" : 2,
+            "text" : "Korisnik: Giga999 zeli da iznajmi vasu nekretninu: Nekretnina2 u periodu od 2021-06-29 do 2021-07-30",
+            "sender" : "Giga999",
+            "date" : "2021-06-25T20:45:14.688Z",
+            "isOffer" : true,
+            "dateFrom" : "2021-06-29",
+            "dateTo" : "2021-07-30",
+            "offerId" : 11
+        }, 
+        {
+            "id" : 3,
+            "text" : "Korisnik: Giga999 zeli da iznajmi vasu nekretninu: Nekretnina2 u periodu od 2021-06-25 do 2021-06-29",
+            "sender" : "Giga999",
+            "date" : "2021-06-25T20:50:28.991Z",
+            "isOffer" : true,
+            "dateFrom" : "2021-06-25",
+            "dateTo" : "2021-06-29",
+            "offerId" : 12
+        }
+    ],
+    "estateId" : 2,
+    "title" : "Nekretnina2",
+    "read" : true,
+    "lastMessageDate" : "2021-06-25T20:50:28.991Z",
+    "user1" : "Giga999",
+    "user2" : "Giga99",
+    "estateOwner" : "Giga99",
+    "id" : 2,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("60c93e2de662944774ae6244"),
+    "active1" : true,
+    "active2" : true,
+    "messages" : [ 
+        {
+            "id" : 1,
+            "text" : "Korisnik: Giga999 zeli da kupi nekretninu: Nekretnina4",
+            "sender" : "Giga999",
+            "date" : "2021-06-15T23:56:29.720Z",
+            "isOffer" : true,
+            "dateFrom" : -1,
+            "dateTo" : -1,
+            "offerId" : 3
+        }, 
+        {
+            "id" : 2,
+            "text" : "Korisnik: Giga999 zeli da kupi nekretninu: Nekretnina4",
+            "sender" : "Giga999",
+            "date" : "2021-06-15T23:56:56.048Z",
+            "isOffer" : true,
+            "dateFrom" : -1,
+            "dateTo" : -1,
+            "offerId" : 5
+        }
+    ],
+    "estateId" : 4,
+    "title" : "Nekretnina4",
+    "read" : true,
+    "lastMessageDate" : "2021-06-15T23:56:56.048Z",
+    "user1" : "Giga999",
+    "user2" : "Giga99",
+    "estateOwner" : "Giga99",
+    "id" : 3,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("60cfb818af698c4814c9c238"),
+    "active1" : false,
+    "active2" : false,
+    "messages" : [ 
+        {
+            "id" : 1,
+            "text" : "Korisnik: Giga99 zeli da iznajmi vasu nekretninu: Nekretnina6 u periodu od 2021-06-24 do 2021-07-24",
+            "sender" : "Giga99",
+            "date" : "2021-06-20T21:50:16.876Z",
+            "isOffer" : true,
+            "dateFrom" : "2021-06-24",
+            "dateTo" : "2021-07-24",
+            "offerId" : 6
+        }
+    ],
+    "estateId" : 6,
+    "title" : "Nekretnina6",
+    "read" : true,
+    "lastMessageDate" : "2021-06-20T21:50:16.876Z",
+    "user1" : "Giga99",
+    "user2" : "Giga999",
+    "estateOwner" : "Giga999",
+    "id" : 4,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("60cfba4faf698c4814c9c23a"),
+    "active1" : false,
+    "active2" : true,
+    "messages" : [ 
+        {
+            "id" : 1,
+            "text" : "Korisnik: Giga99 zeli da kupi nekretninu: Nekretnina7",
+            "sender" : "Giga99",
+            "date" : "2021-06-20T21:59:43.774Z",
+            "isOffer" : true,
+            "dateFrom" : -1,
+            "dateTo" : -1,
+            "offerId" : 7
+        }
+    ],
+    "estateId" : 7,
+    "title" : "Nekretnina7",
+    "read" : true,
+    "lastMessageDate" : "2021-06-20T21:59:43.774Z",
+    "user1" : "Giga99",
+    "user2" : "Giga999",
+    "estateOwner" : "Giga999",
+    "id" : 5,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("60d0fd0faf6dcd4a90c4d948"),
+    "active1" : true,
+    "active2" : true,
+    "messages" : [ 
+        {
+            "id" : 1,
+            "text" : "Korisnik: Giga99 zeli da kupi nekretninu: Nekretnina10",
+            "sender" : "Giga99",
+            "date" : "2021-06-21T20:56:47.298Z",
+            "isOffer" : true,
+            "dateFrom" : -1,
+            "dateTo" : -1,
+            "offerId" : 8
+        }, 
+        {
+            "id" : 2,
+            "text" : "hello",
+            "sender" : "Giga99",
+            "date" : "2021-06-23T23:44:18.664Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 3,
+            "text" : "Zdravo",
+            "sender" : "Giga99",
+            "date" : "2021-06-23T23:44:28.458Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 4,
+            "text" : "Zdravo",
+            "sender" : "agency1",
+            "date" : "2021-06-24T19:59:35.150Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 5,
+            "text" : "Zdravo2",
+            "sender" : "agency1",
+            "date" : "2021-06-24T20:00:00.020Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 6,
+            "text" : "adasdasdasd\nadsasdasdasd",
+            "sender" : "Giga99",
+            "date" : "2021-06-24T20:23:57.422Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 7,
+            "text" : "Adadas\nasdad\n",
+            "sender" : "Giga99",
+            "date" : "2021-06-24T20:39:54.971Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }
+    ],
+    "estateId" : 10,
+    "title" : "Nekretnina10",
+    "read" : false,
+    "lastMessageDate" : "2021-06-24T20:39:54.971Z",
+    "user1" : "Giga99",
+    "user2" : "agency1",
+    "estateOwner" : "agency1",
+    "id" : 6,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("60d0fdc1af6dcd4a90c4d94a"),
+    "active1" : true,
+    "active2" : true,
+    "messages" : [ 
+        {
+            "id" : 1,
+            "text" : "Korisnik: Giga999 zeli da kupi nekretninu: Nekretnina10",
+            "sender" : "Giga999",
+            "date" : "2021-06-21T20:59:45.973Z",
+            "isOffer" : true,
+            "dateFrom" : -1,
+            "dateTo" : -1,
+            "offerId" : 9
+        }, 
+        {
+            "id" : 2,
+            "text" : "Zdravo",
+            "sender" : "Giga999",
+            "date" : "2021-06-23T21:40:32.430Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 3,
+            "text" : "Test",
+            "sender" : "Giga999",
+            "date" : "2021-06-23T21:42:38.020Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 4,
+            "text" : "Zdravo",
+            "sender" : "agency1",
+            "date" : "2021-06-23T21:47:52.183Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 5,
+            "text" : "Test2",
+            "sender" : "agency1",
+            "date" : "2021-06-23T21:48:45.033Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 6,
+            "text" : "Test3",
+            "sender" : "agency1",
+            "date" : "2021-06-23T21:49:11.179Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 7,
+            "text" : "hello",
+            "sender" : "Giga999",
+            "date" : "2021-06-23T22:11:25.063Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }, 
+        {
+            "id" : 8,
+            "text" : "asdadasd",
+            "sender" : "Giga999",
+            "date" : "2021-06-23T22:25:36.604Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }
+    ],
+    "estateId" : 10,
+    "title" : "Nekretnina10",
+    "read" : true,
+    "lastMessageDate" : "2021-06-23T22:25:36.604Z",
+    "user1" : "Giga999",
+    "user2" : "agency1",
+    "estateOwner" : "agency1",
+    "id" : 7,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("60d11c2f23083b2d5007f923"),
+    "active1" : true,
+    "active2" : true,
+    "messages" : [ 
+        {
+            "id" : 1,
+            "text" : "Korisnik: Giga99 zeli da kupi nekretninu: Nekretnina5",
+            "sender" : "Giga99",
+            "date" : "2021-06-21T23:09:35.061Z",
+            "isOffer" : true,
+            "dateFrom" : -1,
+            "dateTo" : -1,
+            "offerId" : 10
+        }, 
+        {
+            "id" : 2,
+            "text" : "Cao",
+            "sender" : "Giga99",
+            "date" : "2021-06-28T00:19:59.667Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }
+    ],
+    "estateId" : 5,
+    "title" : "Nekretnina5",
+    "read" : false,
+    "lastMessageDate" : "2021-06-28T00:19:59.667Z",
+    "user1" : "Giga99",
+    "user2" : "test1",
+    "estateOwner" : "test1",
+    "id" : 8,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("60d4e3850cc3545230707d1f"),
+    "active1" : true,
+    "active2" : true,
+    "messages" : [ 
+        {
+            "id" : 1,
+            "text" : "Zdravo",
+            "sender" : "Giga99",
+            "date" : "2021-06-24T19:56:53.395Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }
+    ],
+    "estateId" : 9,
+    "title" : "Nekretnina9",
+    "read" : false,
+    "lastMessageDate" : "2021-06-24T19:56:53.395Z",
+    "user1" : "Giga99",
+    "user2" : "test4",
+    "estateOwner" : "test4",
+    "id" : 9,
+    "__v" : 0
+},
+{
+    "_id" : ObjectId("60d903b05f9eed1d445fc457"),
+    "active1" : true,
+    "active2" : true,
+    "messages" : [ 
+        {
+            "id" : 1,
+            "text" : "Zdravo",
+            "sender" : "test5",
+            "date" : "2021-06-27T23:03:12.362Z",
+            "isOffer" : false,
+            "dateFrom" : "-1",
+            "dateTo" : "-1",
+            "offerId" : "-1"
+        }
+    ],
+    "estateId" : 6,
+    "title" : "Nekretnina6",
+    "read" : true,
+    "lastMessageDate" : "2021-06-27T23:03:12.362Z",
+    "user1" : "test5",
+    "user2" : "Giga999",
+    "estateOwner" : "Giga999",
+    "id" : 10,
+    "__v" : 0
+}

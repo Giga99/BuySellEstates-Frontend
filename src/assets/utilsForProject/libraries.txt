@@ -1,0 +1,15 @@
+FRONTEND: 
+npm install
+ng add @angular/material
+npm install bootstrap
+npm install @ng-bootstrap/ng-bootstrap
+npm install ngx-cookie-service --save
+npm install c3
+
+----------------------------------------------
+
+BACKEND:
+npm install -g typescript
+npm install
+npm install multer
+npm install @types/multer

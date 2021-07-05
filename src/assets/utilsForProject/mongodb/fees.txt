@@ -1,0 +1,6 @@
+{
+    "_id" : ObjectId("60cbe14d46ffd31c178c7bce"),
+    "id" : 1,
+    "rentFee" : 5,
+    "saleFee" : 5
+}
