@@ -1,6 +1,6 @@
 FRONTEND: 
 npm install
-ng add @angular/material
+ng add @angular/material (select first theme)
 npm install bootstrap
 npm install @ng-bootstrap/ng-bootstrap
 npm install ngx-cookie-service --save
